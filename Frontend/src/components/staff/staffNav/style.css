@@ -22,7 +22,7 @@
 
 
 
-.visuallyHidden:checked ~ .menu{
+.visuallyHidden:checked ~ .menu_nav{
     left : 0%;
 }
 .visuallyHidden {
@@ -106,7 +106,7 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    .menu{
+    .menu_nav{
         background-color: rgb(170, 52, 52);
         width: 60%;
         left : -100%;

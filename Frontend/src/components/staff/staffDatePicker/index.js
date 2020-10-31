@@ -29,16 +29,13 @@ function StaffDatePicker() {
     var m1 = moment(state.startDate, 'DD-MM-YYYY ');
     var m2 = moment(state.endDate, 'DD-MM-YYYY ');
     var m3 = m2.diff(m1, 'minutes');
-    var m4 = m2.diff(m1, 'h');
+    // var m4 = m2.diff(m1, 'h');
     var numdays = Math.floor(m3 / 1440);
-
-
-
     return (
         <>
             <div className="d-flex" style={{ alignItems: "center" }}>
                 <div className="col-xl-5 col-lg-5 col-md-5">
-                    <a href="" data-toggle="modal" data-target="#modalSubscriptionForm">
+                    <a href="#modalSubscriptionForm" data-toggle="modal" >
                         <button type="button" className="btn btn-unique">Thêm mới Nhân viên</button>
                     </a>
                 </div>
