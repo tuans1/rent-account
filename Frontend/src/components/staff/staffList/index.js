@@ -6,10 +6,6 @@ import StaffDatePicker from '../staffDatePicker';
 import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 
-import {
-  Bar
-} from 'react-chartjs-2';
-
 
 function StaffList() {
   const [totalPages, setTotalPages] = useState(10)
@@ -19,39 +15,6 @@ function StaffList() {
     setCurrentPage(data.activePage)
   }
 
-  const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-        label: '# of Votes',
-        data:12,
-        backgroundColor: 
-            'rgba(255, 99, 132, 0.7)',
-        // borderColor: [
-        //     'rgba(255, 99, 132, 1)',
-        //     'rgba(54, 162, 235, 1)',
-        //     'rgba(255, 206, 86, 1)',
-        //     'rgba(75, 192, 192, 1)',
-        //     'rgba(153, 102, 255, 1)',
-        //     'rgba(255, 159, 64, 1)'
-        // ],
-        // borderWidth: 1
-    }],
-    datasets: [{
-      label: '# of Votes',
-      data:52,
-      backgroundColor: 
-      'rgba(54, 162, 235, 1)',
-      // borderColor: [
-      //     'rgba(255, 99, 132, 1)',
-      //     'rgba(54, 162, 235, 1)',
-      //     'rgba(255, 206, 86, 1)',
-      //     'rgba(75, 192, 192, 1)',
-      //     'rgba(153, 102, 255, 1)',
-      //     'rgba(255, 159, 64, 1)'
-      // ],
-      // borderWidth: 1
-  }]
-}
   return (
     <>
       <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right">
@@ -93,9 +56,6 @@ function StaffList() {
         </Table>
         <div style={{ textAlign: "center" }}>
           <Pagination defaultActivePage={5} totalPages={5} onPageChange={change} />
-        </div>
-        <div className="col-xl-8">
-          <Bar data={data} />
         </div>
       </div>
     </>
