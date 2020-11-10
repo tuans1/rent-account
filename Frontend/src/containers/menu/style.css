@@ -1,24 +1,29 @@
-
+.left{
+    width: 13%;
+}
+.menu_list:hover{
+    background-color: rgb(212, 107, 253);
+    cursor: pointer;
+    transform: translateX(5%);
+}
 .menu_list{
     display: flex;
+    margin-bottom: 1em;  transition: all .3s;padding: 7px 8px;
 }
 .menu_img{
-    /* padding-right: 1em; */
+    text-align: center;
+    width: 80px;
     font-size: 2em;
 }
 .menu_li{
     font-size: 22px;
     color : white;
-    margin-left: 1em;
     display: inline-block;
 }
 .table_staff{
     font-size: 17px;
 }
-.menu_li:hover{
-    background-color: rosybrown;
-    cursor: pointer;
-}
+
 
 
 
@@ -106,6 +111,9 @@
 }
 
 @media only screen and (max-width: 1024px) {
+    .left{
+        width: 100%;
+    }
     .menu_nav{
         background-color: rgb(170, 52, 52);
         width: 60%;
@@ -124,10 +132,6 @@
         width: 100%;
         font-size: 22px;
          /* text-align: center; */
-    }
-    .menu_li:hover{
-        background-color: rosybrown;
-        cursor: pointer;
     }
     /* .visuallyHidden:checked ~ .menu{
         left : -10%;

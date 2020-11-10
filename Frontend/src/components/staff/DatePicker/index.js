@@ -1,5 +1,5 @@
 
-import { DateRangeInput } from '@datepicker-react/styled';
+import { DateRangeInput,DateSingleInput } from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
 import moment from 'moment';
 import React, { useReducer, useState } from 'react';

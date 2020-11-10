@@ -1,0 +1,136 @@
+$softorange: #1d1c1c;
+$tomatored: #ff0616;
+$mediumblu: #1E272D;
+.validate_text {
+    position: absolute;
+    bottom: -20px;
+    left: 35px;
+    color: red;
+}
+
+*:focus {
+    outline: none;
+}
+
+/* input[type="text"]:not(.browser-default).valid{
+    border-bottom: 1px solid #fa0303 !important;
+    -webkit-box-shadow: 0 1px 0 0  #fa0303 !important;
+
+} */
+.input_select {
+
+    color: #868688;
+    width: 93%;
+    margin-left: 2.5em;
+    outline: none;
+    border-width: 0 0 1px;
+    border-color: #ced4da;
+    border-radius: 0;
+    padding: 0;
+    
+    -moz-appearance: none;
+
+}
+
+.input_select2 {
+
+    width: 93%;
+    margin-left: 2.5em;
+    outline: none;
+    border-width: 0 0 2px;
+    border-color: #00c851;
+    border-radius: 0;
+    padding: 0;
+    
+    -moz-appearance: none;
+
+}
+
+.date_picker {
+    outline: 0;
+    border-bottom: 2px solid #00c851 !important;
+    border-radius: 0;
+}
+.button_x{
+    position: absolute;
+    top : 10px;
+    right: 0;
+    font-size: 20px;
+}
+.md-form,
+.md-form>div.react-datepicker-wrapper,
+.md-form>div>div.react-datepicker__input-container .md-form>div>div.react-datepicker__input-container input {}
+
+.react-datepicker__input-container {
+    width: inherit;
+    height: inherit;
+}
+
+.react-datepicker__input-container input {
+    width: 93%;
+    height: 100%;
+    padding-bottom: .5em;
+}
+
+.react-datepicker-ignore-onclickoutside {
+    border-color: none !important;
+}
+
+.react-datepicker-wrapper {
+    margin-top: 13px;
+    width: 100%;
+    margin-left: 2.5em;
+
+}
+
+
+
+.close-container{
+    position: absolute;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    // margin-top: 100px;
+    cursor: pointer;
+    top : -5px;
+    right: -10px;
+  }
+  
+  .leftright{
+    height: 4px;
+    width: 20px;
+    position: absolute;
+    margin-top: 24px;
+    background-color: $softorange;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    transition: all .3s ease-in;
+  }
+  
+  .rightleft{
+    height: 4px;
+    width: 20px;
+    position: absolute;
+    margin-top: 24px;
+    background-color: $softorange;
+    border-radius: 2px;
+    transform: rotate(-45deg);
+    transition: all .3s ease-in;
+  }
+
+  .close{
+    margin: 20px 0 0 -13px;
+    position: absolute;
+  }
+  
+  .close-container:hover .leftright{
+    transform: rotate(-45deg);
+    background-color: $tomatored;
+  }
+  .close-container:hover .rightleft{
+    transform: rotate(45deg);
+    background-color: $tomatored;
+  }
+  .close-container:hover label{
+    opacity: 1;
+  }

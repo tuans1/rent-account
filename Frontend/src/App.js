@@ -3,6 +3,7 @@ import Home from './containers/home';
 import Staff from './containers/staff';
 import Menu from './containers/menu';
 import Summary from './containers/summary';
+// import Notify from './common/notify';
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,8 +14,9 @@ function App() {
   return (
     <>
       <Router>
-        <div className="d-flex">
+        <div className="wrapper">
           <Menu />
+          {/* <Notify/> */}
           <Switch>
             <Route path="/home" exact component={Home} />
             <Route path="/staff" component={Staff} />

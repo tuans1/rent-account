@@ -13,21 +13,24 @@ import lombok.EqualsAndHashCode;
 public class Staff extends BaseEntity{
 	
 	@Column(name = "staff_name")
-	private String name;
+	private String staffName;
 	
 	@Column(name = "phone")
 	private String phone;
 	
 	@Column(name = "bank_account")
-	private String bank_account;
+	private String bankAccount;
 	
 	@Column(name = "address")
 	private String address;
 	
+	@Column(name= "salary")
+	private Integer salary;
+	
 	@Column(name = "position")
-	private String position;
+	private Short position;
 	
 	@Column(name = "joining_date")
-	private String joining_date;
+	private String joiningDate;
 
 }

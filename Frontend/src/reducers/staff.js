@@ -1,27 +1,28 @@
-export const INCREMENT = "staff/counter/increment";
-const DECREMENT = "staff/counter/decrement";
+export const FETCH_STAFF = "FETCH_STAFF";
+export const FETCH_STAFF_SUCCESS = "FETCH_STAFF_SUCCESS";
 
 const initialState = {
-    counter : 0
+    staff : [],
+    totalPage : 1,
+    loadingList : true,
 };
 
 const staffReducer = (state = initialState, action) => {
     switch (action.type) {
-        case INCREMENT : 
-        return {...state,counter : state.counter + 1 }
-        case DECREMENT : 
-        return {...state,counter : state.counter - 1 }
+        case FETCH_STAFF_SUCCESS : 
+        return {...state, staff : action.payload.records ,totalPage : action.payload.total ,loadingList : false}
         default:
             return { ...state }
     }
 }
-export default staffReducer
+export default staffReducer;
 
 
-export const increment = () => ({
-    type : INCREMENT
+export const onFetchStaff = () => ({
+    type : FETCH_STAFF
 })
 
-export const decrement = () => ({
-    type : DECREMENT
+export const onFetchStaffSuccess = payload => ({
+    type : FETCH_STAFF_SUCCESS,
+    payload
 })

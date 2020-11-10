@@ -1,3 +1,11 @@
 .chart{
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
+    position: relative;
+    .chart_title{
+        position: absolute;
+        bottom: 0;
+        left : 50%;
+    }
 }

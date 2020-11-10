@@ -9,11 +9,10 @@ function StaffNav() {
     const dispatch = useDispatch();
 
     const test = () => {
-        dispatch(action.increment())
+        
     }
-    
     return (
-        <div className="col-xl-2 col-lg-12 col-md-12 col-sm-12  left">
+        <div className="  left">
             <input type="checkbox" id="checkbox3" className="checkbox3 visuallyHidden" />
             <label htmlFor="checkbox3">
                 <div className="hamburger hamburger3">
