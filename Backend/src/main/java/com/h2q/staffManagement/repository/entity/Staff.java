@@ -1,5 +1,7 @@
 package com.h2q.staffManagement.repository.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -28,7 +30,7 @@ public class Staff extends BaseEntity{
 	private Integer salary;
 	
 	@Column(name = "position")
-	private Short position;
+	private String position;
 	
 	@Column(name = "joining_date")
 	private String joiningDate;

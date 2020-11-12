@@ -8,7 +8,7 @@ import DeleteModal from '../../components/staff/DeleteModal';
 import List from '../../components/staff/List';
 
 import * as action from '../../reducers/staff';
-import { Switch, Route } from 'react-router-dom';
+
 
 function Staff() {
     const [staff, setStaff] = useState({
@@ -21,7 +21,6 @@ function Staff() {
         joiningDate: "",
     });
     const dispatch = useDispatch();
-
     useEffect(() => {
         setTimeout(function () {
             dispatch(action.onFetchStaff())
@@ -29,7 +28,7 @@ function Staff() {
     })
 
     const handleSubmit = () => {
-        console.log(staff)
+        dispatch(action.onFetchCreateStaff({staff : staff ,callbackResetForm : handleResetForm}));
     }
     const handleOnChange = (key, value) => {
         setStaff({
@@ -38,11 +37,22 @@ function Staff() {
         })
     }
     const handleGetStaff = (x) => {
-        console.log(x);
+        dispatch(action.onGetUpdateStaff(x));
     }
     const handleDeleteDate = () => {
         setStaff({
             ...staff, joiningDate: ""
+        })
+    }
+    const handleResetForm = () => {
+        setStaff({
+            staffName: "",
+            phone: "",
+            address: "",
+            position: "",
+            salary: "",
+            bankAccount: "",
+            joiningDate: "",
         })
     }
     return (
@@ -50,9 +60,10 @@ function Staff() {
             <Form
                 staff={staff}
                 onSubmit={handleSubmit}
-                onChange={handleOnChange} 
+                onChange={handleOnChange}
                 onDeleteDate={handleDeleteDate}
-                />
+                onResetForm={handleResetForm}
+            />
             <List
                 onGetStaff={handleGetStaff} />
             <DeleteModal />

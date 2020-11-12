@@ -1,9 +1,11 @@
 
+import React, { useReducer, useState } from 'react';
+import {useDispatch} from 'react-redux';
 import { DateRangeInput,DateSingleInput } from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
 import moment from 'moment';
-import React, { useReducer, useState } from 'react';
 import './style.scss';
+import * as action from '../../../reducers/staff';
 
 
 
@@ -25,6 +27,7 @@ function reducer(state, action) {
 }
 
 function StaffDatePicker() {
+    // const dispatch = useDispatch();
     const [state, dispatch] = useReducer(reducer, initialState)
     var m1 = moment(state.startDate, 'DD-MM-YYYY ');
     var m2 = moment(state.endDate, 'DD-MM-YYYY ');

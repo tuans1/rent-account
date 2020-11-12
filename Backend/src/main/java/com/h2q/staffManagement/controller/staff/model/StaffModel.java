@@ -1,5 +1,7 @@
 package com.h2q.staffManagement.controller.staff.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import com.h2q.staffManagement.repository.entity.Staff;
@@ -15,7 +17,7 @@ public class StaffModel {
 	
 	private String phone;
 	
-	private Short position;
+	private String position;
 	
 	private String address;
 	
@@ -23,7 +25,7 @@ public class StaffModel {
 	
 	private String bankAccount;
 	
-	private String joiningDate;
+	private Date joiningDate;
 	
 	public Staff setStaff(StaffModel model) {
 		Staff staff = new Staff();
@@ -32,13 +34,15 @@ public class StaffModel {
 		}else {
 			staff.setId(model.getId());
 		}
+//		String formatted = new SimpleDateFormat("dd-MM-yyyy").format(model.getJoiningDate());
 		staff.setStaffName(model.getStaffName());
 		staff.setPhone(model.getPhone());
 		staff.setPosition(model.getPosition());
 		staff.setAddress(model.getAddress());
 		staff.setSalary(model.getSalary());
 		staff.setBankAccount(model.getBankAccount());
-		staff.setJoiningDate(model.getJoiningDate());
+		staff.setJoiningDate(new SimpleDateFormat("dd-MM-yyyy").format(model.getJoiningDate()));
+		String date = new SimpleDateFormat("dd-MM-yyyy").format(model.getJoiningDate());
 		return staff;
 	}
 }

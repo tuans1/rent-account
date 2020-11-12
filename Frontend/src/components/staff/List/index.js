@@ -68,7 +68,7 @@ function List(props) {
             </tr>
           </thead>
           <tbody >
-            {/* {loadingList ? staffListLoading : staffList} */}
+            {loadingList ? staffListLoading : staffList}
 
           </tbody>
         </Table>
