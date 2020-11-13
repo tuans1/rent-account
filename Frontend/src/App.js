@@ -3,7 +3,7 @@ import Home from './containers/home';
 import Staff from './containers/staff';
 import Menu from './containers/menu';
 import Summary from './containers/summary';
-// import Notify from './common/notify';
+import './index.scss';
 import {
   BrowserRouter as Router,
   Switch,

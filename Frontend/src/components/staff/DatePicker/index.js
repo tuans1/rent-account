@@ -1,7 +1,7 @@
 
 import React, { useReducer, useState } from 'react';
-import {useDispatch} from 'react-redux';
-import { DateRangeInput,DateSingleInput } from '@datepicker-react/styled';
+import { useDispatch } from 'react-redux';
+import { DateRangeInput, DateSingleInput } from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
 import moment from 'moment';
 import './style.scss';
@@ -26,19 +26,22 @@ function reducer(state, action) {
     }
 }
 
-function StaffDatePicker() {
+function StaffDatePicker(props) {
     // const dispatch = useDispatch();
     const [state, dispatch] = useReducer(reducer, initialState)
     var m1 = moment(state.startDate, 'DD-MM-YYYY ');
     var m2 = moment(state.endDate, 'DD-MM-YYYY ');
     var m3 = m2.diff(m1, 'minutes');
     // var m4 = m2.diff(m1, 'h');
-    var numdays = Math.floor(m3 / 1440);
+    var numDays = Math.floor(m3 / 1440);
+    function onResetForm(){
+        props.onResetForm();
+    }
     return (
         <>
             <div className="d-flex" style={{ alignItems: "center" }}>
                 <div className="col-xl-5 col-lg-5 col-md-5">
-                    <a href="#modalSubscriptionForm" data-toggle="modal" >
+                    <a href="#modalSubscriptionForm" data-toggle="modal" onClick={onResetForm}>
                         <button type="button" className="btn btn-unique">Thêm mới Nhân viên</button>
                     </a>
                 </div>
@@ -52,7 +55,7 @@ function StaffDatePicker() {
                     </a>
                 </div> */}
                         <div className="card-body">
-                            <h4 className="card-title">Tổng số ngày làm việc : {isNaN(numdays) ? "0" : numdays} </h4>
+                            <h4 className="card-title">Tổng số ngày làm việc : {isNaN(numDays) ? "0" : numDays} </h4>
                             <h4 className="card-title">Tổng lương : 0 đ</h4>
                         </div>
                     </div>

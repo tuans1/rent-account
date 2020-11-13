@@ -50,7 +50,7 @@ function Staff() {
             ...staff, joiningDate: ""
         })
     }
-    const handleResetForm = () => {
+    const handleResetForm = () => {console.log("RUN")
         setStaff({
             staffName: "",
             phone: "",
@@ -73,7 +73,7 @@ function Staff() {
                 onResetForm={handleResetForm}
             />
             <List
-                // listStaff={listStaff}
+                onResetForm={handleResetForm}
                 onGetStaff={handleGetStaff} />
             <DeleteModal />
         </>

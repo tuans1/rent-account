@@ -7,7 +7,7 @@ import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import * as action from '../../../reducers/staff';
 import StaffListLoading from '../../skeletonLoad/staffListLoading';
-
+import './style.scss'
 const PAGE_SIZE = 10;
 
 function List(props) {
@@ -37,7 +37,9 @@ function List(props) {
       dispatch(action.onFetchStaff(pagination))
     }, 1200)
   }, [pagination])
-
+  const onResetForm = () => {
+    props.onResetForm();
+  }
   let staffList = staff.map((x, index) => {
     return (
       <tr className="table_staff" key={x.id}>
@@ -64,8 +66,8 @@ function List(props) {
   return (
     <>
       <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }}>
-        <StaffDatePicker />
-        <div className="tbody" style={{height: 700,overflow: "auto"}}>
+        <StaffDatePicker onResetForm={onResetForm} />
+        <div className="tbody">
           <Table bordered hover size="sm" >
             <thead>
               <tr>
@@ -78,7 +80,7 @@ function List(props) {
                 <th>Joining Date</th>
               </tr>
             </thead>
-            <tbody className="tbody">
+            <tbody >
               {loadingList ? staffListLoading : staffList}
             </tbody>
           </Table>
