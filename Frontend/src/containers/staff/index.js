@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useHistory } from 'react-router';
 import './style.css';
 import moment from 'moment';
@@ -20,15 +20,21 @@ function Staff() {
         bankAccount: "",
         joiningDate: "",
     });
+    const { updateStaff } = useSelector(state => state.staffReducer);
     const dispatch = useDispatch();
     useEffect(() => {
-        setTimeout(function () {
-            dispatch(action.onFetchStaff())
-        }, 1200)
-    })
-
+        if (updateStaff) {
+            setStaff({
+                ...updateStaff
+            })
+        }
+    }, [updateStaff])
     const handleSubmit = () => {
-        dispatch(action.onFetchCreateStaff({staff : staff ,callbackResetForm : handleResetForm}));
+        if(staff.id){
+            dispatch(action.onFetchUpdateStaff(staff))
+        }else{
+            dispatch(action.onFetchCreateStaff({ staff: staff, callbackResetForm: handleResetForm }));
+        }
     }
     const handleOnChange = (key, value) => {
         setStaff({
@@ -36,8 +42,8 @@ function Staff() {
             [key]: value,
         })
     }
-    const handleGetStaff = (x) => {
-        dispatch(action.onGetUpdateStaff(x));
+    const handleGetStaff = (id) => {
+        dispatch(action.onGetUpdateStaff(id));
     }
     const handleDeleteDate = () => {
         setStaff({
@@ -55,6 +61,8 @@ function Staff() {
             joiningDate: "",
         })
     }
+
+
     return (
         <>
             <Form
@@ -65,6 +73,7 @@ function Staff() {
                 onResetForm={handleResetForm}
             />
             <List
+                // listStaff={listStaff}
                 onGetStaff={handleGetStaff} />
             <DeleteModal />
         </>

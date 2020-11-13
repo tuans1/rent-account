@@ -17,11 +17,7 @@ function StaffForm(props) {
     const [startDate, setStartDate] = useState(new Date());
     const { staffName, phone, salary, bankAccount, joiningDate, position, address } = props.staff;
     const { staff } = props;
-    useEffect(() => {
-        setValid({
-            ...valid, joiningDate: true
-        })
-    }, [joiningDate])
+
     const onSubmit = (e) => {
         const valid = Object.keys(staff).map(x => {
             return staff[x] !== ""
@@ -40,9 +36,13 @@ function StaffForm(props) {
             props.onSubmit();
         }
         e.preventDefault();
-
     }
 
+    useEffect(() => {
+        setValid({
+            ...valid, joiningDate: true
+        })
+    }, [joiningDate])
     const onChange = (key, value) => {
         props.onChange(key, value)
     }
@@ -63,7 +63,7 @@ function StaffForm(props) {
         props.onResetForm();
     }
     const onBlurInput = (key) => {
-        if (props.staff.[`${key}`] === "" ) {
+        if (props.staff.[`${key}`] === "") {
             setValid({
                 ...valid, [key]: false
             })
@@ -96,7 +96,7 @@ function StaffForm(props) {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header text-center">
-                            <h4 className="modal-title w-100 font-weight-bold">Subscribe</h4>
+                            <h4 className="modal-title w-100 font-weight-bold">{staff.id ? "Update Staff" : "Create Staff"}</h4>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -133,11 +133,11 @@ function StaffForm(props) {
                             <div className="md-form mb-4" >
                                 {position !== "" && <label data-error="wrong" data-success="right" style={{ fontSize: 12, top: -25, left: 35 }}>Position</label>}
                                 <i className="fas fa-mobile-alt prefix grey-text"></i>
-                                <select style={{ marginTop: 5, borderColor: position !== "" ? " #00c851" : "#ced4da" }} onBlur={() => onBlurInput("position")} className={position === "" ? "browser-default custom-select  input_select" : "browser-default custom-select  input_select2"} onChange={(e) => onChange("position", e.target.value)}>
-                                    <option value="" id="default" defaultValue >Choose Position</option>
-                                    <option value="1" >Nhân Viên</option>
-                                    <option value="2">Thư Ký</option>
-                                    <option value="3">Trưởng Phòng</option>
+                                <select style={{ marginTop: 5, borderColor: position !== "" ? " #00c851" : "#ced4da" }} value={position ? position : ""} onBlur={() => onBlurInput("position")} className={position === "" ? "browser-default custom-select  input_select" : "browser-default custom-select  input_select2"} onChange={(e) => onChange("position", e.target.value)}>
+                                    <option value="" id="default" >Choose Position</option>
+                                    <option value="Nhân Viên" >Nhân Viên</option>
+                                    <option value="Thư Ký" >Thư Ký</option>
+                                    <option value="Trưởng Phòng" >Trưởng Phòng</option>
                                 </select>
                                 <div className="validate_text" style={{ marginTop: 10 }}>
                                     {valid.position ? null : <p>Position is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
@@ -162,7 +162,7 @@ function StaffForm(props) {
                             <div className="md-form mb-4">
                                 {joiningDate && <label data-error="wrong" data-success="right" style={{ fontSize: 12, top: -25, left: 35 }}>Joining Date</label>}
                                 <i className="fas fa-mobile-alt prefix grey-text"></i>
-                                <DatePicker className={joiningDate ? "date_picker" : ""} onBlur={() => onBlurInput("joiningDate")} selected={joiningDate} onChange={date => onChange("joiningDate", date)} placeholderText="Joining Date" />
+                                <DatePicker dateFormat="dd-MM-yyyy" className={joiningDate ? "date_picker" : ""} onBlur={() => onBlurInput("joiningDate")} selected={joiningDate} onChange={date => onChange("joiningDate", date)} placeholderText="Joining Date" />
                                 {joiningDate && <div className="close-container" onClick={onDeleteDate}>
                                     <div className="leftright"></div>
                                     <div className="rightleft"></div>

@@ -34,7 +34,6 @@ public class StaffModel {
 		}else {
 			staff.setId(model.getId());
 		}
-//		String formatted = new SimpleDateFormat("dd-MM-yyyy").format(model.getJoiningDate());
 		staff.setStaffName(model.getStaffName());
 		staff.setPhone(model.getPhone());
 		staff.setPosition(model.getPosition());
@@ -42,7 +41,6 @@ public class StaffModel {
 		staff.setSalary(model.getSalary());
 		staff.setBankAccount(model.getBankAccount());
 		staff.setJoiningDate(new SimpleDateFormat("dd-MM-yyyy").format(model.getJoiningDate()));
-		String date = new SimpleDateFormat("dd-MM-yyyy").format(model.getJoiningDate());
 		return staff;
 	}
 }

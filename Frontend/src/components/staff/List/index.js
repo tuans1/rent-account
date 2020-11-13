@@ -1,23 +1,26 @@
-
-import moment from 'moment';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'
 import { Button, ButtonGroup, Table } from 'react-bootstrap';
 import StaffDatePicker from '../DatePicker';
 import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
-
+import * as action from '../../../reducers/staff';
 import StaffListLoading from '../../skeletonLoad/staffListLoading';
 
-
+const PAGE_SIZE = 10;
 
 function List(props) {
-  const [totalPages, setTotalPages] = useState(10)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [open, setOpen] = useState(false)
-  const { staff, loadingList } = useSelector(state => state.staffReducer)
-  const change = (event, data) => {
-    setCurrentPage(data.activePage)
+  const [pagination, setPagination] = useState({
+    page: 0,
+    containing: "",
+    size: PAGE_SIZE
+  })
+  const { staff, loadingList, totalPage } = useSelector(state => state.staffReducer)
+  const handlePage = (event, data) => {
+    setPagination({
+      ...pagination, page: data.activePage - 1
+    })
   }
   const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   let staffListLoading = arr.map(x => {
@@ -25,9 +28,16 @@ function List(props) {
       <StaffListLoading key={x} />
     )
   })
-  const onGetStaff = (x)=>{
-    props.onGetStaff(x);
+  const onGetStaff = (staff) => {
+    props.onGetStaff(staff.id);
   }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setTimeout(function () {
+      dispatch(action.onFetchStaff(pagination))
+    }, 1200)
+  }, [pagination])
+
   let staffList = staff.map((x, index) => {
     return (
       <tr className="table_staff" key={x.id}>
@@ -40,8 +50,8 @@ function List(props) {
         <td className="table_staff" >{x.joiningDate}</td>
         <td style={{ width: 20 }}>
           <ButtonGroup>
-            <a href="" data-toggle="modal" data-target="#modalSubscriptionForm" onClick={()=>onGetStaff(x)}>
-              <Button variant="info" size="sm"><i className="far fa-edit prefix"  style={{ fontSize: 16 }}></i></Button>
+            <a href="" data-toggle="modal" data-target="#modalSubscriptionForm" onClick={() => onGetStaff(x)}>
+              <Button variant="info" size="sm"><i className="far fa-edit prefix" style={{ fontSize: 16 }}></i></Button>
             </a>
             <a href="#myModal" className="trigger-btn" data-toggle="modal">
               <Button variant="danger" size="sm"><i className="far fa-trash-alt" style={{ fontSize: 16 }}></i></Button>
@@ -55,29 +65,30 @@ function List(props) {
     <>
       <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }}>
         <StaffDatePicker />
-        <Table bordered hover size="sm">
-          <thead>
-            <tr>
-              <th style={{ width: 50 }}>STT</th>
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>Position</th>
-              <th>Salary</th>
-              <th>Bank Account</th>
-              <th>Joining Date</th>
-            </tr>
-          </thead>
-          <tbody >
-            {loadingList ? staffListLoading : staffList}
+        <div className="tbody" style={{height: 700,overflow: "auto"}}>
+          <Table bordered hover size="sm" >
+            <thead>
+              <tr>
+                <th style={{ width: 50 }}>STT</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Bank Account</th>
+                <th>Joining Date</th>
+              </tr>
+            </thead>
+            <tbody className="tbody">
+              {loadingList ? staffListLoading : staffList}
+            </tbody>
+          </Table>
+        </div>
 
-          </tbody>
-        </Table>
         <div style={{ textAlign: "center" }}>
-          <Pagination defaultActivePage={1} totalPages={5} onPageChange={change} />
+          <Pagination defaultActivePage={1} totalPages={totalPage} onPageChange={handlePage} />
         </div>
       </div>
     </>
   )
-
 }
 export default List;
