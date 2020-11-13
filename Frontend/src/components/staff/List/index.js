@@ -7,7 +7,8 @@ import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import * as action from '../../../reducers/staff';
 import StaffListLoading from '../../skeletonLoad/staffListLoading';
-import './style.scss'
+import './style.scss';
+import Notify from '../../../common/notify';
 const PAGE_SIZE = 10;
 
 function List(props) {
@@ -18,6 +19,7 @@ function List(props) {
   })
   const { staff, loadingList, totalPage } = useSelector(state => state.staffReducer)
   const handlePage = (event, data) => {
+    dispatch(action.onSetStaffRequesting())
     setPagination({
       ...pagination, page: data.activePage - 1
     })
@@ -63,10 +65,12 @@ function List(props) {
       </tr>
     )
   })
+  
   return (
     <>
       <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }}>
         <StaffDatePicker onResetForm={onResetForm} />
+        <Notify/>
         <div className="tbody">
           <Table bordered hover size="sm" >
             <thead>

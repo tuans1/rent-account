@@ -17,7 +17,6 @@ function StaffForm(props) {
     const [startDate, setStartDate] = useState(new Date());
     const { staffName, phone, salary, bankAccount, joiningDate, position, address } = props.staff;
     const { staff } = props;
-
     const onSubmit = (e) => {
         const valid = Object.keys(staff).map(x => {
             return staff[x] !== ""
@@ -37,12 +36,22 @@ function StaffForm(props) {
         }
         e.preventDefault();
     }
-
     useEffect(() => {
         setValid({
-            ...valid, joiningDate: true
+            staffName: true,
+            phone: true,
+            address: true,
+            position: true,
+            salary: true,
+            bankAccount: true,
+            joiningDate: true,
         })
-    }, [joiningDate])
+    }, [staff])
+    // useEffect(() => {
+    //     setValid({
+    //         ...valid, joiningDate: true
+    //     })
+    // }, [joiningDate])
     const onChange = (key, value) => {
         props.onChange(key, value)
     }

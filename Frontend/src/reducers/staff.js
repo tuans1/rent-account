@@ -4,6 +4,7 @@ export const FETCH_CREATE_STAFF = "FETCH_CREATE_STAFF";
 export const GET_UPDATE_STAFF = "GET_UPDATE_STAFF";
 export const SET_UPDATE_STAFF = "SET_UPDATE_STAFF";
 export const FETCH_UPDATE_STAFF = "FETCH_UPDATE_STAFF";
+export const SET_STAFF_REQUESTING = "SET_STAFF_REQUESTING";
 const initialState = {
     staff: [],
     totalPage: 1,
@@ -22,11 +23,13 @@ const initialState = {
 const staffReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_STAFF_SUCCESS:
-            return { ...state, staff: action.payload.records, totalPage: Math.ceil(action.payload.total / 10), loadingList: false }
+            return { ...state, staff: action.payload.records, totalPage: Math.ceil(action.payload.total / 10), loadingList: !state.loadingList }
         case SET_UPDATE_STAFF:
             var dateParts = action.payload.joiningDate.split("-");
             action.payload.joiningDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
             return { ...state, updateStaff: action.payload }
+        case SET_STAFF_REQUESTING :
+            return {...state ,loadingList : true}
         default:
             return { ...state }
     }
@@ -58,4 +61,7 @@ export const onSetUpdateStaff = payload => ({
 export const onFetchUpdateStaff = payload => ({
     type: FETCH_UPDATE_STAFF,
     payload
+})
+export const onSetStaffRequesting = () => ({
+    type: SET_STAFF_REQUESTING,
 })

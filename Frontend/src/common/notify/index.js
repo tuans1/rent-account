@@ -1,24 +1,29 @@
-import React, { useState,useEffect } from 'react';
-import {useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
-import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss';
 
 export default function Notify() {
-    const {staff} = useSelector(state=>state.staffReducer);
-    useEffect(()=>{
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: true,
-            timer: 2500 
-        })
-    } )
-    console.log("RUN")
+    const { staff } = useSelector(state => state.staffReducer);
+    const [test,setTest] = useState(true)
+    const onConfirm = (response) =>{
+        setTest(false)
+    }
+    const onCancel = (response) =>{
+        setTest(false)
+    }
     return (
         <>
-
+            <SweetAlert
+                danger
+                show={test}
+                title="Success Data!"
+                onConfirm={(response) =>onConfirm(response)}
+                onCancel={(response) =>onCancel(response)}
+                timeout={5000}
+            >
+                This success message will automatically close after 2 seconds
+            </SweetAlert>
         </>
     )
 }
