@@ -3,6 +3,7 @@ import Home from './containers/home';
 import Staff from './containers/staff';
 import Menu from './containers/menu';
 import Summary from './containers/summary';
+import { ToastContainer } from 'react-toastify';
 import './index.scss';
 import {
   BrowserRouter as Router,
@@ -16,7 +17,7 @@ function App() {
       <Router>
         <div className="wrapper">
           <Menu />
-          {/* <Notify/> */}
+          <ToastContainer/>
           <Switch>
             <Route path="/home" exact component={Home} />
             <Route path="/staff" component={Staff} />

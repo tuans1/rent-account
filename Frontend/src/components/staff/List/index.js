@@ -8,7 +8,8 @@ import 'semantic-ui-css/semantic.min.css';
 import * as action from '../../../reducers/staff';
 import StaffListLoading from '../../skeletonLoad/staffListLoading';
 import './style.scss';
-import Notify from '../../../common/notify';
+
+
 const PAGE_SIZE = 10;
 
 function List(props) {
@@ -70,7 +71,9 @@ function List(props) {
     <>
       <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }}>
         <StaffDatePicker onResetForm={onResetForm} />
-        <Notify/>
+        <div class="holder">
+  <div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
         <div className="tbody">
           <Table bordered hover size="sm" >
             <thead>

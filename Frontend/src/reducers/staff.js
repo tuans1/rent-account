@@ -5,6 +5,7 @@ export const GET_UPDATE_STAFF = "GET_UPDATE_STAFF";
 export const SET_UPDATE_STAFF = "SET_UPDATE_STAFF";
 export const FETCH_UPDATE_STAFF = "FETCH_UPDATE_STAFF";
 export const SET_STAFF_REQUESTING = "SET_STAFF_REQUESTING";
+export const ACTIVE_NOTIFY = "ACTIVE_NOTIFY";
 const initialState = {
     staff: [],
     totalPage: 1,
@@ -64,4 +65,8 @@ export const onFetchUpdateStaff = payload => ({
 })
 export const onSetStaffRequesting = () => ({
     type: SET_STAFF_REQUESTING,
+})
+export const onActiveNotify = payload => ({
+    type: SET_STAFF_REQUESTING,
+    
 })

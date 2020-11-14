@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import SweetAlert from 'react-bootstrap-sweetalert';
+
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function Notify() {
-    const { staff } = useSelector(state => state.staffReducer);
-    const [test,setTest] = useState(true)
-    const onConfirm = (response) =>{
-        setTest(false)
-    }
-    const onCancel = (response) =>{
-        setTest(false)
-    }
-    return (
-        <>
-            <SweetAlert
-                danger
-                show={test}
-                title="Success Data!"
-                onConfirm={(response) =>onConfirm(response)}
-                onCancel={(response) =>onCancel(response)}
-                timeout={5000}
-            >
-                This success message will automatically close after 2 seconds
-            </SweetAlert>
-        </>
-    )
+export  function Error(params) {
+    console.log(params)
+    toast.error('🦄 Wow so easy!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+}
+
+export  function Success(params) {
+    console.log(params)
+    toast.success(params.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
 }

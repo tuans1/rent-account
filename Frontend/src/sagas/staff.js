@@ -3,7 +3,7 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import * as constants from '../reducers/staff';
 import axios from 'axios';
 import request from '../config/request';
-
+import { Success, Error } from '../common/notify';
 // http://localhost:6969/api/staff?page=0&size=10&containing=
 
 
@@ -45,6 +45,8 @@ function* getStaffSaga({ payload }) {
             method: "GET",
         });
         yield put({ type: constants.SET_UPDATE_STAFF, payload: result })
+
+
     } catch (err) {
         console.log(err)
         //   yield put(actions.onSetFailure({
@@ -58,6 +60,7 @@ function* updateStaffSaga({ payload }) {
             method: "put",
             body: JSON.stringify(payload)
         });
+        yield call(Success, { message: "Update Staff Successfully!" })
     } catch (err) {
         console.log(err)
         //   yield put(actions.onSetFailure({
