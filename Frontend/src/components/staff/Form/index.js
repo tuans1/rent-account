@@ -14,7 +14,6 @@ function StaffForm(props) {
         joiningDate: true,
         message: "Phone is required "
     });
-    const [startDate, setStartDate] = useState(new Date());
     const { staffName, phone, salary, bankAccount, joiningDate, position, address } = props.staff;
     const { staff } = props;
     const onSubmit = (e) => {
@@ -29,7 +28,7 @@ function StaffForm(props) {
             salary: salary ? true : false,
             bankAccount: bankAccount ? true : false,
             joiningDate: joiningDate ? true : false,
-            message: "Phone is required "
+            message: phone.length === 0 ? "Phone is required" : "Phone must contain 10 numbers"
         })
         if (!valid.includes(false) && phone.length === 10) {
             props.onSubmit();
@@ -59,6 +58,7 @@ function StaffForm(props) {
         props.onDeleteDate();
     }
     const onResetForm = () => {
+
         setValid({
             staffName: true,
             phone: true,
@@ -98,10 +98,27 @@ function StaffForm(props) {
             }
         }
     }
+
+    var animateButton = function (e) {
+        e.preventDefault();
+        //reset animation
+        e.target.classList.remove('animate');
+    
+        e.target.classList.add('animate');
+        setTimeout(function () {
+          e.target.classList.remove('animate');
+        }, 1000);
+      };
+    
+      var bubblyButtons = document.getElementsByClassName("bubbly-button-blue");
+    
+      for (var i = 0; i < bubblyButtons.length; i++) {
+        bubblyButtons[i].addEventListener('click', animateButton, false);
+      }
     return (
         <>
             <div className="modal fade" id="modalSubscriptionForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true">
+                aria-hidden="true" onBlur={console.log("RUN")}>
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header text-center">
@@ -110,10 +127,10 @@ function StaffForm(props) {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <div style={{ position: "absolute", top: 10, right: 10 }} onClick={onResetForm}>
-                                <p className="button">Reset</p>
+                                <p className="bubbly-button ">Reset</p>
                             </div>
                         </div>
-                        <div className="modal-body mx-3">
+                        <div className="modal-body mx-3" >
 
                             <div className="md-form mb-5">
                                 <i className="fas fa-user prefix grey-text"></i>
@@ -182,7 +199,7 @@ function StaffForm(props) {
                             </div>
                         </div>
                         <div className="modal-footer d-flex justify-content-center">
-                            <button onClick={onSubmit} className="btn btn-indigo">Send <i className="fas fa-paper-plane-o ml-1"></i></button>
+                            <button onClick={onSubmit} className="bubbly-button-blue "style={{width : 70}}>Send</button>
                         </div>
                     </div>
                 </div>

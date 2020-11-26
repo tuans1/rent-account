@@ -4,11 +4,13 @@ import * as constants from '../reducers/staff';
 import axios from 'axios';
 import request from '../config/request';
 import { Success, Error } from '../common/notify';
+
 // http://localhost:6969/api/staff?page=0&size=10&containing=
 
 
 
 function* fetchStaffSaga({ payload }) {
+
     const { page, size, containing } = payload;
     try {
         const result = yield call(request, `staff?page=${page}&size=${size}&containing=${containing}`, {

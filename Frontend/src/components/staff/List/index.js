@@ -18,6 +18,7 @@ function List(props) {
     containing: "",
     size: PAGE_SIZE
   })
+  const [showAll, setShowAll] = useState(false);
   const { staff, loadingList, totalPage } = useSelector(state => state.staffReducer)
   const handlePage = (event, data) => {
     dispatch(action.onSetStaffRequesting())
@@ -39,21 +40,35 @@ function List(props) {
     setTimeout(function () {
       dispatch(action.onFetchStaff(pagination))
     }, 1200)
-  }, [pagination])
+  }, [pagination]);
+
+  useEffect(() => {
+    dispatch(action.onSetStaffRequesting());
+    if (showAll) {
+      setTimeout(function () {
+        dispatch(action.onFetchStaff({ page: 0, containing: "", size: 100 }))
+      }, 1200)
+    } else {
+      setTimeout(function () {
+        dispatch(action.onFetchStaff(pagination))
+      }, 1200)
+    }
+  }, [showAll])
   const onResetForm = () => {
     props.onResetForm();
   }
   let staffList = staff.map((x, index) => {
     return (
       <tr className="table_staff" key={x.id}>
-        <td className="table_staff">{index + 1}</td>
-        <td className="table_staff">{x.staffName}</td>
-        <td className="table_staff">{x.phone}</td>
-        <td className="table_staff">{x.position}</td>
-        <td className="table_staff">{x.salary} đ</td>
-        <td className="table_staff">{x.bankAccount}</td>
-        <td className="table_staff" >{x.joiningDate}</td>
+        <td className="table_td">{index + 1}</td>
+        <td className="table_td">{x.staffName}</td>
+        <td className="table_td">{x.phone}</td>
+        <td className="table_td">{x.position}</td>
+        <td className="table_td">{x.salary} mil $</td>
+        <td className="table_td">{x.bankAccount}</td>
+        <td className="table_td" >{x.joiningDate}</td>
         <td style={{ width: 20 }}>
+
           <ButtonGroup>
             <a href="" data-toggle="modal" data-target="#modalSubscriptionForm" onClick={() => onGetStaff(x)}>
               <Button variant="info" size="sm"><i className="far fa-edit prefix" style={{ fontSize: 16 }}></i></Button>
@@ -66,35 +81,63 @@ function List(props) {
       </tr>
     )
   })
-  
+  var animateButton = function (e) {
+    e.preventDefault();
+    //reset animation
+    e.target.classList.remove('animate');
+
+    e.target.classList.add('animate');
+    setTimeout(function () {
+      e.target.classList.remove('animate');
+    }, 700);
+  };
+
+  var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+  for (var i = 0; i < bubblyButtons.length; i++) {
+    bubblyButtons[i].addEventListener('click', animateButton, false);
+  }
   return (
     <>
-      <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }}>
+      <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }} style={{backgroundColor : "#d1d0cd"}}>
         <StaffDatePicker onResetForm={onResetForm} />
-        <div class="holder">
-  <div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-</div>
-        <div className="tbody">
-          <Table bordered hover size="sm" >
+        <div className="sk-fading-circle">
+          <div className="sk-circle1 sk-circle"></div>
+          <div className="sk-circle2 sk-circle"></div>
+          <div className="sk-circle3 sk-circle"></div>
+          <div className="sk-circle4 sk-circle"></div>
+          <div className="sk-circle5 sk-circle"></div>
+          <div className="sk-circle6 sk-circle"></div>
+          <div className="sk-circle7 sk-circle"></div>
+          <div className="sk-circle8 sk-circle"></div>
+          <div className="sk-circle9 sk-circle"></div>
+          <div className="sk-circle10 sk-circle"></div>
+          <div className="sk-circle11 sk-circle"></div>
+          <div className="sk-circle12 sk-circle"></div>
+        </div>
+        <div className={showAll ? "tbody" : ""}>
+          <Table bordered  size="sm" >
             <thead>
-              <tr>
-                <th style={{ width: 50 }}>STT</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Position</th>
-                <th>Salary</th>
-                <th>Bank Account</th>
-                <th>Joining Date</th>
+              <tr >
+                <th style={{ width: 70 }} className="table_th">STT</th>
+                <th className="table_th">Name</th>
+                <th className="table_th">Phone Number</th>
+                <th className="table_th">Position</th>
+                <th className="table_th">Salary</th>
+                <th className="table_th">Bank Account</th>
+                <th className="table_th">Joining Date</th>
+                <a href="#" class="btn-flip" data-back={showAll ? "Show Part" : "Show All" } data-front={showAll ? "Show Part" : "Show All" } onClick={()=>setShowAll(!showAll)}></a>
+                {/* <button className="bubbly-button" onClick={()=>setShowAll(!showAll)}>{showAll ? "Show Part" : "Show All" }</button> */}
               </tr>
             </thead>
-            <tbody >
+            <tbody>
               {loadingList ? staffListLoading : staffList}
             </tbody>
           </Table>
         </div>
 
         <div style={{ textAlign: "center" }}>
-          <Pagination defaultActivePage={1} totalPages={totalPage} onPageChange={handlePage} />
+          <Pagination defaultActivePage={1} totalPages={showAll ? 1 : totalPage} onPageChange={handlePage} />
         </div>
       </div>
     </>

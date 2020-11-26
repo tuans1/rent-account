@@ -2,7 +2,7 @@ import { takeLatest } from 'redux-saga/effects'
 import * as constants from './constants'
 
 function* onCounterUpSaga(){
-    console.log("RUN");
+    console.log("UP");
 }
 
 function* onCounterDownSaga(){

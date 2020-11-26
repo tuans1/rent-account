@@ -19,11 +19,13 @@ const initialState = {
         bankAccount: "",
         joiningDate: "",
     },
+    totalSalary:[],
 };
 
 const staffReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_STAFF_SUCCESS:
+            state.totalSalary = action.payload.records.map(x=> x.salary)
             return { ...state, staff: action.payload.records, totalPage: Math.ceil(action.payload.total / 10), loadingList: !state.loadingList }
         case SET_UPDATE_STAFF:
             var dateParts = action.payload.joiningDate.split("-");

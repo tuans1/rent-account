@@ -1,6 +1,6 @@
 
-import React, { useReducer, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useReducer, useState ,useEffect } from 'react';
+import { useDispatch ,useSelector } from 'react-redux';
 import { DateRangeInput, DateSingleInput } from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
 import moment from 'moment';
@@ -28,21 +28,26 @@ function reducer(state, action) {
 
 function StaffDatePicker(props) {
     // const dispatch = useDispatch();
-    const [state, dispatch] = useReducer(reducer, initialState)
-    var m1 = moment(state.startDate, 'DD-MM-YYYY ');
-    var m2 = moment(state.endDate, 'DD-MM-YYYY ');
-    var m3 = m2.diff(m1, 'minutes');
-    // var m4 = m2.diff(m1, 'h');
-    var numDays = Math.floor(m3 / 1440);
+    const {totalSalary} = useSelector(state=>state.staffReducer);
+    const [state, dispatch] = useReducer(reducer, initialState);
+    let m1 = moment(state.startDate, 'DD-MM-YYYY ');
+    let m2 = moment(state.endDate, 'DD-MM-YYYY ');
+    let m3 = m2.diff(m1, 'minutes');
+    // let m4 = m2.diff(m1, 'h');
+    const {Salary,setSalary} = useState() 
+    let numDays = Math.floor(m3 / 1440);
     function onResetForm(){
         props.onResetForm();
     }
+    let money = totalSalary.map(x=> (x /26) * numDays)
+    let total = 0;
+    let i = money.map(x=>total += x)
     return (
         <>
             <div className="d-flex" style={{ alignItems: "center" }}>
                 <div className="col-xl-5 col-lg-5 col-md-5">
                     <a href="#modalSubscriptionForm" data-toggle="modal" onClick={onResetForm}>
-                        <button type="button" className="btn btn-unique">Thêm mới Nhân viên</button>
+                        <button  className="buttons pulse">Thêm mới Nhân viên</button>
                     </a>
                 </div>
                 <div className="col-lg-5 col-xl-4 col-md-5">
@@ -56,7 +61,7 @@ function StaffDatePicker(props) {
                 </div> */}
                         <div className="card-body">
                             <h4 className="card-title">Tổng số ngày làm việc : {isNaN(numDays) ? "0" : numDays} </h4>
-                            <h4 className="card-title">Tổng lương : 0 đ</h4>
+                            <h4 className="card-title">Tổng lương : {total ? total.toFixed(1) : "0.0"} mil $</h4>
                         </div>
                     </div>
                 </div>

@@ -49,7 +49,7 @@ function Staff() {
             ...staff, joiningDate: ""
         })
     }
-    const handleResetForm = () => {console.log("RUN")
+    const handleResetForm = () => {
         setStaff({
             staffName: "",
             phone: "",

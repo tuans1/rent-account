@@ -11,7 +11,7 @@ export default function Chart() {
           }],
           options: {
             chart: {
-              height: 500,
+              height: 700,
               type: 'bar',
             },
             plotOptions: {
@@ -26,10 +26,10 @@ export default function Chart() {
               formatter: function (val) {
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
               },
-              offsetY: -20,
+              offsetY: 40,
               style: {
                 fontSize: '12px',
-                colors: ["black"]
+                colors: ["white"]
               }
             },  
             xaxis: {
@@ -85,62 +85,24 @@ export default function Chart() {
             
             },
             title: {
-              text: 'Total Profit 2020',
-              floating: false,
-              offsetY: 500,
-              align: 'center',
-              style: {
-                color: 'red', fontSize: '10px',
-              }
+              // text: 'Total Profit 2020',
+              // floating: false,
+              // offsetY: 700,
+              // align: 'center',
+              // style: {
+              //   color: 'red', fontSize: '10px',
+              // }
             }
           },
     })
-    // const data = {
-    //     labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-    //     datasets: [{
-    //         label: 'Tổng tiền ',
 
-    //         data: [62, 72, 15, 72, 54, 62, 55, 27, 90, 12, 85, 46],
-    //         backgroundColor:
-    //             'rgba(255, 99, 132, 0.7)',
-    //         borderColor: [
-    //             'rgba(255, 99, 132, 1)',
-    //             'rgba(54, 162, 235, 1)',
-    //             'rgba(255, 206, 86, 1)',
-    //             'rgba(75, 192, 192, 1)',
-    //             'rgba(153, 102, 255, 1)',
-    //             'rgba(255, 159, 64, 1)'
-    //         ],
-    //         borderWidth: 1
-    //     }],
-    // }
-
-    // const options = {            
-    //     formatter: function (val,context) {
-    //             return val + "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-    //           },
-    //     title: {
-    //         display: true,
-    //         text: "BIỂU ĐỒ DOANH THU NĂM 2020",
-    //         fontSize: 20
-    //     },
-    //     tooltips: {
-    //         mode: 'index',
-    //         intersect: false
-    //     },
-    //     legend: {
-    //         display: false,
-    //     },
-    //     responsive: true,
-
-    // }
     return (
         <>
             <div className="chart col-xl-10">
                 <div className="col-xl-3">
                     <h1>Tổng Doanh Thu Năm 2020 : 725.000.000 đ</h1>
                 </div>
-                <div className="col-xl-9 col-lg-12 col-md-12">
+                <div className="col-xl-9 col-lg-12 col-md-12" >
                 <Charts options={state.options} series={state.series} type="bar" height={400} />
                 <div className="chart_title">
                   <h3>TOTAL PROFIT </h3>
