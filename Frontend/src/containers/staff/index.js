@@ -7,7 +7,7 @@ import Form from '../../components/staff/Form';
 import DeleteModal from '../../components/staff/DeleteModal';
 import List from '../../components/staff/List';
 import * as action from '../../reducers/staff';
-
+import Menu from '../menu';
 
 function Staff() {
     const [staff, setStaff] = useState({
@@ -64,6 +64,7 @@ function Staff() {
 
     return (
         <>
+            <Menu />
             <Form
                 staff={staff}
                 onSubmit={handleSubmit}

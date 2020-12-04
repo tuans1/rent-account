@@ -199,7 +199,7 @@ function StaffForm(props) {
                             </div>
                         </div>
                         <div className="modal-footer d-flex justify-content-center">
-                            <button onClick={onSubmit} className="bubbly-button-blue "style={{width : 70}}>Send</button>
+                            <button onClick={onSubmit} className="bubbly-button-blue "style={{width :90}}><i style={{paddingLeft : 5 ,paddingRight : 5}} class="fa fa-spinner fa-spin"></i>Send</button>
                         </div>
                     </div>
                 </div>

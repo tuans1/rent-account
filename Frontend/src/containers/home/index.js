@@ -1,11 +1,12 @@
 import React from 'react'
-
+import Menu from '../menu';
 export default function Home(){
 
 
     return(
         <>
-            <h1>HOME PAGE</h1>
+            <Menu />
+            <h1>HOME PAGEHOME PAGEHOME PAGEHOME PAGEHOME PAGEHOME PAGEHOME PAGE</h1>
         </>
     )
 

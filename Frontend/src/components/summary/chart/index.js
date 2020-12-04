@@ -98,7 +98,7 @@ export default function Chart() {
 
   return (
     <>
-      <div className="chart col-xl-10">
+      <div className="chart col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right">
         <div className="col-xl-3">
           <h1>Tổng Doanh Thu Năm 2020 : 725.000.000 đ</h1>
           <div class="card-box bg-green">
