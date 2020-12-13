@@ -21,9 +21,9 @@ function App() {
           <ToastContainer />
           <Switch>
             <Route path="/home" exact  component={Home} />
-            <Route path="/staff" component={Staff} />
-            <Route path="/summary" component={Summary} />
-            <Route path="/login" component={Login} />
+            <Route path="/staff"exact component={Staff} />
+            <Route path="/summary"exact component={Summary} />
+            <Route path="/login" exact component={Login} />
             <Route path="/" component={NotFound} />
           </Switch>
         </div>
