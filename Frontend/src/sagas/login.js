@@ -10,14 +10,14 @@ import { Success, Error } from '../common/notify';
 
 
 function* fetchJwtSaga({ payload }) {
-    console.log(payload)
     try {
         const result = yield call(request, `login`, {
             method: "post",
             body: JSON.stringify(payload) ,
         });
-        console.log(result)
-        // yield put({ type: constants.FETCH_JWT_SUCCESS, payload: result })
+        localStorage.removeItem("token");
+        localStorage.setItem("token",result.accessToken);
+        yield put({ type: constants.FETCH_JWT_SUCCESS})
     } catch (err) {
         console.log(err)
         //   yield put(actions.onSetFailure({

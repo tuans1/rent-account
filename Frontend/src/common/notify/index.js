@@ -4,8 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export  function Error(params) {
-    console.log(params)
-    toast.error('🦄 Wow so easy!', {
+    toast.error(params.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -17,7 +16,6 @@ export  function Error(params) {
 }
 
 export  function Success(params) {
-    console.log(params)
     toast.success(params.message, {
         position: "top-right",
         autoClose: 5000,

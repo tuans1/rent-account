@@ -18,6 +18,7 @@ function* fetchStaffSaga({ payload }) {
         });
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
     } catch (err) {
+        yield call(Error, { message: "ERROR!" })
         console.log(err)
         //   yield put(actions.onSetFailure({
         //     message: "Không thể tải danh sách đơn đặt hàng"

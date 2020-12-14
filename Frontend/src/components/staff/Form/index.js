@@ -118,7 +118,7 @@ function StaffForm(props) {
     return (
         <>
             <div className="modal fade" id="modalSubscriptionForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true" onBlur={console.log("RUN")}>
+                aria-hidden="true" >
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header text-center">

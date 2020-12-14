@@ -99,7 +99,7 @@ function List(props) {
   }
   return (
     <>
-      <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }} style={{backgroundColor : "#d1d0cd"}}>
+      <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }} style={{ backgroundColor: "#d1d0cd" }}>
         <StaffDatePicker onResetForm={onResetForm} />
         <div className="sk-fading-circle">
           <div className="sk-circle1 sk-circle"></div>
@@ -116,7 +116,7 @@ function List(props) {
           <div className="sk-circle12 sk-circle"></div>
         </div>
         <div className={showAll ? "tbody" : ""}>
-          <Table bordered  size="sm" >
+          <Table bordered size="sm" >
             <thead>
               <tr >
                 <th style={{ width: 70 }} className="table_th">STT</th>
@@ -126,7 +126,7 @@ function List(props) {
                 <th className="table_th">Salary</th>
                 <th className="table_th">Bank Account</th>
                 <th className="table_th">Joining Date</th>
-                <a href="#" class="btn-flip" data-back={showAll ? "Show Part" : "Show All" } data-front={showAll ? "Show Part" : "Show All" } onClick={()=>setShowAll(!showAll)}></a>
+                <th> <a href="#" className="btn-flip" data-back={showAll ? "Show Part" : "Show All"} data-front={showAll ? "Show Part" : "Show All"} onClick={() => setShowAll(!showAll)}></a></th>
                 {/* <button className="bubbly-button" onClick={()=>setShowAll(!showAll)}>{showAll ? "Show Part" : "Show All" }</button> */}
               </tr>
             </thead>
