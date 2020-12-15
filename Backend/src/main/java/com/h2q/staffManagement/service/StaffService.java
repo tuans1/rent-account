@@ -6,7 +6,7 @@ import com.h2q.staffManagement.controller.staff.model.StaffModel;
 import com.h2q.staffManagement.repository.entity.Staff;
 
 public interface StaffService {
-	StaffListModel getStaffList(String containing, int page, int size);
+	StaffListModel getStaffList(String containing, int page, int size) ;
 	
 	void createStaff(StaffModel model);
 	

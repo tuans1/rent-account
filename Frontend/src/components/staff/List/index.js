@@ -99,7 +99,7 @@ function List(props) {
   }
   return (
     <>
-      <div className="col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right" style={{ letterSpacing: 1 }} style={{ backgroundColor: "#d1d0cd" }}>
+      <div className=" right" style={{ letterSpacing: 1 }} >
         <StaffDatePicker onResetForm={onResetForm} />
         <div className="sk-fading-circle">
           <div className="sk-circle1 sk-circle"></div>

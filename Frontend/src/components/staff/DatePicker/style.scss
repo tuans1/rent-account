@@ -1,10 +1,17 @@
+.liCZhc{
+  z-index: 100;
+}
 .card{
     background-image: url("https://images.unsplash.com/photo-1481151500463-1fa2dd2d5dbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");
     background-size: 370px 150px;
     color : white;
-    // https://images.unsplash.com/photo-1481151500463-1fa2dd2d5dbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80
-}
 
+  
+}
+.card-center{
+  margin : 0 auto;
+  width: 86%;
+}
 .buttons {
     display: inline-flex;
     align-items: center;

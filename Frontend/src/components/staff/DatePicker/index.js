@@ -42,9 +42,10 @@ function StaffDatePicker(props) {
     let money = totalSalary.map(x=> (x /26) * numDays)
     let total = 0;
     let i = money.map(x=>total += x)
+    console.log(window.innerWidth)
     return (
         <>
-            <div className="d-flex" style={{ alignItems: "center" }}>
+            <div className="d-flex card-center" style={{ alignItems: "center" }}>
                 <div className="col-xl-5 col-lg-5 col-md-5">
                     <a href="#modalSubscriptionForm" data-toggle="modal" onClick={onResetForm}>
                         <button  className="buttons pulse">Thêm mới Nhân viên</button>
@@ -66,7 +67,7 @@ function StaffDatePicker(props) {
                     </div>
                 </div>
             </div>
-            <div className="d-flex" style={{ alignItems: "center" }}>
+            <div className="d-flex card-center" style={{ alignItems: "center" }}>
                 <div className="col-xl-5 col-lg-5 col-md-5">
                     <form className="form-inline md-form form-sm active-pink active-pink-2 mt-2">
                         <i className="fas fa-search" aria-hidden="true" onClick={() => alert("SEARCH")}></i>

@@ -5,6 +5,7 @@ import Summary from './containers/summary';
 import Login from './containers/login';
 import { ToastContainer } from 'react-toastify';
 import './index.scss';
+import jwt_decode from "jwt-decode";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,7 +14,10 @@ import {
 } from "react-router-dom";
 import NotFound from './containers/notFound';
 function App() {
-
+  var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjA3OTE5MjQ3LCJleHAiOjE2MDg1MjQwNDd9.iynweGJaBNADugp29DIh__iE8HL2bXwQJQUbYSlOfj4qiADn-brVnIIwd7jDsKrG3OP10FeGpfhL7WElX9xKVg";
+  var decoded = jwt_decode("Bearer " + token);
+   
+  console.log(decoded);
   return (
     <>
       <Router>

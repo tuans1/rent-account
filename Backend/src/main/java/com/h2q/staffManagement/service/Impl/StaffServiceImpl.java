@@ -16,16 +16,16 @@ import com.h2q.staffManagement.repository.entity.Staff;
 import com.h2q.staffManagement.service.StaffService;
 
 @Service
-public class StaffServiceImpl implements StaffService{
+public class StaffServiceImpl implements StaffService {
 
 	@Autowired
 	private StaffRepository staffRepo;
-	
+
 	@Override
 	public StaffListModel getStaffList(String containing, int page, int size) {
-		List<Staff> records = staffRepo.findByStaffNameContaining(containing,PageRequest.of(page, size));
+		List<Staff> records = staffRepo.findByStaffNameContaining(containing, PageRequest.of(page, size));
 		Integer total = staffRepo.countByNameContaining(containing);
-		return new StaffListModel(records,total);
+		return new StaffListModel(records, total);
 	}
 
 	@Override
@@ -39,16 +39,16 @@ public class StaffServiceImpl implements StaffService{
 	}
 
 	@Override
-	public Staff getUpdateStaff(String id) throws BusinessException{
+	public Staff getUpdateStaff(String id) throws BusinessException {
 		Optional<Staff> staff = staffRepo.findById(id);
-		return staff.isPresent() ? staff.get() : staff.orElseThrow(()-> new BusinessException(ErrorCodes.STAFF_ID_NOT_EXIST));
+		return staff.isPresent() ? staff.get()
+				: staff.orElseThrow(() -> new BusinessException(ErrorCodes.STAFF_ID_NOT_EXIST));
 	}
-	
+
 	@Override
 	public void deleteStaff(String id) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
