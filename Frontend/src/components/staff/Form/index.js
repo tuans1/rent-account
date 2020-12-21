@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form } from "react-bootstrap";
+import { useSelector } from 'react-redux';
 import './style.scss';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,6 +16,7 @@ function StaffForm(props) {
     });
     const { staffName, phone, salary, bankAccount, joiningDate, position, address } = props.staff;
     const { staff } = props;
+    const { loadingList } = useSelector(state => state.staffReducer);
     const onSubmit = (e) => {
         const valid = Object.keys(staff).map(x => {
             return staff[x] !== ""
@@ -28,7 +29,7 @@ function StaffForm(props) {
             salary: salary ? true : false,
             bankAccount: bankAccount ? true : false,
             joiningDate: joiningDate ? true : false,
-            message: phone.length === 0 ? "Phone is required" : "Phone must contain 10 numbers"
+            message: phone.length === 0 ? "Phone is required " : "Phone must contain 10 numbers "
         })
         if (!valid.includes(false) && phone.length === 10) {
             props.onSubmit();
@@ -46,11 +47,6 @@ function StaffForm(props) {
             joiningDate: true,
         })
     }, [staff])
-    // useEffect(() => {
-    //     setValid({
-    //         ...valid, joiningDate: true
-    //     })
-    // }, [joiningDate])
     const onChange = (key, value) => {
         props.onChange(key, value)
     }
@@ -58,7 +54,6 @@ function StaffForm(props) {
         props.onDeleteDate();
     }
     const onResetForm = () => {
-
         setValid({
             staffName: true,
             phone: true,
@@ -103,18 +98,18 @@ function StaffForm(props) {
         e.preventDefault();
         //reset animation
         e.target.classList.remove('animate');
-    
+
         e.target.classList.add('animate');
         setTimeout(function () {
-          e.target.classList.remove('animate');
+            e.target.classList.remove('animate');
         }, 1000);
-      };
-    
-      var bubblyButtons = document.getElementsByClassName("bubbly-button-blue");
-    
-      for (var i = 0; i < bubblyButtons.length; i++) {
+    };
+
+    var bubblyButtons = document.getElementsByClassName("bubbly-button-blue");
+
+    for (var i = 0; i < bubblyButtons.length; i++) {
         bubblyButtons[i].addEventListener('click', animateButton, false);
-      }
+    }
     return (
         <>
             <div className="modal fade" id="modalSubscriptionForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -199,7 +194,11 @@ function StaffForm(props) {
                             </div>
                         </div>
                         <div className="modal-footer d-flex justify-content-center">
-                            <button onClick={onSubmit} className="bubbly-button-blue "style={{width :90}}><i style={{paddingLeft : 5 ,paddingRight : 5}} className="fa fa-spinner fa-spin"></i>Send</button>
+                            <button onClick={onSubmit} className={loadingList ? "bubbly-button-disabled " : "bubbly-button-blue "} disabled={loadingList ? true : false} style={{ width: 90 }}>
+                                {loadingList && <div>
+                                    <div className="spinner-border" role="status"> </div>
+                                </div>}
+                                Send</button>
                         </div>
                     </div>
                 </div>

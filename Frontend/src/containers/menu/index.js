@@ -1,16 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import './style.css';
-import { useSelector, useDispatch } from 'react-redux';
-import * as action from '../../reducers/staff';
 import logo from '../../common/assest/test.png'
 function StaffNav() {
-    const { counter } = useSelector(state => state.staffReducer)
-    const dispatch = useDispatch();
 
-    const test = () => {
-
-    }
     return (
         <div className="left_wrap">
             <div className="left">
@@ -24,7 +17,7 @@ function StaffNav() {
                     </div>
                 </label>
                 <div className="menu_nav" >
-                    <img src={logo} style={{width : 200}} />
+                    <img src={logo} style={{width : 200}} alt="" />
                     <Link to="/home"><div className="menu_list"><i className="fas fa-home  white-text menu_img"></i><p className="menu_li" > Home</p></div></Link>
                     <Link to="/staff"><div className="menu_list"><i className="fas fa-users  white-text menu_img"></i><p className="menu_li"> Staff</p></div></Link>
                     <Link to="/summary"><div className="menu_list"><i className="fas fa-poll  white-text menu_img"></i><p className="menu_li"> Summary</p></div></Link>

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './style.scss';
 import Charts from 'react-apexcharts';
 
 export default function Chart() {
-  const [state, setState] = useState({
+  const state = {
     series: [{
       name: 'Doanh thu',
       data: [93500000, 86035000, 53060000, 67030060, 74095000, 27085900, 85908300, 58260000, 68826000, 44059000, 70960000, 60000000]
@@ -72,10 +72,10 @@ export default function Chart() {
             // let joinDigits = sliceDigits.join("")
             // console.log(sliceDigits)
             if (val !== 0 && val !== 100000000) {
-              return val.toString().split('').slice(0, 2).join("") + "\xa0" + " Triệu";
+              return val.toString().split('').slice(0, 2).join("")  + " Triệu";
             }
             else if (val === 100000000) {
-              return val.toString().split('').slice(0, 3).join("") + "\xa0" + " Triệu"
+              return val.toString().split('').slice(0, 3).join("")  + " Triệu"
             }
             else {
               return val;
@@ -94,32 +94,32 @@ export default function Chart() {
         // }
       }
     },
-  })
+  }
 
   return (
     <>
       <div className="chart col-xl-10 col-lg-12 col-xs-12 col-md-12 col-sm-12 right">
         <div className="col-xl-3">
           <h1>Tổng Doanh Thu Năm 2020 : 725.000.000 đ</h1>
-          <div class="card-box bg-green">
-            <div class="inner">
+          <div className="card-box bg-green">
+            <div className="inner">
               <h3> ₹185358 </h3>
               <p> Today’s Collection </p>
             </div>
-            <div class="icon">
-              <i class="fa fa-money" aria-hidden="true"></i>
+            <div className="icon">
+              <i className="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <p className="card-box-footer">View More <i className="fa fa-arrow-circle-right"></i></p>
           </div>
-          <div class="card-box bg-red">
-            <div class="inner">
+          <div className="card-box bg-red">
+            <div className="inner">
               <h3> 723 </h3>
               <p> Faculty Strength </p>
             </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
+            <div className="icon">
+              <i className="fa fa-users"></i>
             </div>
-            <a href="#" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            <p className="card-box-footer">View More <i className="fa fa-arrow-circle-right"></i></p>
           </div>
         </div>
         <div className="col-xl-9 col-lg-12 col-md-12" >

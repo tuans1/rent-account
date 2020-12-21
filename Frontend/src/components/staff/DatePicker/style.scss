@@ -65,87 +65,76 @@
       display: none;
     }
   }
-// .card {
-// 	margin-bottom: 1.5em;
-// }
-// .input {
-// 	position: relative;
-// 	font-size: 1.1em;
-// 	background: linear-gradient(90deg, #9c999b, #868181, #c4c4c4);
-// 	padding: 2px;
-// 	display: inline-block;
-// 	border-radius: 7px;
+  :root {
+    --rad: .4rem;
+    --dur: .3s;
+    --color-dark: #2f2f2f;
+    --color-light: #fff;
+    --color-brand: #57bd84;
+    --font-fam: 'Lato', sans-serif;
+    --height: 3rem;
+    --btn-width: 5rem;
+    --bez: cubic-bezier(0, 0, 0.43, 1.49);
+  }
+  
+  // Setup
+  
+  // Main styles
+  .search-wrap {
+    position: relative;
+    width: 30rem;
+    background: var(--color-brand);
+    border-radius: var(--rad);
+  }
+  .input-search, .search {
+    height: var(--height);
+    font-family: var(--font-fam);
+    border: 0;
+    color: var(--color-dark);
+    font-size: 1.2rem;
+  }
+  input[type="search"] {
+    outline: 0; // <-- shold probably remove this for better accessibility, adding for demo aesthetics for now.
+    width: 100%;
+    background: var(--color-light);
+    padding: 0 1.6rem;
+    border-radius: var(--rad);
+    appearance: none; //for iOS input[type="search"] roundedness issue. border-radius alone doesn't work
+    transition: all var(--dur) var(--bez);
+    transition-property: width, border-radius;
+    z-index: 1;
+    position: relative;
+  }
+  .search {
+    display: none; // prevent being able to tab to it
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--btn-width);
+    font-weight: bold;
+    background: var(--color-brand);
+    border-radius: 0 var(--rad) var(--rad) 0;
+  }
+  .input-search:not(:placeholder-shown) {
+    border-radius: var(--rad) 0 0 var(--rad);
+    width: calc(100% - var(--btn-width));
+    + button {
+      display: block;
+    }
+  }
+  .lb-search {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+  }
 
-// 	*:not(span) {
-// 		position: relative;
-// 		display: inherit;
-// 		border-radius: 7px;
-// 		margin: 0;
-// 		border: none;
-// 		outline: none;
-// 		padding: 0 .325em;
-// 		z-index: 1;
-
-// 		&:focus+span {
-// 			opacity: 1;
-// 			transform: scale(1);
-// 		}
-// 	}
-
-// 	span {
-// 		transform: scale(.993, .94);
-// 		transition: transform .5s, opacity .25s;
-// 		opacity: 0;
-// 		position: absolute;
-// 		z-index: 0;
-// 		margin: 3px;
-// 		left: 0;
-// 		top: 0;
-// 		right: 0;
-// 		bottom: 0;
-// 		border-radius: 3px;
-// 		pointer-events: none;
-// 		box-shadow: inset 0 0 0 3px #fff,
-// 			0 0 0 4px #fff,
-// 			-3px 3px 30px #e96e1d,
-// 			3px 3px 30px #e935e9;
-// 	}
-// }
-
-// html {
-// 	// font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-// 	// line-height:1.5;
-// 	// font-size:1em;
-// }
-
-// body {
-// 	// text-align: center;
-// 	// display:flex;
-// 	// align-items: center;
-// 	// justify-content: center;
-// }
-
-// // html, body {
-// // 	height:100%;
-// // }
-
-// input {
-// 	font-family: inherit;
-// 	line-height: inherit;
-// 	color: #2e3750;
-// 	min-width: 12em;
-// }
-
-// ::placeholder {
-// 	color: #cbd0d5;
-// }
-
-// html::after {
-// 	// content:'';
-// 	// background: linear-gradient(21deg, #10abff, #1beabd);
-// 	// height:3px;
-// 	// width:100%;
-// 	// position:absolute;
-// 	// left:0;
-// 	// top:0;
-// }
+  @media only screen and (max-width: 1024px) {
+    .search-wrap {
+       width: 20rem;
+    }
+    
+  }

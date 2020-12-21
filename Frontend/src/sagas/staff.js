@@ -1,24 +1,25 @@
-import { act } from 'react-dom/test-utils';
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as constants from '../reducers/staff';
-import axios from 'axios';
 import request from '../config/request';
-import { Success, Error } from '../common/notify';
+import { Success, Error, Warn } from '../common/notify';
 
 // http://localhost:6969/api/staff?page=0&size=10&containing=
 
 
 
 function* fetchStaffSaga({ payload }) {
-
     const { page, size, containing } = payload;
     try {
         const result = yield call(request, `staff?page=${page}&size=${size}&containing=${containing}`, {
             method: "GET",
         });
+        const isExists = result.records.map(x => x)
+        if (isExists.length === 0) {
+            yield call(Warn, { message: "No Staff Was Found !" })
+        }
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
     } catch (err) {
-        yield call(Error, { message: "Không thể tải danh sách nhân viên!" })
+        yield call(Error, { message: "Cannot load Staffs list !" })
         //   yield put(actions.onSetFailure({
         //     message: "Không thể tải danh sách đơn đặt hàng"
         //   }))
@@ -28,17 +29,24 @@ function* createStaffSaga({ payload }) {
 
     payload.staff.joiningDate = payload.staff.joiningDate.getTime();
     try {
-        const result = yield call(request, 'staff', {
+        yield call(request, 'staff', {
             method: "post",
             body: JSON.stringify(payload.staff)
         });
+        payload.callbackRefreshList();
+        const result = yield call(request, `staff?page=0&size=10&containing=`, {
+            method: "GET",
+        });
+        payload.callbackResetForm();
+        yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
+        yield call(Success, { message: "Create Staff Successfully !" })
     } catch (err) {
         console.log(err)
         //   yield put(actions.onSetFailure({
         //     message: "Không thể tải danh sách đơn đặt hàng"
         //   }))
     }
-    payload.callbackResetForm();
+
 
 }
 function* getStaffSaga({ payload }) {
@@ -58,11 +66,16 @@ function* getStaffSaga({ payload }) {
 }
 function* updateStaffSaga({ payload }) {
     try {
-        const result = yield call(request, `staff`, {
+         yield call(request, `staff`, {
             method: "put",
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload.staff)
         });
-        yield call(Success, { message: "Update Staff Successfully!" })
+        payload.callbackRefreshList();
+        const result = yield call(request, `staff?page=0&size=10&containing=`, {
+            method: "GET",
+        });
+        yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
+        yield call(Success, { message: "Update Staff Successfully !" })
     } catch (err) {
         console.log(err)
         //   yield put(actions.onSetFailure({

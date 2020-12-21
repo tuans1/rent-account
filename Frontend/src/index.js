@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter as Router } from "react-router-dom";
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from './reducers';
 import rootSaga from './sagas';
@@ -21,7 +22,9 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

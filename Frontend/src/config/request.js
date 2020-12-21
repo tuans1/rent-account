@@ -25,7 +25,7 @@ export default function request(url, options) {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-         Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjA3OTE5MjQ3LCJleHAiOjE2MDg1MjQwNDd9.iynweGJaBNADugp29DIh__iE8HL2bXwQJQUbYSlOfj4qiADn-brVnIIwd7jDsKrG3OP10FeGpfhL7WElX9xKVg`,
+         Authorization: `Bearer `+localStorage.getItem('token'),
       },
     },
     options,

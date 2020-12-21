@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useHistory } from 'react-router';
 import './style.css';
-import moment from 'moment';
 import Form from '../../components/staff/Form';
 import DeleteModal from '../../components/staff/DeleteModal';
 import List from '../../components/staff/List';
@@ -11,12 +9,12 @@ import Menu from '../menu';
 
 function Staff() {
     const [staff, setStaff] = useState({
-        staffName: "",
-        phone: "",
-        address: "",
-        position: "",
-        salary: "",
-        bankAccount: "",
+        staffName: "asdas",
+        phone: "1234567890",
+        address: "123",
+        position: "123",
+        salary: "123",
+        bankAccount: "123",
         joiningDate: "",
     });
     const { updateStaff } = useSelector(state => state.staffReducer);
@@ -29,10 +27,10 @@ function Staff() {
         }
     }, [updateStaff])
     const handleSubmit = () => {
-        if(staff.id){
-            dispatch(action.onFetchUpdateStaff(staff))
-        }else{
-            dispatch(action.onFetchCreateStaff({ staff: staff, callbackResetForm: handleResetForm }));
+        if (staff.id) {
+            dispatch(action.onFetchUpdateStaff({ staff: staff, callbackRefreshList: handleRefreshList }))
+        } else {
+            dispatch(action.onFetchCreateStaff({ staff: staff, callbackResetForm: handleResetForm , callbackRefreshList: handleRefreshList}));
         }
     }
     const handleOnChange = (key, value) => {
@@ -48,6 +46,9 @@ function Staff() {
         setStaff({
             ...staff, joiningDate: ""
         })
+    }
+    const handleRefreshList = () => {
+        dispatch(action.onSetStaffRequesting());
     }
     const handleResetForm = () => {
         setStaff({

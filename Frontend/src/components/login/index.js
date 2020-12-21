@@ -20,7 +20,7 @@ export default function LoginPage() {
         })
     }
     useEffect(() => {
-        if (isLogin == true) {
+        if (isLogin === true) {
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
@@ -35,6 +35,7 @@ export default function LoginPage() {
                 history.push("/home");
             }, 3000)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLogin])
     // eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjA3OTE5MjQ3LCJleHAiOjE2MDg1MjQwNDd9.iynweGJaBNADugp29DIh__iE8HL2bXwQJQUbYSlOfj4qiADn-brVnIIwd7jDsKrG3OP10FeGpfhL7WElX9xKVg
     const login = (e) => {
@@ -64,12 +65,6 @@ export default function LoginPage() {
     return (
         <>
             <div className="wrap_overlay">
-                {/* <LoadingOverlay
-                    active={loaded}
-                    // spinner={<BounceLoader />}
-                    spinner={true}
-                    text="Loading your content..."
-                > */}
                 {loaded && loading}
                 <div className="wrap">
                     <div className="wrapper_login fadeInDown">
@@ -83,7 +78,7 @@ export default function LoginPage() {
                                 <button onClick={login} className="fadeIn fourth btn btn-info btn-lg">Login</button>
                             </form>
                             <div id="formFooter">
-                                <a className="underlineHover" href="#">Forgot Password?</a>
+                                <p className="underlineHover" >Forgot Password?</p>
                             </div>
                         </div>
                     </div>

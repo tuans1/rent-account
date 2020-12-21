@@ -1,9 +1,6 @@
-import { act } from 'react-dom/test-utils';
 import { takeLatest, put, call } from 'redux-saga/effects';
 import * as constants from '../reducers/login';
-import axios from 'axios';
 import request from '../config/request';
-import { Success, Error } from '../common/notify';
 
 // http://localhost:6969/api/staff?page=0&size=10&containing=
 
