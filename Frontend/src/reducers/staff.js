@@ -1,6 +1,7 @@
 export const FETCH_STAFF = "FETCH_STAFF";
 export const FETCH_STAFF_SUCCESS = "FETCH_STAFF_SUCCESS";
 export const FETCH_CREATE_STAFF = "FETCH_CREATE_STAFF";
+export const FETCH_DELETE_STAFF = "FETCH_DELETE_STAFF";
 export const GET_UPDATE_STAFF = "GET_UPDATE_STAFF";
 export const SET_UPDATE_STAFF = "SET_UPDATE_STAFF";
 export const FETCH_UPDATE_STAFF = "FETCH_UPDATE_STAFF";
@@ -11,6 +12,7 @@ const initialState = {
     totalPage: 1,
     loadingList: true,
     updateStaff: {
+        id : "",
         staffName: "",
         phone: "",
         address: "",
@@ -26,7 +28,7 @@ const staffReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_STAFF_SUCCESS:
             state.totalSalary = action.payload.records.map(x=> x.salary)
-            return { ...state, staff: action.payload.records, totalPage: Math.ceil(action.payload.total / 10), loadingList: !state.loadingList }
+            return { ...state, staff: action.payload.records, totalPage: Math.ceil(action.payload.total / 10), loadingList: false }
         case SET_UPDATE_STAFF:
             var dateParts = action.payload.joiningDate.split("-");
             action.payload.joiningDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
@@ -63,6 +65,10 @@ export const onSetUpdateStaff = payload => ({
 })
 export const onFetchUpdateStaff = payload => ({
     type: FETCH_UPDATE_STAFF,
+    payload
+})
+export const onFetchDeleteStaff = payload => ({
+    type: FETCH_DELETE_STAFF,
     payload
 })
 export const onSetStaffRequesting = () => ({

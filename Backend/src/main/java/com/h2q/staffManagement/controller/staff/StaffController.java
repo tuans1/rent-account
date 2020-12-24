@@ -1,8 +1,5 @@
 package com.h2q.staffManagement.controller.staff;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +23,7 @@ public class StaffController {
 
 	@Autowired
 	private StaffServiceImpl staffService;
-
+	
 	@GetMapping
 	private StaffListModel findAll(@RequestParam int page, int size, String containing) {
 		return staffService.getStaffList(containing, page, size);
@@ -38,7 +35,7 @@ public class StaffController {
 	}
 
 	@PostMapping
-	private void createStaff(@RequestBody StaffModel model) {
+	private void createStaff(@RequestBody StaffModel model) throws BusinessException {
 		staffService.createStaff(model);
 	}
 
@@ -48,8 +45,7 @@ public class StaffController {
 	}
 
 	@DeleteMapping("/{id}")
-	private void deleteStaff(@PathVariable String id) {
-		System.out.println(id);
-//		staffRepo.deleteById(id);
+	private void deleteStaff(@PathVariable String id) throws BusinessException {
+		staffService.deleteStaff(id);
 	}
 }

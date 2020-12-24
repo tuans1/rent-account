@@ -2,6 +2,7 @@ package com.h2q.staffManagement.service.Impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +30,14 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public void createStaff(StaffModel model) {
-		staffRepo.saveAndFlush(model.setStaff(model));
+	public void createStaff(StaffModel model) throws BusinessException{
+		model.setId(UUID.randomUUID().toString().replace("-","").substring(0,4));
+		Optional<Staff> staff = staffRepo.findById(model.getId());
+		if(staff.isPresent()) {
+			throw new BusinessException(ErrorCodes.STAFF_ID_IS_EXIST);
+		}else {
+			staffRepo.saveAndFlush(model.setStaff(model));
+		}
 	}
 
 	@Override
@@ -46,9 +53,9 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public void deleteStaff(String id) {
-		// TODO Auto-generated method stub
-
+	public void deleteStaff(String id) throws BusinessException {
+		getUpdateStaff(id);
+		staffRepo.deleteById(id);
 	}
 
 }

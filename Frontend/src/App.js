@@ -3,6 +3,7 @@ import Home from './containers/home';
 import Staff from './containers/staff';
 import Summary from './containers/summary';
 import Login from './containers/login';
+import SalarySlip from './containers/salarySlip';
 import { ToastContainer } from 'react-toastify';
 import './index.scss';
 import jwt_decode from "jwt-decode";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/staff" exact component={Staff} />
           <Route path="/summary" exact component={Summary} />
           <Route path="/login" exact component={Login} />
+          <Route path="/salary_slip/:id" exact component={SalarySlip} />
           <Route path="/" component={NotFound} />
         </Switch>
       </div>

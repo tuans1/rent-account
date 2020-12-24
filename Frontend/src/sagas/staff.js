@@ -20,14 +20,9 @@ function* fetchStaffSaga({ payload }) {
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
     } catch (err) {
         yield call(Error, { message: "Cannot load Staffs list !" })
-        //   yield put(actions.onSetFailure({
-        //     message: "Không thể tải danh sách đơn đặt hàng"
-        //   }))
     }
 }
 function* createStaffSaga({ payload }) {
-
-    payload.staff.joiningDate = payload.staff.joiningDate.getTime();
     try {
         yield call(request, 'staff', {
             method: "post",
@@ -41,10 +36,12 @@ function* createStaffSaga({ payload }) {
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
         yield call(Success, { message: "Create Staff Successfully !" })
     } catch (err) {
-        console.log(err)
-        //   yield put(actions.onSetFailure({
-        //     message: "Không thể tải danh sách đơn đặt hàng"
-        //   }))
+        const {errorCode} = yield err.json();
+        if(errorCode === 1003){
+            yield call(Error, { message: " ID Staff has been exist,please try again !" })
+        }else{
+            yield call(Error, { message: " An unknown error occurred, please try again !" })
+        }
     }
 
 
@@ -55,18 +52,16 @@ function* getStaffSaga({ payload }) {
             method: "GET",
         });
         yield put({ type: constants.SET_UPDATE_STAFF, payload: result })
-
-
     } catch (err) {
-        console.log(err)
-        //   yield put(actions.onSetFailure({
-        //     message: "Không thể tải danh sách đơn đặt hàng"
-        //   }))
+        const {errorCode} = yield err.json();
+        if (errorCode === 1002){
+            yield call(Error, { message: " ID not found, please try again !" })
+        }
     }
 }
 function* updateStaffSaga({ payload }) {
     try {
-         yield call(request, `staff`, {
+        yield call(request, `staff`, {
             method: "put",
             body: JSON.stringify(payload.staff)
         });
@@ -77,16 +72,32 @@ function* updateStaffSaga({ payload }) {
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
         yield call(Success, { message: "Update Staff Successfully !" })
     } catch (err) {
-        console.log(err)
-        //   yield put(actions.onSetFailure({
-        //     message: "Không thể tải danh sách đơn đặt hàng"
-        //   }))
+        yield call(Error, { message: " An unknown error occurred, please try again !" })
     }
+}
+function* deleteStaffSaga({ payload }) {
+    try {
+        yield call(request, `staff/` + payload, {
+            method: "DELETE",
+        });
+        const result = yield call(request, `staff?page=0&size=10&containing=`, {
+            method: "GET",
+        });
+        yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
+        yield call(Success, { message: "Delete Staff Successfully !" })
+    } catch (err) {
+        const { errorCode } = yield err.json();
+        if (errorCode === 1002){
+            yield call(Error, { message: " ID not found, please try again !" })
+        }
+   }
 }
 export default function* staffSaga() {
     yield takeLatest(constants.FETCH_STAFF, fetchStaffSaga);
     yield takeLatest(constants.FETCH_CREATE_STAFF, createStaffSaga);
     yield takeLatest(constants.GET_UPDATE_STAFF, getStaffSaga);
     yield takeLatest(constants.FETCH_UPDATE_STAFF, updateStaffSaga);
+    yield takeLatest(constants.FETCH_DELETE_STAFF, deleteStaffSaga);
+
 }
 

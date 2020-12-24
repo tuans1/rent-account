@@ -12,7 +12,7 @@ export default function LoginPage() {
     const [loaded, setLoaded] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
-    const { isLogin } = useSelector(state => state.loginReducer)
+    const { isLogin } = useSelector(state => state.loginReducer);
     const onSetState = (key, value) => {
         setState({
             ...state,

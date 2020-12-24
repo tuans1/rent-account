@@ -45,11 +45,14 @@ function StaffListLoading() {
                 </td>
                 <td style={{ width: 20 }}>
                     <ButtonGroup>
-                        <a href="# " data-toggle="modal" data-target="#modalSubscriptionForm">
+                        <a href="# ">
                             <Button variant="info" size="sm"><i className="far fa-edit prefix" style={{ fontSize: 16 }}></i></Button>
                         </a>
-                        <a href="#myModal" className="trigger-btn" data-toggle="modal">
+                        <a href="# " >
                             <Button variant="danger" size="sm"><i className="far fa-trash-alt" style={{ fontSize: 16 }}></i></Button>
+                        </a>
+                        <a href="# " >
+                            <Button variant="success" size="sm"><i className="fa fa-print" style={{ fontSize: 16 }}></i></Button>
                         </a>
                     </ButtonGroup>
                 </td>

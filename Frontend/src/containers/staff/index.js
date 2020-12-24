@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import './style.css';
 import Form from '../../components/staff/Form';
-import DeleteModal from '../../components/staff/DeleteModal';
 import List from '../../components/staff/List';
 import * as action from '../../reducers/staff';
 import Menu from '../menu';
@@ -76,7 +75,6 @@ function Staff() {
             <List
                 onResetForm={handleResetForm}
                 onGetStaff={handleGetStaff} />
-            <DeleteModal />
         </>
     )
 }

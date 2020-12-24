@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
 import { Button, ButtonGroup, Table } from 'react-bootstrap';
 import StaffDatePicker from '../DatePicker';
+import DeleteModal from '.././DeleteModal/index';
 import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import ReactToExcel from 'react-html-table-to-excel';
@@ -10,6 +11,7 @@ import ReactToExcel from 'react-html-table-to-excel';
 import * as action from '../../../reducers/staff';
 import StaffListLoading from '../../skeletonLoad/staffListLoading';
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 
 const PAGE_SIZE = 10;
@@ -21,6 +23,7 @@ function List(props) {
     size: PAGE_SIZE
   })
   const [showAll, setShowAll] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
   const dispatch = useDispatch();
   const { staff, loadingList, totalPage } = useSelector(state => state.staffReducer);
   const { isLogin } = useSelector(state => state.loginReducer);
@@ -42,29 +45,23 @@ function List(props) {
 
   useEffect(() => {
     if (isLogin) {
-      setTimeout(function () {
-        dispatch(action.onFetchStaff(pagination));
-      }, 800)
+      dispatch(action.onFetchStaff(pagination));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination.page,isLogin]);
+  }, [pagination.page, isLogin]);
 
   useEffect(() => {
     if (isLogin) {
       if (showAll) {
         dispatch(action.onSetStaffRequesting());
-        setTimeout(function () {
-          dispatch(action.onFetchStaff({ ...pagination, size: 100 }));
-        }, 800)
+        dispatch(action.onFetchStaff({ ...pagination, size: 100 }));
       } else {
         dispatch(action.onSetStaffRequesting());
-        setTimeout(function () {
-          dispatch(action.onFetchStaff(pagination));
-        }, 800)
+        dispatch(action.onFetchStaff(pagination));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showAll,isLogin])
+  }, [showAll, isLogin])
   const onResetForm = () => {
     props.onResetForm();
   }
@@ -82,6 +79,9 @@ function List(props) {
       dispatch(action.onFetchStaff(pagination));
     }, 500)
   }
+  const handleDeleteStaff = () => {
+    dispatch(action.onFetchDeleteStaff(deleteId));
+  }
   let staffList = staff.map((x, index) => {
     return (
       <tr className="table_staff" key={x.id}>
@@ -94,14 +94,16 @@ function List(props) {
         <td className="table_td" style={{ width: 200 }}>{x.bankAccount}</td>
         <td className="table_td" style={{ width: 170 }}>{x.joiningDate}</td>
         <td style={{ width: 20 }}>
-
           <ButtonGroup>
             <a href="# " data-toggle="modal" data-target="#modalSubscriptionForm" onClick={() => onGetStaff(x)}>
               <Button variant="info" size="sm"><i className="far fa-edit prefix" style={{ fontSize: 16 }}></i></Button>
             </a>
             <a href="#myModal" className="trigger-btn" data-toggle="modal">
-              <Button variant="danger" size="sm"><i className="far fa-trash-alt" style={{ fontSize: 16 }}></i></Button>
+              <Button variant="danger" size="sm"><i className="far fa-trash-alt" onClick={() => setDeleteId(x.id)} style={{ fontSize: 16 }}></i></Button>
             </a>
+            <Link to={`/salary_slip/${x.id}`} target={"_blank"}>
+              <Button variant="success" size="sm"><i className="fa fa-print" style={{ fontSize: 16 }}></i></Button>
+            </Link>
           </ButtonGroup>
         </td>
       </tr>
@@ -117,7 +119,6 @@ function List(props) {
       e.target.classList.remove('animate');
     }, 700);
   };
-
   var bubblyButtons = document.getElementsByClassName("bubbly-button");
 
   for (var i = 0; i < bubblyButtons.length; i++) {
@@ -130,6 +131,10 @@ function List(props) {
           onSearch={handleSearch}
           onSearchSubmit={handleSearchSubmit}
           pagination={pagination} />
+        <DeleteModal
+          deleteId={deleteId}
+          onDeleteStaff={handleDeleteStaff}
+        />
         {/* {staff.length > 0  ? <ReactToExcel
           className="btn btn-info "
           table="table-to-xlsx"

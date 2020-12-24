@@ -1,7 +1,5 @@
 package com.h2q.staffManagement.repository.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 

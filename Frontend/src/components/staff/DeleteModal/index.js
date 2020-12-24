@@ -3,12 +3,11 @@ import React from 'react';
 import './style.css';
 
 
-function StaffDeleteModal(params) {
+function StaffDeleteModal(props) {
 
-    // const submitStaffForm = (e) => {
-    //     console.log(e)
-    //     e.preventDefault();
-    // }
+    const onDeleteStaff = () => {
+        props.onDeleteStaff();
+    }
     return (
         <>
             <div id="myModal" className="modal fade">
@@ -26,7 +25,7 @@ function StaffDeleteModal(params) {
                         </div>
                         <div className="modal-footer justify-content-center">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" className="btn btn-danger">Delete</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={onDeleteStaff}>Delete</button>
                         </div>
                     </div>
                 </div>
