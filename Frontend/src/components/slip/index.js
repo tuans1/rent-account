@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import * as action from '../../reducers/staff';
-import SalarySlip from '../../components/../containers/salarySlip/index';
+import React from 'react';
 
-export default function Slip(props) {
-    const getStaff = useParams().id;
-    const { updateStaff } = useSelector(state => state.staffReducer);
-    const dispatch = useDispatch();
-    const { id, staffName, position } = updateStaff;
-    useEffect(() => {
-        dispatch(action.onGetUpdateStaff(getStaff));
-    }, [])
-
-    return (
-        <>
-            <div className="container">
-                <div className="row">
-                    <h1>OK</h1>
+export default class Slip extends React.Component {
+    render() {
+        const { address, bankAccount, id, joiningDate, phone, position, salary, staffName } = this.props.staff;
+        return (
+            <>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-1">
+                            <p>OK</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        );
+    }
 }
