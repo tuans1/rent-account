@@ -1,6 +1,6 @@
-import React, { useRef,useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import Slip from '../../components/slip';
-import  ReactToPrint  from "react-to-print";
+import ReactToPrint from "react-to-print";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import * as action from '../../reducers/staff';
@@ -16,10 +16,10 @@ export default function SalarySlip() {
     return (
         <>
             <ReactToPrint
-                trigger={() => <button>Print this out!</button>}
+                trigger={() => <button className="btn btn-info btn-lg">Print this out !</button>}
                 content={() => componentRef.current}
             />
-            <Slip ref={componentRef} staff={updateStaff}/>
+            <Slip ref={componentRef} staff={updateStaff} />
         </>
     )
 }
