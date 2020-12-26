@@ -107,85 +107,81 @@ export default class Slip extends React.Component {
 
         return (
             <>
-                <div className="test_wrapper">
-                    <div className="test">
-                        <div className="p_active">
-                            <p>Employee ID :</p>
-                        </div>
-                        <div className="p_test">
-                            <p>{id}</p>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="p_active">
-                            <p>NAME :</p>
-                        </div>
-                        <div className="p_test">
-                            <p>{staffName}</p>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="p_active">
-                            <p>Phone :</p>
-                        </div>
-                        <div className="p_test">
-                            <p>{phone}</p>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="p_active">
-                            <p>Designation :</p>
-                        </div>
-                        <div className="p_test">
-                            <p>{position}</p>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="test_1">
-                            <div className="p_active">
-                                <p>Joining Date :</p>
+                <div className="container">
+                    <div className="row">
+                        <div className="test_wrapper">
+                            <div className="div1">
+                                <div className="" style={{ backgroundColor: "green", height: 100, width : "25%"  }}>
+
+                                </div>
+                                <div  style={{  width : "50%"  }}>
+                                    SALARY SLIP
+                                </div>
+                                <div className="" style={{ backgroundColor: "green", height: 100, width : "25%"  }}>
+
+                                </div>
                             </div>
-                            <div className="p_test">
-                                <p>{moment(joiningDate).format("DD/MM/YYYY")}</p>
+                            <div className="div2">
+                                <div className="div2_wrap col-lg-6" style={{ borderRight: "1px solid black" }}>
+                                    <div className="div2_test">
+                                        <h3>Employee ID </h3>
+                                        <p>: {id}</p>
+                                    </div>
+                                    <div className="div2_test">
+                                        <h3>Name </h3>
+                                        <p>: {staffName}</p>
+                                    </div>
+                                    <div className="div2_test">
+                                        <h3>Phone</h3>
+                                        <p>: {phone}</p>
+                                    </div>
+                                </div>
+                                <div className="div2_wrap col-lg-6">
+                                    <div className="div2_test">
+                                        <h3>Designation </h3>
+                                        <p>: {position}</p>
+                                    </div>
+                                    <div className="div2_test">
+                                        <h3>Grade</h3>
+                                        <p>: {id}</p>
+                                    </div>
+                                    <div className="div2_test">
+                                        <h3>Joining Date </h3>
+                                        <p>: 21</p>
+                                    </div>
+                                    <div className="div2_test">
+                                        <h3>Days Worked </h3>
+                                        <p>: 21</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="p_active" style={{ marginLeft: 50 }}>
-                                <p>Days Work :</p>
+                            <div className="div3">
+                                <div className="div3_test" style={{ borderRight: "1px solid black" ,width:"50%" }}>
+                                    <h3>Description</h3>
+                                </div>
+                                <div className="div3_test" style={{ borderRight: "1px solid black" ,width:"25%" }}>
+                                    <h3>Earning</h3>
+                                </div>
+                                <div className="div3_test" style={{ width : "25%" }}>
+                                    <h3>Deductions</h3>
+                                </div>
                             </div>
-                            <div className="p_test">
-                                <p>{salary} $ mil </p>
+                            <div className="div4">
+                                <div className="div4_test" style={{ borderRight: "1px solid black",width:"50%" }}>
+                                    <p>Basic Salary</p>
+                                    <p>Allowance</p>
+                                    <p>Tax</p>
+                                </div>
+                                <div className="div4_test" style={{ borderRight: "1px solid black" ,width : "25%" }}>
+                                    <p>{salary} million</p>
+                                    <p>{salary} million</p>
+                                </div>
+                                <div className="div4_test" style={{ width : "25%" }}>
+                                    <p>&nbsp;</p>
+                                    <p>&nbsp;</p>
+                                    <p>5% Basic Salary</p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="test_1">
-                            <div className="p_active">
-                                <p>NAME :</p>
-                            </div>
-                            <div className="p_test">
-                                <p>{salary} $ mil </p>
-                            </div>
-                            <div className="p_active" style={{ marginLeft: 80 }}>
-                                <p>Allowance :</p>
-                            </div>
-                            <div className="p_test">
-                                <p>{salary} $ mil </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="p_active">
-                            <p>Net Salary Amount :</p>
-                        </div>
-                        <div className="p_test">
-                            <p>ABC</p>
-                        </div>
-                    </div>
-                    <div className="test">
-                        <div className="p_active">
-                            <p>Amount In Words :</p>
-                        </div>
-                        <div className="p_test">
-                            <p>{test(salary)}</p>
                         </div>
                     </div>
                 </div>
@@ -193,3 +189,13 @@ export default class Slip extends React.Component {
         );
     }
 }
+
+
+
+
+
+
+
+
+
+

@@ -15,11 +15,13 @@ export default function SalarySlip() {
     }, [])
     return (
         <>
-            <ReactToPrint
-                trigger={() => <button className="btn btn-info btn-lg">Print this out !</button>}
-                content={() => componentRef.current}
-            />
-            <Slip ref={componentRef} staff={updateStaff} />
+            <div className="container">
+                <ReactToPrint
+                    trigger={() => <button className="btn btn-info btn-lg">PRINT</button>}
+                    content={() => componentRef.current}
+                />
+                <Slip ref={componentRef} staff={updateStaff} />
+            </div>
         </>
     )
 }

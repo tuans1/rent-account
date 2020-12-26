@@ -1,24 +1,41 @@
     .test_wrapper{
-        width: 100%;
         border: 1px solid black;
-    }
-    .test{
-        display: flex;
-        padding-bottom: 10px;
-    }
-    .p_active{
-        width: 200px;
-        font-size: 20px;
-    }
-    .p_test{
-        font-size: 20px;
-        margin-left: 10%;
-    }
-    .p_active > p{
-        float : right;
-    }
-    .test_1{
-        display: flex;
         width: 100%;
     }
+    .div1{
+        display: flex;
+        text-align: center;
+        font-size: 30px;
+        height: 100px;
+        align-items: center;
+        border-bottom: 1px solid black;
+    }
+    /* DIV 2 */
+    .div2{
+        display: flex;
+        
+    }
+    .div2_wrap{
+        padding-top: 1.5em;
+    }
+    .div2_test{
+        display: flex;
+    }
+    .div2_test > h3{
+        width: 50%;
+    }
+    /* DIV 3 */
+    .div3{
+        display: flex;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        text-align: center;
+    }
+    .div4{
+        display: flex;
+    }
+    .div4_test{
+        padding-left: 1em;
+    }
+    
     
