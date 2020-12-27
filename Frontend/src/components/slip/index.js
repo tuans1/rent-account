@@ -5,16 +5,13 @@ import DatePicker from 'react-datepicker';
 export default class Slip extends React.Component {
     state = {
         startDate: new Date(),
-        days: 0
     }
-    setDate = (e) => {
-        this.setState({
-            ...this.state, days: e.target.value
-        })
+    onChange = (e) => {
+        this.props.onChange(e.target.value)
     }
     render() {
         const { address, bankAccount, id, joiningDate, phone, position, salary, staffName } = this.props.staff;
-
+        const days = this.props.days;
         function numberToEnglish(n) {
 
             var string = n.toString(), units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words, and = 'and';
@@ -110,7 +107,6 @@ export default class Slip extends React.Component {
             var sep = ('string' == typeof v) ? '"' : '';
             return (numberToEnglish(v));
         }
-        console.log(this.state.days)
         return (
             <>
                 <div className="container">
@@ -130,79 +126,85 @@ export default class Slip extends React.Component {
                             <div className="div2">
                                 <div className="div2_wrap col-lg-6" style={{ borderRight: "1px solid black" }}>
                                     <div className="div2_test text_padding">
-                                        <h3>Employee ID </h3>
+                                        <span>Employee ID </span>
                                         <p>: {id}</p>
                                     </div>
                                     <div className="div2_test text_padding">
-                                        <h3>Name </h3>
-                                        <p>: {staffName}</p>
+                                        <span>Name </span>
+                                        <p style={{ fontWeight: 500 }}>: {staffName}</p>
                                     </div>
                                     <div className="div2_test text_padding">
-                                        <h3>Phone</h3>
+                                        <span>Phone</span>
                                         <p>: {phone}</p>
+                                    </div>
+                                    <div className="div2_test text_padding">
+                                        <span>Address</span>
+                                        <p>: {address}</p>
                                     </div>
                                 </div>
                                 <div className="div2_wrap col-lg-6">
                                     <div className="div2_test text_padding">
-                                        <h3>Designation </h3>
+                                        <span>Designation </span>
                                         <p>: {position}</p>
                                     </div>
                                     <div className="div2_test text_padding">
-                                        <h3>Grade</h3>
+                                        <span>Grade</span>
                                         <p>: {id}</p>
                                     </div>
                                     <div className="div2_test text_padding">
-                                        <h3>Joining Date </h3>
+                                        <span>Joining Date </span>
                                         <p>: {moment(joiningDate).format("L")}</p>
                                     </div>
                                     <div className="div2_test text_padding">
-                                        <h3>Days Worked </h3>
-                                        <input className="xxxx" type="text" value={this.state.days} onChange={(e) => this.setDate(e)} placeholder="days?" />
+                                        <span>Days Worked </span>
+                                        <input className="xxxx" type="text" value={days} onChange={(e) => this.onChange(e)} placeholder=":" />
                                     </div>
                                 </div>
                             </div>
                             <div className="div3">
-                                <div className="div3_test" style={{ borderRight: "1px solid black", width: "50%" }}>
-                                    <h3>Description</h3>
+                                <div className="div3_test text_padding" style={{ borderRight: "1px solid black", width: "50%" }}>
+                                    <span>Description</span>
                                 </div>
-                                <div className="div3_test" style={{ borderRight: "1px solid black", width: "25%" }}>
-                                    <h3>Earning</h3>
+                                <div className="div3_test text_padding" style={{ borderRight: "1px solid black", width: "25%" }}>
+                                    <span>Earning</span>
                                 </div>
-                                <div className="div3_test" style={{ width: "25%" }}>
-                                    <h3>Deductions</h3>
+                                <div className="div3_test text_padding" style={{ width: "25%" }}>
+                                    <span>Deductions</span>
                                 </div>
                             </div>
                             <div className="div4">
                                 <div className="div4_test text_padding" style={{ borderRight: "1px solid black", width: "50%" }}>
-                                    <p>Basic Salary</p>
-                                    <p>Allowance</p>
-                                    <p>Tax</p>
-                                    <p>Total</p>
+                                    <p style={{ color: "black", fontWeight: 550, paddingTop: "1.5em" }}>Basic Salary</p>
+                                    <p style={{ color: "black", fontWeight: 550 }}>Allowance</p>
+                                    <p style={{ color: "black", fontWeight: 550 }}>Tax</p>
+                                    <p style={{ paddingTop: "3em", fontWeight: 600, paddingBottom: "1.5em" }}>Total</p>
                                 </div>
                                 <div className="div4_test text_padding" style={{ borderRight: "1px solid black", width: "25%" }}>
-                                    <p>{salary} million</p>
+                                    <p style={{ paddingTop: "1.5em" }}>{salary} million</p>
                                     <p>{salary} million</p>
                                     <p>&nbsp;</p>
-                                    <p>0 million</p>
+                                    <p style={{ paddingTop: "3em", paddingBottom: "1.5em" }}>0 million</p>
                                 </div>
                                 <div className="div4_test text_padding" style={{ width: "25%" }}>
-                                    <p>&nbsp;</p>
+                                    <p style={{ paddingTop: "1.5em" }}>&nbsp;</p>
                                     <p>&nbsp;</p>
                                     <p>5% Basic Salary</p>
-                                    <p>0 million</p>
+                                    <p style={{ paddingTop: "3em", paddingBottom: "1.5em" }}>0 million</p>
                                 </div>
                             </div>
                             <div className="div5">
                                 <div className="div5_wrap" style={{ width: "50%", borderRight: "1px solid black" }}>
-                                    <div className="div5_test text_padding" style={{display : "flex"}}>
-                                        <h3>Payment Date </h3>
-                                        <p>: {moment(Date.now()).format("L")}</p>
+                                    <div className="div5_test " >
+                                        <div style={{ paddingTop: "20px" }}>
+                                            <p>Payment Date </p>
+                                            <p>{moment(Date.now()).format("L")}</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="div5_wrap" style={{ width: "50%" }}>
-                                    <div className="div5_test text_padding">
-                                        <p style={{borderBottom : "1px solid black"}}>NET SALARY</p>
-                                        <p>10.000.000</p>
+                                    <div className="div5_test text_padding" >
+                                        <p style={{ borderBottom: "1px solid black ", fontSize: 22, padding: "10px 0", margin: 0 }}>NET SALARY</p>
+                                        <p style={{ padding: "5px 0", margin: 0 }}>{days !== "" ? salary * days : "0"}</p>
                                         <p>One million</p>
                                     </div>
                                 </div>
