@@ -185,8 +185,8 @@ function StaffForm(props) {
                                 <i className="fas fa-mobile-alt prefix grey-text"></i>
                                 <DatePicker dateFormat="dd-MM-yyyy" className={joiningDate ? "date_picker" : ""} onBlur={() => onBlurInput("joiningDate")} selected={joiningDate} onChange={date => onChange("joiningDate", date)} placeholderText="Joining Date" />
                                 {joiningDate && <div className="close-container" onClick={onDeleteDate}>
-                                    <div className="leftright"></div>
-                                    <div className="rightleft"></div>
+                                    {/* <div className="leftright"></div>
+                                    <div className="rightleft"></div> */}
                                 </div>}
                                 <div className="validate_text">
                                     {valid.joiningDate ? null : <p>Joining Date is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
