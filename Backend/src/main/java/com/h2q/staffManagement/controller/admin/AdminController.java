@@ -1,25 +1,31 @@
 package com.h2q.staffManagement.controller.admin;
 
+import java.util.UUID;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.h2q.staffManagement.config.exception.BusinessException;
+import com.h2q.staffManagement.config.exception.ErrorCodes;
 import com.h2q.staffManagement.config.jwt.CustomUserDetails;
 import com.h2q.staffManagement.config.jwt.JwtTokenProvider;
 import com.h2q.staffManagement.config.jwt.LoginRequest;
 import com.h2q.staffManagement.config.jwt.LoginResponse;
-import com.h2q.staffManagement.config.jwt.RandomStuff;
 import com.h2q.staffManagement.repository.UserRepository;
 import com.h2q.staffManagement.repository.entity.User;
 
@@ -28,45 +34,73 @@ import com.h2q.staffManagement.repository.entity.User;
 public class AdminController {
 
 	@Autowired
-    AuthenticationManager authenticationManager;
+	AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserRepository userRepo;
-    @PostMapping("/login")
-    public LoginResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	@Autowired
+	private JwtTokenProvider tokenProvider;
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	@Autowired
+	private UserRepository userRepo;
+	@Autowired
+	private JavaMailSender mailSender;
 
-        // Xác thực thông tin người dùng Request lên
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                )
-        );
+	@Async
+	public void sendEmail(SimpleMailMessage email) {
+		mailSender.send(email);
+	}
+	
+	@PostMapping("/login")
+	public LoginResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        // Nếu không xảy ra exception tức là thông tin hợp lệ
-        // Set thông tin authentication vào Security Context
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+		// Xác thực thông tin người dùng Request lên
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        // Trả về jwt cho người dùng.
-        String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        return new LoginResponse(jwt);
-    }
+		// Nếu không xảy ra exception tức là thông tin hợp lệ
+		// Set thông tin authentication vào Security Context
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    // Api /api/random yêu cầu phải xác thực mới có thể request
-    
-    @PutMapping("/admin")
-    public User updateAdmin(@RequestBody User nick) {
-    	User user = new User();
-    	user.setId(nick.getId());
-    	user.setUserName(nick.getUserName());
-    	user.setPassWord(passwordEncoder.encode(nick.getPassWord()));
-    	System.out.println(nick);
-    	return userRepo.saveAndFlush(user);
-    
-    }
-    
+		// Trả về jwt cho người dùng.
+		String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+		return new LoginResponse(jwt);
+	}
+
+	@PutMapping("/update")
+	public void updateAdmin(@RequestParam String oldpw, String newpw) throws BusinessException {
+		User user = userRepo.findByEmail("toilakhang1@gmail.com");
+		if (passwordEncoder.matches(oldpw, user.getPassWord())) {
+			user.setPassWord(passwordEncoder.encode(newpw));
+			 userRepo.saveAndFlush(user);
+		} else {
+			throw new BusinessException(ErrorCodes.ADMIN_CHANGE_PASSWORD_INCORRECT);
+		}
+	}
+	@PostMapping("/forgot_password")
+	public void forgotPassword(@RequestParam String email) throws BusinessException {
+		User user = userRepo.findByEmail(email);
+		String url = "http://localhost:3000/login";
+		if(user==null) {
+			throw new BusinessException(ErrorCodes.ADMIN_EMAIL_INCORRECT);
+		}
+		user.setResetToken(UUID.randomUUID().toString());
+		SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
+		passwordResetEmail.setTo(user.getEmail());
+		passwordResetEmail.setSubject("Password Reset Request");
+		passwordResetEmail.setText("To reset your password, click the link below:\n" + url
+				+ "/reset_password?token=" + user.getResetToken());
+		mailSender.send(passwordResetEmail);
+		
+	}
+	@PutMapping("/change_password")
+	public void changePassword(@RequestParam String password,String token) throws BusinessException{
+		User user = userRepo.findByResetToken(token);
+		if(user != null) {
+			user.setPassWord(passwordEncoder.encode(password));
+			userRepo.save(user);
+		}else {
+			throw new BusinessException(ErrorCodes.ADMIN_TOKEN_INCORRECT);
+		}
+	}
+
 }

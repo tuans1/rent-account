@@ -10,7 +10,7 @@ import com.h2q.staffManagement.repository.entity.Staff;
 
 public interface StaffRepository extends JpaRepository<Staff, String>{
 
-	@Query(value = "select * from staff where staff_name like %?1% order by  position desc ,staff_name asc"  ,nativeQuery = true)
+	@Query(value = "select * from staff where staff_name like %?1% or id like %?1% order by  position desc ,staff_name asc"  ,nativeQuery = true)
 	List<Staff> findByStaffNameContaining(String containing,Pageable pageable);
 	
 	@Query(value = "select count(staff_name) from staff where staff_name like %?1%" ,nativeQuery = true)

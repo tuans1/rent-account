@@ -1,5 +1,5 @@
 
-import React, { useReducer  } from 'react';
+import React, { useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { DateRangeInput, } from '@datepicker-react/styled';
 import { ThemeProvider } from "styled-components";
@@ -37,11 +37,15 @@ function StaffDatePicker(props) {
     function onResetForm() {
         props.onResetForm();
     }
-    let money = totalSalary.map(x => (x / 26) * numDays)
-    let total = 0;
-    let i = money.map(x => total += x)
     function onSearch(key, value) {
         props.onSearch(key, value);
+    }
+    function calculateTotalMoney() {
+        let total = totalSalary.reduce((a, b) => {
+            return parseInt(a) + parseInt(b)
+        }, 0)
+        total = (total / 28) * numDays
+        return total.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     const searchSubmit = (e) => {
         props.onSearchSubmit();
@@ -59,7 +63,7 @@ function StaffDatePicker(props) {
                     <div className="card  test mask rgba-white-slight view overlay">
                         <div className="card-body">
                             <h4 className="card-title">Total Days Work : {isNaN(numDays) ? "0" : numDays} </h4>
-                            <h4 className="card-title">Total Salary : {total ? total.toFixed(1) : "0.0"} mil $</h4>
+                            <h4 className="card-title">Total Salary : {calculateTotalMoney()} mil $</h4>
                         </div>
                     </div>
                 </div>

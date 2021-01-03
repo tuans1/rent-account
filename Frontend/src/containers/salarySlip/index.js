@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import * as action from '../../reducers/staff';
 export default function SalarySlip() {
-    const componentRef = useRef(null);
+    const componentRef = useRef();
     const getStaff = useParams().id;
     const { updateStaff } = useSelector(state => state.staffReducer);
     const dispatch = useDispatch();
     const [days, setDays] = useState("");
-    const { id, staffName, position } = updateStaff;
     useEffect(() => {
         dispatch(action.onGetUpdateStaff(getStaff));
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const handleOnChange = (e) => {
         setDays(e);

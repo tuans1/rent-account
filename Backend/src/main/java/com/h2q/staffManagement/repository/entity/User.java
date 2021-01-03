@@ -27,5 +27,9 @@ public class User implements Serializable{
 	@Column(name = "password")
 	private String passWord;
 	
+	@Column(name = "email")
+	private String email;
 	
+	@Column(name="reset_token")
+	private String resetToken;
 }

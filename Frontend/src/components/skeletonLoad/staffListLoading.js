@@ -34,12 +34,27 @@ function StaffListLoading() {
                     <SkeletonTheme color="#edebeb" highlightColor="white">
                         <Skeleton count={1} height={30} />
                     </SkeletonTheme> </td>
-                <td className="table_staff" style={{ width: 200 }}>
+                <td className="table_staff" >
                     <SkeletonTheme color="#edebeb" highlightColor="white">
                         <Skeleton count={1} height={30} />
                     </SkeletonTheme> </td>
-                <td className="table_staff" style={{ width: 200 }}>
+                <td className="table_staff" >
                     <SkeletonTheme color="#edebeb" highlightColor="white">
+                        <Skeleton count={1} height={30} />
+                    </SkeletonTheme>
+                </td>
+                <td className="table_staff">
+                    <SkeletonTheme color="#edebeb" highlightColor="white" >
+                        <Skeleton count={1} height={30} />
+                    </SkeletonTheme>
+                </td>
+                <td className="table_staff">
+                    <SkeletonTheme color="#edebeb" highlightColor="white" >
+                        <Skeleton count={1} height={30} />
+                    </SkeletonTheme>
+                </td>
+                <td className="table_staff">
+                    <SkeletonTheme color="#edebeb" highlightColor="white" >
                         <Skeleton count={1} height={30} />
                     </SkeletonTheme>
                 </td>

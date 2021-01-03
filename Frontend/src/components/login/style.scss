@@ -229,9 +229,9 @@ input[type=reset]:active {
 }
 
 .fadeIn.third {
-    -webkit-animation-delay: 0.8s;
-    -moz-animation-delay: 0.8s;
-    animation-delay: 0.8s;
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    animation-delay: 0.5s;
 }
 
 .fadeIn.fourth {
@@ -250,10 +250,12 @@ input[type=reset]:active {
     background-color: #56baed;
     content: "";
     transition: width 0.2s;
+    
 }
 
 .underlineHover:hover {
     color: #0d0d0d;
+    cursor: pointer;
 }
 
 .underlineHover:hover:after {

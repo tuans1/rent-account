@@ -10,9 +10,9 @@ export default class Slip extends React.Component {
         days : "",
     }
     onChange = (e) => {
-        this.props.onChange(e.target.value)
+        this.props.onChange(e.target.value.replace(/\D/g, ""))
     }
-    componentDidUpdate = (props, nextProps) => {
+    componentDidUpdate = (props) => {
         const { allowance, loan, salary } = this.props.staff;
         if (this.props.staff !== props.staff) {
             this.setState({
@@ -31,12 +31,12 @@ export default class Slip extends React.Component {
         const { address, bankAccount, allowance, loan, id, joiningDate, phone, position, salary, staffName } = this.props.staff;
         const days = this.state.days;
         function numberToEnglish(n) {
-
+            
             var string = n.toString(), units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words, and = 'and';
-
+            
             /* Remove spaces and commas */
             string = string.replace(/[, ]/g, "");
-
+            
             /* Is number zero? */
             if (parseInt(string) === 0) {
                 return 'zero';
@@ -100,9 +100,10 @@ export default class Slip extends React.Component {
                     if (ints[0] || ints[1]) {
 
 
-                        // if( ints[2] || ! i && chunksLen ) {
-                        //     words.push( and );
-                        // }
+                        if( ints[2] && ! i && chunksLen ) {
+                            console.log("RUN 104 SLIP")
+                            words.push( and );
+                        }
 
                     }
 
@@ -120,9 +121,12 @@ export default class Slip extends React.Component {
         }
         const totalSalary = (this.state.totalSalary / 30) * this.state.days;
 
-        // - - - - - Tests - - - - - -
+        function toStr(params) {
+            return params.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
         function test(v) {
-            var sep = ('string' == typeof v) ? '"' : '';
+            // var sep = ('string' == typeof v) ? '"' : '';
             return (numberToEnglish(v));
         }
         return (
@@ -174,8 +178,8 @@ export default class Slip extends React.Component {
                                         <p>: {moment(joiningDate).format("L")}</p>
                                     </div>
                                     <div className="div2_test text_padding">
-                                        <span>Days Worked </span>
-                                        <input className="xxxx" type="text" value={days} onChange={(e) => this.onChange(e)} placeholder=":" />
+                                        <span>Days Worked </span>:
+                                        <input className="xxxx" type="text" value={days} onChange={(e) => this.onChange(e)} maxLength="2" placeholder="days?" />
                                     </div>
                                 </div>
                             </div>
@@ -195,22 +199,22 @@ export default class Slip extends React.Component {
                                     <p style={{ color: "black", paddingTop: "1.5em" }}>Basic Salary</p>
                                     <p style={{ color: "black" }}>Allowance</p>
                                     <p style={{ color: "black" }}>Loan</p>
-                                    <p style={{ color: "black" }}>Tax</p>
-                                    <p style={{ paddingTop: "3em", fontWeight: 600, paddingBottom: "1.5em" }}>Total</p>
+                                    <p style={{ color: "black",paddingBottom: "2em" }}>Tax</p>
+                                    
                                 </div>
                                 <div className="div4_test text_padding" style={{ borderRight: "1px solid black", width: "25%" }}>
-                                    <p style={{ paddingTop: "1.5em" }}>{salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</p>
-                                    <p>{allowance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</p>
+                                    <p style={{ paddingTop: "1.5em" }}>{toStr(salary)} VND (30 days)</p>
+                                    <p>{toStr(allowance)} VND</p>
                                     <p>&nbsp;</p>
-                                    <p>&nbsp;</p>
-                                    <p style={{ paddingTop: "3em", paddingBottom: "1.5em" }}>0 VND</p>
+                                    <p  style={{ color: "black",paddingBottom: "2em" }}>&nbsp;</p>
+                                   
                                 </div>
                                 <div className="div4_test text_padding" style={{ width: "25%" }}>
                                     <p style={{ paddingTop: "1.5em" }}>&nbsp;</p>
                                     <p>&nbsp;</p>
-                                    <p>{loan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VND</p>
-                                    <p>0% Basic Salary</p>
-                                    <p style={{ paddingTop: "3em", paddingBottom: "1.5em" }}>0 VND</p>
+                                    <p>{toStr(loan)} VND</p>
+                                    <p  style={{ color: "black",paddingBottom: "2em" }}>0% Basic Salary</p>
+                                   
                                 </div>
                             </div>
                             <div className="div5">
@@ -225,7 +229,7 @@ export default class Slip extends React.Component {
                                 <div className="div5_wrap" style={{ width: "50%" }}>
                                     <div className="div5_test text_padding" >
                                         <p style={{ borderBottom: "1px solid black ", fontSize: 22, padding: "10px 0", margin: 0 }}>NET SALARY</p>
-                                        <p style={{ padding: "5px 0", margin: 0 }}>{days !== "" ? totalSalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0"}</p>
+                                        <p style={{ padding: "5px 0", margin: 0 }}>{days !== "" ? toStr(totalSalary) : "0"}</p>
                                         <p>{test(totalSalary)}</p>
                                     </div>
                                 </div>

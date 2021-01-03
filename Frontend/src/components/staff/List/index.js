@@ -6,7 +6,7 @@ import StaffDatePicker from '../DatePicker';
 import DeleteModal from '.././DeleteModal/index';
 import { Pagination } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
-import ReactToExcel from 'react-html-table-to-excel';
+import { CSVLink } from "react-csv";
 
 import * as action from '../../../reducers/staff';
 import StaffListLoading from '../../skeletonLoad/staffListLoading';
@@ -86,6 +86,7 @@ function List(props) {
     return (
       <tr className="table_staff" key={x.id}>
         <td className="table_td">{index + 1}</td>
+        <td className="table_td" style={{ width: 70 }}>{x.id}</td>
         <td className="table_td">{x.staffName}</td>
         <td className="table_td" style={{ width: 150 }}>{x.phone}</td>
         <td className="table_td" >{x.address}</td>
@@ -137,18 +138,13 @@ function List(props) {
           deleteId={deleteId}
           onDeleteStaff={handleDeleteStaff}
         />
-        {/* {staff.length > 0  ? <ReactToExcel
-          className="btn btn-info "
-          table="table-to-xlsx"
 
-          sheet="Sheet1"
-          buttonText="EXPORT TABLE"
-        /> : null} */}
         <div className={showAll ? "tbody" : "body"}>
           <Table bordered size="sm" id="table-to-xlsx">
             <thead>
               <tr >
                 <th style={{ width: 70 }} className="table_th">STT</th>
+                <th className="table_th">Code</th>
                 <th className="table_th">Name</th>
                 <th className="table_th">Phone</th>
                 <th className="table_th">Address</th>
@@ -158,8 +154,17 @@ function List(props) {
                 <th className="table_th">Allowance</th>
                 <th className="table_th">Loan</th>
                 <th className="table_th">Joining Date</th>
-                <th> <a href="# " className="btn-flip" data-back={showAll ? "Show Part" : "Show All"} data-front={showAll ? "Show Part" : "Show All"} onClick={() => setShowAll(!showAll)}></a></th>
-                {/* <button className="bubbly-button" onClick={()=>setShowAll(!showAll)}>{showAll ? "Show Part" : "Show All" }</button> */}
+                {/* <th> <a href="# " className="btn-flip" data-back={showAll ? "Show Part" : "Show All"} data-front={showAll ? "Show Part" : "Show All"} onClick={() => setShowAll(!showAll)}></a></th> */}
+                <th><button className="bubbly-button" onClick={() => setShowAll(!showAll)}>{showAll ? "Show Part" : "Show All"}</button>
+                  <CSVLink
+                    data={staff}
+                    filename={"Staff.csv"}
+                    className="btn btn-primary"
+                    style={{ width : "100%"}}
+                  >
+                    Export to Excel
+                  </CSVLink>
+                </th>
               </tr>
             </thead>
             <tbody>
