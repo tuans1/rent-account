@@ -25,12 +25,18 @@ public class Staff extends BaseEntity{
 	private String address;
 	
 	@Column(name= "salary")
-	private Integer salary;
+	private String salary;
 	
 	@Column(name = "position")
 	private String position;
 	
 	@Column(name = "joining_date")
 	private String joiningDate;
+	
+	@Column(name="allowance")
+	private String allowance;
+	
+	@Column(name="loan")
+	private String loan;
 
 }

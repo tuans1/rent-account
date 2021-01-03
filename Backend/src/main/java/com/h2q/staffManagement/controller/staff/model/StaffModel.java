@@ -20,11 +20,15 @@ public class StaffModel {
 
 	private String address;
 
-	private Integer salary;
+	private String salary;
 
 	private String bankAccount;
 
 	private Date joiningDate;
+	
+	private String loan;
+	
+	private String allowance;
 
 	public Staff setStaff(StaffModel model) {
 		Staff staff = new Staff();
@@ -35,6 +39,8 @@ public class StaffModel {
 		staff.setAddress(model.getAddress());
 		staff.setSalary(model.getSalary());
 		staff.setBankAccount(model.getBankAccount());
+		staff.setLoan(model.getLoan());
+		staff.setAllowance(model.getAllowance());
 		staff.setJoiningDate(new SimpleDateFormat("dd-MM-yyyy").format(model.getJoiningDate()));
 		return staff;
 	}

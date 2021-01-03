@@ -8,13 +8,15 @@ import Menu from '../menu';
 
 function Staff() {
     const [staff, setStaff] = useState({
-        staffName: "asdas",
-        phone: "1234567890",
-        address: "123",
-        position: "123",
-        salary: "123",
-        bankAccount: "123",
+        staffName: "",
+        phone: "",
+        address: "",
+        position: "",
+        salary: "",
+        bankAccount: "",
         joiningDate: "",
+        allowance:"",
+        loan:""
     });
     const { updateStaff } = useSelector(state => state.staffReducer);
     const dispatch = useDispatch();
@@ -58,6 +60,8 @@ function Staff() {
             salary: "",
             bankAccount: "",
             joiningDate: "",
+            loan:"",
+            allowance:""
         })
     }
 

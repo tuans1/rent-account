@@ -89,9 +89,11 @@ function List(props) {
         <td className="table_td">{x.staffName}</td>
         <td className="table_td" style={{ width: 150 }}>{x.phone}</td>
         <td className="table_td" >{x.address}</td>
-        <td className="table_td" >{x.position}</td>
-        <td className="table_td">{x.salary} mil $</td>
-        <td className="table_td" style={{ width: 200 }}>{x.bankAccount}</td>
+        <td className="table_td" style={{ width: 170 }}>{x.position}</td>
+        <td className="table_td" style={{ width: 150 }}>{x.salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+        <td className="table_td" style={{ width: 100 }}>{x.bankAccount}</td>
+        <td className="table_td" style={{ width: 150 }}>{x.allowance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+        <td className="table_td" style={{ width: 150 }}>{x.loan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
         <td className="table_td" style={{ width: 170 }}>{x.joiningDate}</td>
         <td style={{ width: 20 }}>
           <ButtonGroup>
@@ -152,7 +154,9 @@ function List(props) {
                 <th className="table_th">Address</th>
                 <th className="table_th">Position</th>
                 <th className="table_th">Salary</th>
-                <th className="table_th">Bank Account</th>
+                <th className="table_th">Grade</th>
+                <th className="table_th">Allowance</th>
+                <th className="table_th">Loan</th>
                 <th className="table_th">Joining Date</th>
                 <th> <a href="# " className="btn-flip" data-back={showAll ? "Show Part" : "Show All"} data-front={showAll ? "Show Part" : "Show All"} onClick={() => setShowAll(!showAll)}></a></th>
                 {/* <button className="bubbly-button" onClick={()=>setShowAll(!showAll)}>{showAll ? "Show Part" : "Show All" }</button> */}

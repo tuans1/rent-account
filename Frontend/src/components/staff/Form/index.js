@@ -12,9 +12,11 @@ function StaffForm(props) {
         salary: true,
         bankAccount: true,
         joiningDate: true,
+        allowance: true,
+        loan: true,
         message: "Phone is required "
     });
-    const { staffName, phone, salary, bankAccount, joiningDate, position, address } = props.staff;
+    const { staffName, phone, salary, bankAccount, joiningDate, position, address ,allowance ,loan } = props.staff;
     const { staff } = props;
     const { loadingList } = useSelector(state => state.staffReducer);
     const onSubmit = (e) => {
@@ -29,6 +31,8 @@ function StaffForm(props) {
             salary: salary ? true : false,
             bankAccount: bankAccount ? true : false,
             joiningDate: joiningDate ? true : false,
+            allowance: allowance ? true : false,
+            loan: loan ? true : false,
             message: phone.length === 0 ? "Phone is required " : "Phone must contain 10 numbers "
         })
         if (!valid.includes(false) && phone.length === 10) {
@@ -45,6 +49,8 @@ function StaffForm(props) {
             salary: true,
             bankAccount: true,
             joiningDate: true,
+            allowance: true,
+            loan: true
         })
     }, [staff])
     const onChange = (key, value) => {
@@ -61,7 +67,9 @@ function StaffForm(props) {
             position: true,
             salary: true,
             bankAccount: true,
-            joiningDate: true
+            joiningDate: true,
+            allowance: true,
+            loan: true
         })
         document.getElementById("default").selected = "true";
         props.onResetForm();
@@ -114,7 +122,7 @@ function StaffForm(props) {
         <>
             <div className="modal fade" id="modalSubscriptionForm" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
                 aria-hidden="true" >
-                <div className="modal-dialog" role="document">
+                <div className="modal-dialog" role="document" >
                     <div className="modal-content">
                         <div className="modal-header text-center">
                             <h4 className="modal-title w-100 font-weight-bold">{staff.id ? "Update Staff" : "Create Staff"}</h4>
@@ -126,8 +134,7 @@ function StaffForm(props) {
                             </div>
                         </div>
                         <div className="modal-body mx-3" >
-
-                            <div className="md-form mb-5">
+                            <div className="md-form mb-4">
                                 <i className="fas fa-user prefix grey-text"></i>
                                 <input type="text" value={staffName} onChange={(e) => onChange("staffName", e.target.value)} onBlur={() => onBlurInput("staffName")} className={staffName ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
                                 <label data-error="wrong" data-success="right" className={staffName ? "active" : ""}>Name</label>
@@ -143,8 +150,8 @@ function StaffForm(props) {
                                     {valid.phone ? null : <p>{valid.message}<i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
                                 </div>
                             </div>
-                            <div className="md-form mb-5">
-                                <i className="fas fa-user prefix grey-text"></i>
+                            <div className="md-form mb-4">
+                                <i className="fas fa-map-marked-alt prefix grey-text"></i>
                                 <input type="text" value={address} onChange={(e) => onChange("address", e.target.value)} onBlur={() => onBlurInput("address")} className={address ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
                                 <label data-error="wrong" data-success="right" className={address ? "active" : ""}>Address</label>
                                 <div className="validate_text">
@@ -152,10 +159,10 @@ function StaffForm(props) {
                                 </div>
                             </div>
                             <div className="md-form mb-4" >
-                                {position !== "" && <label data-error="wrong" data-success="right" style={{ fontSize: 12, top: -25, left: 35 }}>Position</label>}
+                                {/* {position !== "" && <label data-error="wrong" data-success="right" style={{ fontSize: 12, top:50, left: 35 }}>asdasdasdasdasd</label>} */}
                                 <i className="fas fa-mobile-alt prefix grey-text"></i>
                                 <select style={{ marginTop: 5, borderColor: position !== "" ? " #00c851" : "#ced4da" }} value={position ? position : ""} onBlur={() => onBlurInput("position")} className={position === "" ? "browser-default custom-select  input_select" : "browser-default custom-select  input_select2"} onChange={(e) => onChange("position", e.target.value)}>
-                                    <option value="" id="default" >Choose Position</option>
+                                    <option value="" id="default" >Choose Designation</option>
                                     <option value="Nhân Viên" >Nhân Viên</option>
                                     <option value="Thư Ký" >Thư Ký</option>
                                     <option value="Trưởng Phòng" >Trưởng Phòng</option>
@@ -164,8 +171,23 @@ function StaffForm(props) {
                                     {valid.position ? null : <p>Position is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
                                 </div>
                             </div>
-                            <div className="md-form mb-4" style={{ marginTop: 40 }}>
+                            <div className="md-form mb-4" style={{marginTop : "2.5em"}}>
+                                {/* {bankAccount !== "" && <label data-error="wrong" data-success="right" style={{ fontSize: 12, top: -25, left: 35 }}>Grade</label>} */}
                                 <i className="fas fa-mobile-alt prefix grey-text"></i>
+                                <select style={{ marginTop: 5, borderColor: bankAccount !== "" ? " #00c851" : "#ced4da" }} value={bankAccount ? bankAccount : ""} onBlur={() => onBlurInput("bankAccount")} className={bankAccount === "" ? "browser-default custom-select  input_select" : "browser-default custom-select  input_select2"} onChange={(e) => onChange("bankAccount", e.target.value)}>
+                                    <option value="" id="default" >Choose Grade</option>
+                                    <option value="A" >A</option>
+                                    <option value="B" >B</option>
+                                    <option value="C" >C</option>
+                                    <option value="D" >D</option>
+                                    <option value="E" >E</option>
+                                </select>
+                                <div className="validate_text" style={{ marginTop: 10 }}>
+                                    {valid.bankAccount ? null : <p>Grade is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
+                                </div>
+                            </div>
+                            <div className="md-form mb-4" style={{ marginTop: 30 }}>
+                                <i className="fas fas fa-dollar-sign prefix grey-text"></i>
                                 <input type="text" value={salary} onChange={(e) => onChange("salary", e.target.value)} onBlur={() => onBlurInput("salary")} className={salary ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
                                 <label data-error="wrong" data-success="right" className={salary ? "active" : ""}>Salary</label>
                                 <div className="validate_text">
@@ -173,20 +195,28 @@ function StaffForm(props) {
                                 </div>
                             </div>
                             <div className="md-form mb-4">
-                                <i className="fas fa-mobile-alt prefix grey-text"></i>
-                                <input type="text" value={bankAccount} onChange={(e) => onChange("bankAccount", e.target.value)} onBlur={() => onBlurInput("bankAccount")} className={bankAccount ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
-                                <label data-error="wrong" data-success="right" className={bankAccount ? "active" : ""}>Bank Account</label>
+                                <i className="fas fas fa-dollar-sign prefix grey-text"></i>
+                                <input type="text" value={allowance} onChange={(e) => onChange("allowance", e.target.value)} onBlur={() => onBlurInput("allowance")} className={allowance ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
+                                <label data-error="wrong" data-success="right" className={allowance ? "active" : ""}>Allowance</label>
                                 <div className="validate_text">
-                                    {valid.bankAccount ? null : <p>Phone is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
+                                    {valid.allowance ? null : <p>Allowance is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
+                                </div>
+                            </div>
+                            <div className="md-form mb-4">
+                                <i className="fas fas fa-dollar-sign prefix grey-text"></i>
+                                <input type="text" value={loan} onChange={(e) => onChange("loan", e.target.value)} onBlur={() => onBlurInput("loan")} className={loan ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
+                                <label data-error="wrong" data-success="right" className={loan ? "active" : ""}>Loan</label>
+                                <div className="validate_text">
+                                    {valid.loan ? null : <p>Loan is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
                                 </div>
                             </div>
                             <div className="md-form mb-4">
                                 {joiningDate && <label data-error="wrong" data-success="right" style={{ fontSize: 12, top: -25, left: 35 }}>Joining Date</label>}
-                                <i className="fas fa-mobile-alt prefix grey-text"></i>
+                                <i class="far fa-calendar-alt prefix grey-text"></i>
                                 <DatePicker dateFormat="dd-MM-yyyy" className={joiningDate ? "date_picker" : ""} onBlur={() => onBlurInput("joiningDate")} selected={joiningDate} onChange={date => onChange("joiningDate", date)} placeholderText="Joining Date" />
                                 {joiningDate && <div className="close-container" onClick={onDeleteDate}>
-                                    {/* <div className="leftright"></div>
-                                    <div className="rightleft"></div> */}
+                                    <div className="leftright"></div>
+                                    <div className="rightleft"></div>
                                 </div>}
                                 <div className="validate_text">
                                     {valid.joiningDate ? null : <p>Joining Date is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}

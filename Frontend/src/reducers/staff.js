@@ -20,6 +20,8 @@ const initialState = {
         salary: "",
         bankAccount: "",
         joiningDate: "",
+        loan : "",
+        allowance : ""
     },
     totalSalary:[],
 };

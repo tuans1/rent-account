@@ -17,6 +17,7 @@ function App() {
   var decoded = jwt_decode("Bearer " + localStorage.getItem("token"));
   const history = useHistory();
   const dispatch = useDispatch();
+  // console.log(decoded)
   useEffect(() => {
     const expired = Math.floor(Date.now() / 1000);
     if (decoded.exp < expired) {

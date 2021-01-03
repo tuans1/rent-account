@@ -7,8 +7,11 @@
 }
 
 .left_wrap {
-    
-    width: 15%;
+
+    width: 13%;
+    position: absolute;
+    z-index: 555;
+    display: none;
     background: #D66D75;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #E29587, #D66D75);
@@ -141,10 +144,12 @@
     .left_wrap {
         width: 100%;
     }
-    .left{
+
+    .left {
         background-image: none;
         height: 0;
     }
+
     .menu_nav {
         background-color: rgb(170, 52, 52);
         width: 60%;
