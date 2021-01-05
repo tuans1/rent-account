@@ -12,8 +12,8 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
-@Entity(name = "user")
-public class User implements Serializable{
+@Entity(name = "admin")
+public class Admin implements Serializable{
 	/**
 	 * 
 	 */

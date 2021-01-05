@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.h2q.staffManagement.repository.entity.User;
+import com.h2q.staffManagement.repository.entity.Admin;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
-    User user;
+    Admin admin;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -25,12 +25,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassWord();
+        return admin.getPassWord();
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return admin.getUserName();
     }
 
     @Override
