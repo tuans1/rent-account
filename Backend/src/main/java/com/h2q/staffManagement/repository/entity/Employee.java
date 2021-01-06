@@ -6,37 +6,34 @@ import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Data
-@Entity
-public class Staff extends BaseEntity{
-	
-	@Column(name = "staff_name")
-	private String staffName;
-	
+@Entity(name = "employee")
+public class Employee extends BaseEntity {
+	@Column(name = "employee_name")
+	private String employeeName;
+
 	@Column(name = "phone")
 	private String phone;
-	
-	@Column(name = "bank_account")
-	private String bankAccount;
-	
+
+	@Column(name = "grade")
+	private String grade;
+
 	@Column(name = "address")
 	private String address;
-	
-	@Column(name= "salary")
+
+	@Column(name = "salary")
 	private String salary;
-	
+
 	@Column(name = "position")
 	private String position;
-	
+
 	@Column(name = "joining_date")
 	private String joiningDate;
-	
-	@Column(name="allowance")
-	private String allowance;
-	
-	@Column(name="loan")
-	private String loan;
 
+	@Column(name = "allowance")
+	private String allowance;
+
+	@Column(name = "loan")
+	private String loan;
 }

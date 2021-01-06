@@ -2,18 +2,18 @@ package com.h2q.staffManagement.controller.staff.model;
 
 import java.util.List;
 
-import com.h2q.staffManagement.repository.entity.Staff;
+import com.h2q.staffManagement.repository.entity.Employee;
 
 import lombok.Data;
 
 @Data
-public class StaffListModel {
+public class EmployeeListModel {
 	
-	private List<Staff> records;
+	private List<Employee> records;
 	
 	private Integer total;
 	
-	public StaffListModel(List<Staff> records ,Integer total) {
+	public EmployeeListModel(List<Employee> records ,Integer total) {
 		this.records = records;
 		
 		this.total = total;

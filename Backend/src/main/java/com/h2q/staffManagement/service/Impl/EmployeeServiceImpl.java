@@ -10,30 +10,30 @@ import org.springframework.stereotype.Service;
 
 import com.h2q.staffManagement.config.exception.BusinessException;
 import com.h2q.staffManagement.config.exception.ErrorCodes;
-import com.h2q.staffManagement.controller.staff.model.StaffListModel;
-import com.h2q.staffManagement.controller.staff.model.StaffModel;
-import com.h2q.staffManagement.repository.StaffRepository;
-import com.h2q.staffManagement.repository.entity.Staff;
-import com.h2q.staffManagement.service.StaffService;
+import com.h2q.staffManagement.controller.staff.model.EmployeeListModel;
+import com.h2q.staffManagement.controller.staff.model.EmployeeModel;
+import com.h2q.staffManagement.repository.EmployeeRepository;
+import com.h2q.staffManagement.repository.entity.Employee;
+import com.h2q.staffManagement.service.EmployeeService;
 
 @Service
-public class StaffServiceImpl implements StaffService {
+public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
-	private StaffRepository staffRepo;
+	private EmployeeRepository staffRepo;
 
 	@Override
-	public StaffListModel getStaffList(String containing, int page, int size) {
-		List<Staff> records = staffRepo.findByStaffNameContaining(containing, PageRequest.of(page, size));
+	public EmployeeListModel getEmployeeList(String containing, int page, int size) {
+		List<Employee> records = staffRepo.findByEmployeeNameContaining(containing, PageRequest.of(page, size));
 		Integer total = staffRepo.countByNameContaining(containing);
-		return new StaffListModel(records, total);
+		return new EmployeeListModel(records, total);
 	}
 
 	@Override
-	public void createStaff(StaffModel model) throws BusinessException{
+	public void createEmployee(EmployeeModel model) throws BusinessException{
 		model.setId(UUID.randomUUID().toString().replace("-","").substring(0,4));
-		Optional<Staff> staff = staffRepo.findById(model.getId());
-		if(staff.isPresent()) {
+		Optional<Employee> employee = staffRepo.findById(model.getId());
+		if(employee.isPresent()) {
 			throw new BusinessException(ErrorCodes.STAFF_ID_IS_EXIST);
 		}else {
 			staffRepo.saveAndFlush(model.setStaff(model));
@@ -41,20 +41,20 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public void updateStaff(StaffModel model) {
+	public void updateEmployee(EmployeeModel model) {
 		staffRepo.saveAndFlush(model.setStaff(model));
 	}
 
 	@Override
-	public Staff getUpdateStaff(String id) throws BusinessException {
-		Optional<Staff> staff = staffRepo.findById(id);
-		return staff.isPresent() ? staff.get()
-				: staff.orElseThrow(() -> new BusinessException(ErrorCodes.STAFF_ID_NOT_EXIST));
+	public Employee getUpdateEmployee(String id) throws BusinessException {
+		Optional<Employee> employee = staffRepo.findById(id);
+		return employee.isPresent() ? employee.get()
+				: employee.orElseThrow(() -> new BusinessException(ErrorCodes.STAFF_ID_NOT_EXIST));
 	}
 
 	@Override
-	public void deleteStaff(String id) throws BusinessException {
-		getUpdateStaff(id);
+	public void deleteEmployee(String id) throws BusinessException {
+		getUpdateEmployee(id);
 		staffRepo.deleteById(id);
 	}
 

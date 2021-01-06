@@ -1,18 +1,18 @@
 package com.h2q.staffManagement.service;
 
 import com.h2q.staffManagement.config.exception.BusinessException;
-import com.h2q.staffManagement.controller.staff.model.StaffListModel;
-import com.h2q.staffManagement.controller.staff.model.StaffModel;
-import com.h2q.staffManagement.repository.entity.Staff;
+import com.h2q.staffManagement.controller.staff.model.EmployeeListModel;
+import com.h2q.staffManagement.controller.staff.model.EmployeeModel;
+import com.h2q.staffManagement.repository.entity.Employee;
 
-public interface StaffService {
-	StaffListModel getStaffList(String containing, int page, int size) ;
+public interface EmployeeService {
+	EmployeeListModel getEmployeeList(String containing, int page, int size) ;
 	
-	void createStaff(StaffModel model) throws BusinessException;
+	void createEmployee(EmployeeModel model) throws BusinessException;
 	
-	void updateStaff(StaffModel model);
+	void updateEmployee(EmployeeModel model);
 	
-	Staff getUpdateStaff(String id) throws BusinessException ;
+	Employee getUpdateEmployee(String id) throws BusinessException ;
 	
-	void deleteStaff(String id) throws BusinessException;
+	void deleteEmployee(String id) throws BusinessException;
 }
