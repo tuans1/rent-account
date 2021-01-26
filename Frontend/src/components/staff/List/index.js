@@ -87,12 +87,12 @@ function List(props) {
       <tr className="table_staff" key={x.id}>
         <td className="table_td">{index + 1}</td>
         <td className="table_td" style={{ width: 70 }}>{x.id}</td>
-        <td className="table_td">{x.staffName}</td>
+        <td className="table_td">{x.employeeName}</td>
         <td className="table_td" style={{ width: 150 }}>{x.phone}</td>
         <td className="table_td" >{x.address}</td>
         <td className="table_td" style={{ width: 170 }}>{x.position}</td>
         <td className="table_td" style={{ width: 150 }}>{x.salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-        <td className="table_td" style={{ width: 100 }}>{x.bankAccount}</td>
+        <td className="table_td" style={{ width: 100 }}>{x.grade}</td>
         <td className="table_td" style={{ width: 150 }}>{x.allowance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
         <td className="table_td" style={{ width: 150 }}>{x.loan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
         <td className="table_td" style={{ width: 170 }}>{x.joiningDate}</td>
@@ -158,7 +158,7 @@ function List(props) {
                 <th><button className="bubbly-button" onClick={() => setShowAll(!showAll)}>{showAll ? "Show Part" : "Show All"}</button>
                   <CSVLink
                     data={staff}
-                    filename={"Staff.csv"}
+                    filename={"Employee.csv"}
                     className="btn btn-primary"
                     style={{ width : "100%"}}
                   >

@@ -28,8 +28,8 @@ export default class Slip extends React.Component {
         }
     }
     render() {
-        const { address, bankAccount, allowance, loan, id, joiningDate, phone, position, salary, staffName } = this.props.staff;
-        const days = this.state.days;
+        const { address, grade, allowance, loan, id, joiningDate, phone, position, salary, employeeName } = this.props.staff;
+        const {days} = this.state;
         function numberToEnglish(n) {
             
             var string = n.toString(), units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words, and = 'and';
@@ -115,12 +115,16 @@ export default class Slip extends React.Component {
                 }
 
             }
-
             return words.reverse().join(' ');
 
         }
-        const totalSalary = (this.state.totalSalary / 30) * this.state.days;
-
+        const calculateSalary = (this.state.totalSalary / 26) * days;
+        let totalSalary = calculateSalary.toFixed(0).toString().split('');
+        totalSalary.reverse();
+        totalSalary[0] = "0";
+        totalSalary[1] = "0";
+        totalSalary[2] = "0";
+        totalSalary = totalSalary.reverse().join('');
         function toStr(params) {
             return params.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         }
@@ -153,7 +157,7 @@ export default class Slip extends React.Component {
                                     </div>
                                     <div className="div2_test text_padding">
                                         <span>Name </span>
-                                        <p style={{ fontWeight: 500 }}>: {staffName}</p>
+                                        <p style={{ fontWeight: 500 }}>: {employeeName}</p>
                                     </div>
                                     <div className="div2_test text_padding">
                                         <span>Phone</span>
@@ -171,7 +175,7 @@ export default class Slip extends React.Component {
                                     </div>
                                     <div className="div2_test text_padding">
                                         <span>Grade</span>
-                                        <p>: {bankAccount}</p>
+                                        <p>: {grade}</p>
                                     </div>
                                     <div className="div2_test text_padding">
                                         <span>Joining Date </span>
@@ -203,7 +207,7 @@ export default class Slip extends React.Component {
                                     
                                 </div>
                                 <div className="div4_test text_padding" style={{ borderRight: "1px solid black", width: "25%" }}>
-                                    <p style={{ paddingTop: "1.5em" }}>{toStr(salary)} VND (30 days)</p>
+                                    <p style={{ paddingTop: "1.5em" }}>{toStr(salary)} VND (26 days)</p>
                                     <p>{toStr(allowance)} VND</p>
                                     <p>&nbsp;</p>
                                     <p  style={{ color: "black",paddingBottom: "2em" }}>&nbsp;</p>

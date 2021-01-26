@@ -6,7 +6,7 @@ function StaffNav() {
 
     return (
         <>
-            <div className="menu_wrap" className="menu_wrap">
+            <div className="menu_wrap">
                 <div className="left_wrap">
                 </div>
                 <div className="left">

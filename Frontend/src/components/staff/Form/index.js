@@ -5,18 +5,18 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 function StaffForm(props) {
     const [valid, setValid] = useState({
-        staffName: true,
+        employeeName: true,
         phone: true,
         address: true,
         position: true,
         salary: true,
-        bankAccount: true,
+        grade: true,
         joiningDate: true,
         allowance: true,
         loan: true,
         message: "Phone is required "
     });
-    const { staffName, phone, salary, bankAccount, joiningDate, position, address ,allowance ,loan } = props.staff;
+    const { employeeName, phone, salary, grade, joiningDate, position, address ,allowance ,loan } = props.staff;
     const { staff } = props;
     const { loadingList } = useSelector(state => state.staffReducer);
     const onSubmit = (e) => {
@@ -24,12 +24,12 @@ function StaffForm(props) {
             return staff[x] !== ""
         })
         setValid({
-            staffName: staffName ? true : false,
+            employeeName: employeeName ? true : false,
             phone: phone.length === 10 ? true : false,
             address: address ? true : false,
             position: position ? true : false,
             salary: salary ? true : false,
-            bankAccount: bankAccount ? true : false,
+            grade: grade ? true : false,
             joiningDate: joiningDate ? true : false,
             allowance: allowance ? true : false,
             loan: loan ? true : false,
@@ -42,12 +42,12 @@ function StaffForm(props) {
     }
     useEffect(() => {
         setValid({
-            staffName: true,
+            employeeName: true,
             phone: true,
             address: true,
             position: true,
             salary: true,
-            bankAccount: true,
+            grade: true,
             joiningDate: true,
             allowance: true,
             loan: true
@@ -61,12 +61,12 @@ function StaffForm(props) {
     }
     const onResetForm = () => {
         setValid({
-            staffName: true,
+            employeeName: true,
             phone: true,
             address: true,
             position: true,
             salary: true,
-            bankAccount: true,
+            grade: true,
             joiningDate: true,
             allowance: true,
             loan: true
@@ -128,7 +128,7 @@ function StaffForm(props) {
                 <div className="modal-dialog" role="document" >
                     <div className="modal-content">
                         <div className="modal-header text-center">
-                            <h4 className="modal-title w-100 font-weight-bold">{staff.id ? "Update Staff" : "Create Staff"}</h4>
+                            <h4 className="modal-title w-100 font-weight-bold">{staff.id ? "Update Employee" : "Create Employee"}</h4>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -139,10 +139,10 @@ function StaffForm(props) {
                         <div className="modal-body mx-3" >
                             <div className="md-form mb-4">
                                 <i className="fas fa-user prefix grey-text"></i>
-                                <input type="text" value={staffName} onChange={(e) => onChange("staffName", e.target.value)} onBlur={() => onBlurInput("staffName")} className={staffName ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
-                                <label data-error="wrong" data-success="right" style={{fontSize : 18}} className={staffName ? "active" : ""}>Name</label>
+                                <input type="text" value={employeeName} onChange={(e) => onChange("employeeName", e.target.value)} onBlur={() => onBlurInput("employeeName")} className={employeeName ? "form-control validate valid" : "form-control validate"} autoComplete="off" />
+                                <label data-error="wrong" data-success="right" style={{fontSize : 18}} className={employeeName ? "active" : ""}>Name</label>
                                 <div className="validate_text">
-                                    {valid.staffName ? null : <p>Name is required <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
+                                    {valid.employeeName ? null : <p>Name is required <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
                                 </div>
                             </div>
                             <div className="md-form mb-4">
@@ -163,7 +163,7 @@ function StaffForm(props) {
                             </div>
                             <div className="md-form mb-4" >
                                 {position !== "" && <label data-error="wrong" data-success="right"  style={{ fontSize: 14, top:-25, left: 35 }}>Designation</label>}
-                                <i className="fas fa-mobile-alt prefix grey-text"></i>
+                                <i className="fas fa-user-tie prefix grey-text"></i>
                                 <select style={{ marginTop: 5, borderColor: position !== "" ? " #00c851" : "#ced4da" }} value={position ? position : ""} onBlur={() => onBlurInput("position")} className={position === "" ? "browser-default custom-select  input_select" : "browser-default custom-select  input_select2"} onChange={(e) => onChange("position", e.target.value)}>
                                     <option value="" id="default" style={{fontSize : 16}}>Choose Designation</option>
                                     <option value="Nhân Viên" style={{fontSize : 17}}>Nhân Viên</option>
@@ -175,9 +175,9 @@ function StaffForm(props) {
                                 </div>
                             </div>
                             <div className="md-form mb-4" style={{marginTop : "2.5em"}}>
-                                {bankAccount !== "" && <label data-error="wrong" data-success="right"  style={{ fontSize: 14, top: -25, left: 35 }}>Grade</label>}
-                                <i className="fas fa-mobile-alt prefix grey-text"></i>
-                                <select style={{ marginTop: 5, borderColor: bankAccount !== "" ? " #00c851" : "#ced4da" }} value={bankAccount ? bankAccount : ""} onBlur={() => onBlurInput("bankAccount")} className={bankAccount === "" ? "browser-default custom-select  input_select" : "browser-default custom-select  input_select2"} onChange={(e) => onChange("bankAccount", e.target.value)}>
+                                {grade !== "" && <label data-error="wrong" data-success="right"  style={{ fontSize: 14, top: -25, left: 35 }}>Grade</label>}
+                                <i className="fas fas fa-star prefix grey-text"></i>
+                                <select style={{ marginTop: 5, borderColor: grade !== "" ? " #00c851" : "#ced4da" }} value={grade ? grade : ""} onBlur={() => onBlurInput("grade")} className={grade === "" ? "browser-default custom-select  input_select" : "browser-default custom-select  input_select2"} onChange={(e) => onChange("grade", e.target.value)}>
                                     <option value="" id="default" style={{fontSize : 16}}>Choose Grade</option>
                                     <option value="A" style={{fontSize : 17}}>A</option>
                                     <option value="B" style={{fontSize : 17}}>B</option>
@@ -186,7 +186,7 @@ function StaffForm(props) {
                                     <option value="E" style={{fontSize : 17}}>E</option>
                                 </select>
                                 <div className="validate_text" style={{ marginTop: 10 }}>
-                                    {valid.bankAccount ? null : <p>Grade is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
+                                    {valid.grade ? null : <p>Grade is required  <i className="fas fa-exclamation" style={{ fontSize: 15 }}></i></p>}
                                 </div>
                             </div>
                             <div className="md-form mb-4" style={{ marginTop: 30 }}>

@@ -10,12 +10,12 @@ import { Success, Error, Warn } from '../common/notify';
 function* fetchStaffSaga({ payload }) {
     const { page, size, containing } = payload;
     try {
-        const result = yield call(request, `staff?page=${page}&size=${size}&containing=${containing}`, {
+        const result = yield call(request, `employee?page=${page}&size=${size}&containing=${containing}`, {
             method: "GET",
         });
         const isExists = result.records.map(x => x)
         if (isExists.length === 0) {
-            yield call(Warn, { message: "No Staff Was Found !" })
+            yield call(Warn, { message: "No employee Was Found !" })
         }
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
     } catch (err) {
@@ -24,21 +24,21 @@ function* fetchStaffSaga({ payload }) {
 }
 function* createStaffSaga({ payload }) {
     try {
-        yield call(request, 'staff', {
+        yield call(request, 'employee', {
             method: "post",
             body: JSON.stringify(payload.staff)
         });
         payload.callbackRefreshList();
-        const result = yield call(request, `staff?page=0&size=10&containing=`, {
+        const result = yield call(request, `employee?page=0&size=10&containing=`, {
             method: "GET",
         });
         payload.callbackResetForm();
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
-        yield call(Success, { message: "Create Staff Successfully !" })
+        yield call(Success, { message: "Create Employee Successfully !" })
     } catch (err) {
         const {errorCode} = yield err.json();
         if(errorCode === 1003){
-            yield call(Error, { message: " ID Staff has been exist,please try again !" })
+            yield call(Error, { message: " ID Employee has been exist,please try again !" })
         }else{
             yield call(Error, { message: " An unknown error occurred, please try again !" })
         }
@@ -48,7 +48,7 @@ function* createStaffSaga({ payload }) {
 }
 function* getStaffSaga({ payload }) {
     try {
-        const result = yield call(request, `staff/${payload}`, {
+        const result = yield call(request, `employee/${payload}`, {
             method: "GET",
         });
         yield put({ type: constants.SET_UPDATE_STAFF, payload: result })
@@ -61,16 +61,16 @@ function* getStaffSaga({ payload }) {
 }
 function* updateStaffSaga({ payload }) {
     try {
-        yield call(request, `staff`, {
+        yield call(request, `employee`, {
             method: "put",
             body: JSON.stringify(payload.staff)
         });
         payload.callbackRefreshList();
-        const result = yield call(request, `staff?page=0&size=10&containing=`, {
+        const result = yield call(request, `employee?page=0&size=10&containing=`, {
             method: "GET",
         });
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
-        yield call(Success, { message: "Update Staff Successfully !" })
+        yield call(Success, { message: "Update Employee Successfully !" })
     } catch (err) {
         yield call(Error, { message: " An unknown error occurred, please try again !" })
     }
@@ -80,11 +80,11 @@ function* deleteStaffSaga({ payload }) {
         yield call(request, `staff/` + payload, {
             method: "DELETE",
         });
-        const result = yield call(request, `staff?page=0&size=10&containing=`, {
+        const result = yield call(request, `employee?page=0&size=10&containing=`, {
             method: "GET",
         });
         yield put({ type: constants.FETCH_STAFF_SUCCESS, payload: result })
-        yield call(Success, { message: "Delete Staff Successfully !" })
+        yield call(Success, { message: "Delete Employee Successfully !" })
     } catch (err) {
         const { errorCode } = yield err.json();
         if (errorCode === 1002){

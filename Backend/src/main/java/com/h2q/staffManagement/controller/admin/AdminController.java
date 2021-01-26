@@ -49,7 +49,7 @@ public class AdminController {
 	public void sendEmail(SimpleMailMessage email) {
 		mailSender.send(email);
 	}
-	
+
 	@PostMapping("/login")
 	public LoginResponse authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -71,34 +71,37 @@ public class AdminController {
 		Admin admin = userRepo.findByEmail("toilakhang1@gmail.com");
 		if (passwordEncoder.matches(oldpw, admin.getPassWord())) {
 			admin.setPassWord(passwordEncoder.encode(newpw));
-			 userRepo.saveAndFlush(admin);
+			userRepo.saveAndFlush(admin);
 		} else {
 			throw new BusinessException(ErrorCodes.ADMIN_CHANGE_PASSWORD_INCORRECT);
 		}
 	}
+
 	@PostMapping("/forgot_password")
 	public void forgotPassword(@RequestParam String email) throws BusinessException {
 		Admin admin = userRepo.findByEmail(email);
 		String url = "http://localhost:3000/login";
-		if(admin==null) {
+		if (admin == null) {
 			throw new BusinessException(ErrorCodes.ADMIN_EMAIL_INCORRECT);
 		}
 		admin.setResetToken(UUID.randomUUID().toString());
 		SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
 		passwordResetEmail.setTo(admin.getEmail());
 		passwordResetEmail.setSubject("Password Reset Request");
-		passwordResetEmail.setText("To reset your password, click the link below:\n" + url
-				+ "/reset_password?token=" + admin.getResetToken());
+		passwordResetEmail.setText("To reset your password, click the link below:\n" + url + "/reset_password?token="
+				+ admin.getResetToken());
 		mailSender.send(passwordResetEmail);
-		
+
 	}
+	
+
 	@PutMapping("/change_password")
-	public void changePassword(@RequestParam String password,String token) throws BusinessException{
+	public void changePassword(@RequestParam String password, String token) throws BusinessException {
 		Admin admin = userRepo.findByResetToken(token);
-		if(admin != null) {
+		if (admin != null) {
 			admin.setPassWord(passwordEncoder.encode(password));
 			userRepo.save(admin);
-		}else {
+		} else {
 			throw new BusinessException(ErrorCodes.ADMIN_TOKEN_INCORRECT);
 		}
 	}

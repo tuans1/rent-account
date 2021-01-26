@@ -13,12 +13,12 @@ const initialState = {
     loadingList: true,
     updateStaff: {
         id : "",
-        staffName: "",
+        employeeName: "",
         phone: "",
         address: "",
         position: "",
         salary: "",
-        bankAccount: "",
+        grade: "",
         joiningDate: "",
         loan : "",
         allowance : ""

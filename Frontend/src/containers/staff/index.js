@@ -8,12 +8,12 @@ import Menu from '../menu';
 
 function Staff() {
     const [staff, setStaff] = useState({
-        staffName: "",
+        employeeName: "",
         phone: "",
         address: "",
         position: "",
         salary: "",
-        bankAccount: "",
+        grade: "",
         joiningDate: "",
         allowance:"",
         loan:""
@@ -53,12 +53,12 @@ function Staff() {
     }
     const handleResetForm = () => {
         setStaff({
-            staffName: "",
+            employeeName: "",
             phone: "",
             address: "",
             position: "",
             salary: "",
-            bankAccount: "",
+            grade: "",
             joiningDate: "",
             loan:"",
             allowance:""

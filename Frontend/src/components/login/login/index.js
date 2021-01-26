@@ -33,10 +33,10 @@ export default function LoginPage() {
                     timer: 2200
                 })
             }, 2000)
-            setTimeout(() => {
-                dispatch(action.onSetLoginLoading());
-                history.push("/home");
-            }, 3000)
+            // setTimeout(() => {
+            //     dispatch(action.onSetLoginLoading());
+            //     history.push("/home");
+            // }, 3000)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLogin])
