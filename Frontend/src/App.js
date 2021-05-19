@@ -1,62 +1,33 @@
-import React, { useEffect } from 'react';
-import Home from './containers/home';
-import Staff from './containers/staff';
-import Summary from './containers/summary';
-import Login from './containers/login';
-import SalarySlip from './containers/salarySlip';
-import Admin from './containers/admin';
-import { ToastContainer } from 'react-toastify';
-import './index.scss';
-import jwt_decode from "jwt-decode";
-import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
-import * as action from './reducers/login';
-import { Switch, Route } from "react-router-dom";
-import NotFound from './containers/notFound';
+import { Route, Switch, Link } from 'react-router-dom';
+import './App.css';
+import AdminAccount from './containers/Admin/account';
+import Account from './components/Account/index';
+import Nav from './components/Nav/index';
+import HistoryRent from './components/HistoryRent/index';
+import HistoryTransaction from './components/HistoryTransaction/index';
+import Guide from './components/Guide/index';
+import Transaction from './components/Transaction/index';
+import { useLocation } from 'react-router-dom'
+import AdminGame from './containers/Admin/game';
+
 function App() {
-  // var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjA3OTE5MjQ3LCJleHAiOjE2MDg1MjQwNDd9.iynweGJaBNADugp29DIh__iE8HL2bXwQJQUbYSlOfj4qiADn-brVnIIwd7jDsKrG3OP10FeGpfhL7WElX9xKVg";
-  const history = useHistory();
-  const dispatch = useDispatch();
-  // console.log(decoded)
-  useEffect(() => {
-    var link = window.location.href
-    let url = new URL(link);
-    let searchParams = new URLSearchParams(url.search);
-    if (localStorage.getItem("token")) {
-      const decoded = jwt_decode("Bearer " + localStorage.getItem("token"));
-      const expired = Math.floor(Date.now() / 1000);
-      if (decoded.exp < expired) {
-        history.push("/login");
-        // localStorage.removeItem('token');
-        dispatch(action.onFetchJwtFailed());
-      } else {
-        dispatch(action.onFetchJwtSuccess());
-      }
-    } else {
-      if (searchParams.get('token')) {
-        return;
-      }
-      else {
-        history.push("/login")
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
+  const location = useLocation();
   return (
     <>
-      <div className="wrapper">
-        <ToastContainer />
-        <Switch>
-          <Route path="/home" exact component={Home} />
-          <Route path="/staff" exact component={Staff} />
-          <Route path="/summary" exact component={Summary} />
-          <Route path="/login" component={Login} />
-          <Route path="/admin" exact component={Admin} />
-          <Route path="/salary_slip/:id" component={SalarySlip} />
-          <Route path="/" component={NotFound} />
-        </Switch>
-      </div>
+      {location.pathname === '/admin' ? <Route path="/admin" exact component={AdminAccount} /> : location.pathname === "/admin/game" ? <Route path="/admin/game" exact component={AdminGame} />
+        : <div className="wrapper">
+          <Nav />
+          <div className="container">
+            <Switch>
+              <Route path="/" exact component={Account} />
+              <Route path="/guide" exact component={Guide} />
+              <Route path="/history-rent" exact component={HistoryRent} />
+              <Route path="/history-transaction" exact component={HistoryTransaction} />
+              <Route path="/transaction" exact component={Transaction} />
+            </Switch>
+          </div>
+        </div>
+      }
     </>
   );
 }

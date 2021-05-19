@@ -1,11 +1,10 @@
-import {combineReducers} from 'redux';
-import staffReducer from './staff';
-import loginReducer from './login';
+import { combineReducers } from 'redux';
+import accountReducer from '../reducers/accountReducer';
 // import homeReducer from '../components/home/reducer';
 
 
 const rootReducer = combineReducers({
-    staffReducer ,loginReducer
-}) 
+    accountReducer
+})
 
 export default rootReducer;

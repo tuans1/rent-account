@@ -1,0 +1,17 @@
+.banner{
+    /* position: relative; */
+    background-image: url('../../assets/banner/banner.jpg');
+    background-size: auto;
+    height: 401px;
+}
+.nav{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.nav-left{
+    width: 100%;
+}
+.nav-right{
+    width: 100%;
+}
