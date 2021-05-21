@@ -6,6 +6,6 @@ router.get('/', AccountController.index)
 router.post('/create', AccountController.create)
 router.put('/edit', AccountController.edit)
 router.delete('/delete', AccountController.delete)
-// router.get('/:slug',courseController.index)
+router.post('/rent', AccountController.rent)
 
 module.exports = router

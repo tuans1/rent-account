@@ -6,7 +6,7 @@ export const FETCH_EDIT_ACCOUNT = "FETCH_EDIT_ACCOUNT";
 export const FETCH_DELETE_ACCOUNT = "FETCH_DELETE_ACCOUNT";
 export const SET_LOGIN_LOADING = "SET_LOGIN_LOADING";
 
-export const ACTIVE_NOTIFY = "ACTIVE_NOTIFY";
+export const FETCH_RENT_ACCOUNT = "FETCH_RENT_ACCOUNT";
 const initialState = {
     accounts: [],
 };
@@ -42,10 +42,6 @@ export const onFetchAccountSuccess = payload => ({
 //     type: FETCH_CHANGE_PASSWORD_ADMIN,
 //     payload
 // })
-// export const onFetchChangePasswordAdminFail = payload => ({
-//     type: FETCH_CHANGE_PASSWORD_ADMIN_FAIL,
-//     payload
-// })
 export const onFetchCreateAccount = payload => ({
     type: FETCH_CREATE_ACCOUNT,
     payload
@@ -62,3 +58,7 @@ export const onSetLoginLoading = () => ({
     type: SET_LOGIN_LOADING
 })
 
+export const onFetchRentAccount = payload => ({
+    type: FETCH_RENT_ACCOUNT,
+    payload
+})

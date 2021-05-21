@@ -15,7 +15,6 @@ class AccountController {
 
     edit(req, res) {
         try {
-            console.log(req.body)
             Account.findByIdAndUpdate(req.body.id, req.body, (err, result) => {
                 if (err) {
                     return res
@@ -43,8 +42,22 @@ class AccountController {
             })
         }
     }
-    // function name(params) {
-
-    // }
+    rent(req, res) {
+        try {
+            Account.findByIdAndUpdate(req.body.accId, { rentalTime: req.body.rentalTime, isRent: true, isActive: false, updateAt: new Date() }, (err, result) => {
+                if (err) {
+                    return res
+                        .status(500)
+                        .send({ error: "unsuccessful" })
+                };
+                res.send({ success: "success" });
+            })
+        } catch (err) {
+            return res.status(500).json({
+                status: 'error',
+                message: 'Error RENT',
+            })
+        }
+    }
 }
 module.exports = new AccountController;

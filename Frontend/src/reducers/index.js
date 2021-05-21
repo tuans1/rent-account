@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import accountReducer from '../reducers/accountReducer';
-// import homeReducer from '../components/home/reducer';
+import gameReducer from '../reducers/gameReducer';
+import adminReducer from '../reducers/adminReducer';
 
 
 const rootReducer = combineReducers({
-    accountReducer
+    accountReducer, gameReducer, adminReducer
 })
 
 export default rootReducer;

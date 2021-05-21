@@ -4,42 +4,49 @@ import './style.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Countdown from 'react-countdown';
+import ReactMomentCountDown from 'react-moment-countdown';
 import moment from 'moment'
 import Gta5 from '../../assets/account/gta5.jpeg';
 import Category from '../Category';
 import * as action from '../../reducers/accountReducer';
 
-function Account() {
+function Account(props) {
     const dispatch = useDispatch();
     const { accounts } = useSelector(state => state.accountReducer)
-    // var date = moment('2021-05-10 22:06:37').add(3,'hours');
-    const [countDown, setCountDown] = useState({
-        seconds: undefined,
-        hours: undefined,
-        minutes: undefined
-    })
+    const [rentalTime, setRentalTime] = useState();
+    const dateInFuture = moment('2021-05-21 15:34:00').add(2, 'hours');
     useEffect(() => {
         dispatch(action.onFetchAccount())
     }, [])
-    function timer() {
-        setInterval(() => {
-            var then = moment('2021-05-10 22:06:37').add(8, 'hours').unix();
-            var now = moment(new Date).unix();
-            var countdown = moment(then - now);
-            var timeLeft = moment.unix(countdown).utcOffset(0).format("HH:mm:ss")
-            return timeLeft;
-        }, 1000)
-    }
 
+    const timeLeft = (time, timeUpdate) => {
+        var then = moment('2021-05-10 22:06:37').add(8, 'hours').unix();
+        var now = moment(new Date).unix();
+        var countdown = moment(then - now);
+        var timeLeft = moment.unix(countdown).utcOffset(0).format("HH:mm:ss")
+        console.log(moment(timeUpdate).add(1000, 'seconds'))
+        if (moment(timeUpdate) === moment(new Date)) {
+            console.log(1)
+        } else {
+            console.log(2)
+        }
+        return <Countdown date={moment(timeUpdate).add(time, 'hours')} />
+    };
+    const setTimeRent = e => {
+        setRentalTime(e.target.value)
+    }
+    const onHandleRent = (accId) => {
+        props.onHandleRent({ accId, rentalTime })
+    }
     return (
         <>
             <Category />
             <div className="account-wrap">
                 <div className="row">
                     <div className="account col-lg-12">
-                        {accounts && accounts.map(item => {
+                        {accounts && accounts.map(acc => {
                             return (
-                                <div key={item._id} className="card col-lg-3" style={{ width: '19rem' }}>
+                                <div key={acc._id} className="card col-lg-3" style={{ width: '19rem' }}>
                                     <img
                                         src={Gta5}
                                         className="card-img-top"
@@ -49,19 +56,21 @@ function Account() {
                                         <div className="card-info">
                                             <div className="row">
                                                 <div className="col-lg-8 rent-price">
-                                                    <select className="form-select" aria-label="Default select example">
-                                                        <option defaultChecked>Chọn mức giá</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
+                                                    <select onChange={(e) => setTimeRent(e)} className="form-select" aria-label="Default select example">
+                                                        <option defaultValue value="5">5.000K / 5 giờ</option>
+                                                        <option value="10">8.000K / 10 giờ</option>
+                                                        <option value="15">10.000K / 15 giờ</option>
+                                                        <option value="24">20.000K / 1 ngày</option>
+                                                        <option value="1200">60.000K / 5 ngày</option>
                                                     </select>
                                                 </div>
                                                 <div className="col-lg-4 rent-status">
-                                                    <p>{timer()}</p>
+                                                    {acc.isRent ? timeLeft(acc.rentalTime, acc.updateAt) : "SẴN SÀNG"}
                                                 </div>
                                             </div>
                                         </div>
-                                        <Button className="btn btn-primary btn-rent" style={{ width: "100%" }}>Thuê Ngay</Button>
+                                        {acc.isActive ? <Button className="btn btn-primary btn-rent" onClick={() => onHandleRent(acc._id)} style={{ width: "100%" }}>Thuê Ngay</Button>
+                                            : <Button className="btn btn-primary btn-rent" style={{ width: "100%" }}>Chờ đổi pass</Button>}
                                     </div>
                                 </div>
                             )

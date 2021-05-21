@@ -1,10 +1,9 @@
-const Game = require('../models/Game')
-var multer = require('multer');
-var upload = multer();
-class GameController {
-   
+const TransactionHistory = require('../models/TransactionHistory')
+
+class TransactionHistoryController {
+
     index(req, res, next) {
-        Game.find({}).then(game => res.send(game))
+        TransactionHistory.find({}).then(game => res.send(game))
     }
 
     async create(req, res) {
@@ -35,8 +34,6 @@ class GameController {
             })
         }
     }
-    uploadGame(req, res) {
-        console.log(req.body);
-    }
+
 }
-module.exports = new GameController;
+module.exports = new TransactionHistoryController;

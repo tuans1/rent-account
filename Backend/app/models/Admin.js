@@ -8,7 +8,8 @@ const Admin = new Schema({
     name: { type: String, required: true },
     password: { type: String, required: true, },
     email: { type: String, required: true, },
-    token: { type: String},
+    token: { type: String },
+    role: String,
     createAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now }
 });
@@ -22,18 +23,18 @@ Admin.pre('save', async function (next) {
     next()
 })
 
-Admin.methods.generateAuthToken = async function() {
+Admin.methods.generateAuthToken = async function () {
     // Generate an auth token for the admin
     const admin = this
-    const token = jwt.sign({_id: admin._id}, process.env.JWT_KEY)
-    admin.tokens = admin.tokens.concat({token})
+    const token = jwt.sign({ _id: admin._id }, process.env.JWT_KEY)
+    admin.tokens = admin.tokens.concat({ token })
     await admin.save()
     return token
 }
 
 Admin.methods.findByCredentials = async (name, password) => {
     // Search for a admin by name and password.
-    const admin = await Admin.findOne({ name} )
+    const admin = await Admin.findOne({ name })
     if (!admin) {
         throw new Error({ error: 'Invalid login credentials' })
     }

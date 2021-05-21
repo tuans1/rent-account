@@ -41,10 +41,19 @@ function* fetchDeleteAccountSaga({ payload }) {
     }
 }
 
-
+function* fetchRentSaga({ payload }) {
+    try {
+        console.log(payload)
+        const data =yield call(Api, '/account/rent', 'post', JSON.stringify(payload ));
+        yield fetchAccountSaga();
+    } catch (err) {
+        console.log(err)
+    }
+}
 export default function* accountSaga() {
     yield takeLatest(constants.FETCH_ACCOUNT, fetchAccountSaga);
     yield takeLatest(constants.FETCH_CREATE_ACCOUNT, fetchCreateAccountSaga);
     yield takeLatest(constants.FETCH_EDIT_ACCOUNT, fetchEditAccountSaga);
     yield takeLatest(constants.FETCH_DELETE_ACCOUNT, fetchDeleteAccountSaga);
+    yield takeLatest(constants.FETCH_RENT_ACCOUNT, fetchRentSaga);
 }
