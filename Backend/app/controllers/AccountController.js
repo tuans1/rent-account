@@ -1,5 +1,5 @@
 const Account = require('../models/Account')
-
+const RentHistory = require('../models/RentHistory')
 class AccountController {
     index(req, res, next) {
         Account.find({})
@@ -43,16 +43,26 @@ class AccountController {
             })
         }
     }
-    rent(req, res) {
+    async rent(req, res) {
         try {
-            Account.findByIdAndUpdate(req.body.accId, { rentalTime: req.body.rentalTime, isRent: true, isActive: false, updateAt: new Date() }, (err, result) => {
+            await Account.findByIdAndUpdate(req.body.accId, { rentalTime: req.body.rentalTime, isRent: true, isActive: false, updateAt: new Date() }, (err, result) => {
                 if (err) {
                     return res
                         .status(500)
                         .send({ error: "unsuccessful" })
-                };
-                res.send({ success: "success" });
+                } else {
+                    RentHistory.create({
+                        acc: result.acc,
+                        name: result.name,
+                        userId: result._id,
+                        password: result.password,
+                        time: req.body.rentalTime,
+                    })
+                    res.send({ success: "success" });
+                }
+
             })
+
         } catch (err) {
             return res.status(500).json({
                 status: 'error',

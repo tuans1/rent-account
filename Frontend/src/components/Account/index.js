@@ -17,7 +17,7 @@ function Account(props) {
     const [isRent, setIsRent] = useState();
     const dateInFuture = moment('2021-05-21 15:34:00').add(2, 'hours');
     useEffect(() => {
-        dispatch(action.onFetchAccount())
+        dispatch(action.onFetchAccount());
     }, [])
 
     const timeLeft = (time, timeUpdate) => {
@@ -29,7 +29,7 @@ function Account(props) {
             return (<p>ĐỔI PASS</p>)
         }
     };
-    const isActive = acc => {
+    const buttonActive = acc => {
         const then = moment(new Date(acc.updateAt)).add(acc.rentalTime, 'hours');
         const now = moment(new Date);
         if (then > now) {
@@ -77,11 +77,11 @@ function Account(props) {
                                                     </select>
                                                 </div>
                                                 <div className="col-lg-4 rent-status">
-                                                    {acc.isRent ? timeLeft(acc.rentalTime, acc.updateAt) : "SẴN SÀNG"}
+                                                    {acc.isRent ? timeLeft(acc.rentalTime, acc.updateAt) : <p>SẴN SÀNG</p>}
                                                 </div>
                                             </div>
                                         </div>
-                                        {isActive(acc)}
+                                        {buttonActive(acc)}
                                     </div>
                                 </div>
                             )

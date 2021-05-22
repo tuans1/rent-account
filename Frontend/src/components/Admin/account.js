@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import Modal from 'react-bootstrap/Modal';
+import moment from 'moment';
 
 const DEFAULT_STATE = {
     _id: ""
@@ -42,6 +43,19 @@ export default function AdminAccount(props) {
     const onDeleteAccount = () => {
         props.onDeleteAccount(account._id);
         setShow(false);
+    }
+    const statusAcc = acc => {
+        const then = moment(new Date(acc.updateAt)).add(acc.rentalTime, 'hours');
+        const now = moment(new Date);
+        if (then > now) {
+            return (<p style={{ width: "100%" }}>Đang được thuê</p>)
+        } else {
+            if (acc.isActive) {
+                return (<p style={{ width: "100%" }}>SẴN SÀNG</p>)
+            } else {
+                return (<p style={{ width: "100%" }}>CHỜ ĐỔI PASS</p>)
+            }
+        }
     }
     return (
         <>
@@ -96,6 +110,8 @@ export default function AdminAccount(props) {
                             <th scope="col">acc</th>
                             <th scope="col">name</th>
                             <th scope="col">pw</th>
+                            <th scope="col">status</th>
+                            <th scope="col">time end</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -107,6 +123,8 @@ export default function AdminAccount(props) {
                                     <td>{acc.acc}</td>
                                     <td>{acc.name}</td>
                                     <td>{acc.password}</td>
+                                    <td>{statusAcc(acc)}</td>
+                                    <td>{moment(acc.updateAt).add(acc.rentalTime, 'hours').format("DD-MM-YYYY HH:mm:ss")}</td>
                                     <td><Button onClick={() => onSetEditAccount(acc)}>Sửa</Button><Button onClick={() => onSetDeleteAccount(acc)}>Xoa</Button></td>
                                 </tr>
                             )
