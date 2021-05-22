@@ -42,7 +42,6 @@ function Account(props) {
             }
         }
 
-
     }
     const setTimeRent = e => {
         setRentalTime(e.target.value)

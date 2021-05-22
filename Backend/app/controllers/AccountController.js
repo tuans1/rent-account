@@ -54,9 +54,10 @@ class AccountController {
                     RentHistory.create({
                         acc: result.acc,
                         name: result.name,
-                        userId: req.body.userId,
                         password: result.password,
+                        game: result.game,
                         time: req.body.rentalTime,
+                        userId: req.body.userId,
                     })
                     res.send({ success: "success" });
                 }

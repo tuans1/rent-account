@@ -11,7 +11,7 @@ import LoginPage from './containers/Login/index';
 import { useEffect } from 'react';
 import AccountPage from './containers/Account/index';
 import RentHistoryPage from './containers/RentHistory/index';
-
+import contact from './assets/banner/contact.png';
 function App() {
   const location = useLocation();
   const history = useHistory();
@@ -37,6 +37,9 @@ function App() {
               <Route path="/lich-su-giao-dich" exact component={HistoryTransaction} />
               <Route path="/giao-dich" exact component={Transaction} />
             </Switch>
+          </div>
+          <div>
+            <a href="https://www.facebook.com/Thu%C3%AA-Acc-110458054565244" target="_blank"><img src={contact} /></a>
           </div>
         </div>
       }
