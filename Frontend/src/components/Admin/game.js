@@ -36,11 +36,23 @@ export default function AdminGame(props) {
         props.onDeleteGame(game._id);
         setShow(false);
     }
-    const handleChangeImage = e => {
-        setImagePreview(URL.createObjectURL(e.target.files[0]))
-        setValue("image", e.target.files[0])
+    const handleChangeImage = async e => {
+        setImagePreview(URL.createObjectURL(e.target.files[0]));
+        const base64 = await convertBast64(e.target.files[0]);
+        setValue("image", base64);
     }
-
+    const convertBast64 = file => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = e => {
+                reject(e);
+            }
+        })
+    }
     return (
         <>
             <div className="container">
@@ -51,11 +63,11 @@ export default function AdminGame(props) {
                     <Modal.Body>
                         {game._id ? `Bạn có chắc chắn xóa Game: ${game.name}`
                             : <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
-                                {/* <div className="mb-3">
-                                    <label className="form-label">name</label>
+                                <div className="mb-3">
+                                    <label className="form-label">Tên Game</label>
                                     <input className="form-control" {...register("name", { required: true })} />
                                     <span style={{ color: 'red' }}>{errors.name?.type === 'required' && "name is required !"}</span>
-                                </div> */}
+                                </div>
                                 <div className="mb-3">
                                     <input type="file" id="img" name="img" accept="image/*" className="w-100" onChange={(e) => handleChangeImage(e)} />
                                     <img src={imagePreview} />
@@ -85,7 +97,7 @@ export default function AdminGame(props) {
                                 <tr key={game._id}>
                                     <th scope="row">{i + 1}</th>
                                     <td>{game.name}</td>
-                                    <td>{game.img}</td>
+                                    <td><img style={{ width: "100px" }} src={game.image} /></td>
                                     <td><Button onClick={() => onSetDeleteGame(game)}>Xoa</Button></td>
                                 </tr>
                             )
