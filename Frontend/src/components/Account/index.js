@@ -32,7 +32,7 @@ function Account(props) {
     const buttonActive = acc => {
         const then = moment(new Date(acc.updateAt)).add(acc.rentalTime, 'hours');
         const now = moment(new Date);
-        if (then > now) {
+        if (then > now && acc.isRent) {
             return (<Button className="btn btn-primary btn-rent" style={{ width: "100%" }}>Đang được thuê</Button>)
         } else {
             if (acc.isActive) {

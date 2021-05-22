@@ -2,7 +2,6 @@ import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import AdminAccount from './containers/Admin/account';
 import Nav from './components/Nav/index';
-import HistoryRent from './components/HistoryRent/index';
 import HistoryTransaction from './components/HistoryTransaction/index';
 import Guide from './components/Guide/index';
 import Transaction from './components/Transaction/index';
@@ -11,6 +10,7 @@ import AdminGame from './containers/Admin/game';
 import LoginPage from './containers/Login/index';
 import { useEffect } from 'react';
 import AccountPage from './containers/Account/index';
+import RentHistoryPage from './containers/RentHistory/index';
 
 function App() {
   const location = useLocation();
@@ -33,7 +33,7 @@ function App() {
               <Route path="/" exact component={AccountPage} />
               <Route path="/login" exact component={LoginPage} />
               <Route path="/guide" exact component={Guide} />
-              <Route path="/history-rent" exact component={HistoryRent} />
+              <Route path="/history-rent" exact component={RentHistoryPage} />
               <Route path="/history-transaction" exact component={HistoryTransaction} />
               <Route path="/transaction" exact component={Transaction} />
             </Switch>

@@ -9,7 +9,8 @@ const Admin = new Schema({
     password: { type: String, required: true, },
     email: { type: String, required: true, },
     token: { type: String },
-    role: String,
+    role: { type: String },
+    id: { type: String },
     createAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now }
 });

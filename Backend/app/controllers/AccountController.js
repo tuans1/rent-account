@@ -54,7 +54,7 @@ class AccountController {
                     RentHistory.create({
                         acc: result.acc,
                         name: result.name,
-                        userId: result._id,
+                        userId: req.body.userId,
                         password: result.password,
                         time: req.body.rentalTime,
                     })

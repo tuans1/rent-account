@@ -31,7 +31,7 @@ function route(app) {
     app.use('/account', account)
     app.use('/admin', admin)
     app.use('/game', game)
-    app.use('/rentHistory', rentHistory)
+    app.use('/rent-history', rentHistory)
     app.use('/transaction-history', transactionHistory)
 }
 
