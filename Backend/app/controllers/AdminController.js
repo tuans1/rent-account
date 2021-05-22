@@ -20,6 +20,10 @@ class AdminController {
             res.status(400).send(error)
         }
     }
+    checkMoney(req, res) {
+        console.log(req.body)
+        res.send("OK");
+    }
     async login(req, res, next) {
         try {
             const { password, name } = req.body;

@@ -5,7 +5,8 @@ const port = process.env.PORT || 5000;
 const route = require('./routes')
 const db = require('./config/db')
 const upload = require('express-fileupload')
-// app.use(bodyP)
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '50mb'})); 
 var cors = require('cors')
 db.connect()
 app.use(express.json());

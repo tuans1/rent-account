@@ -69,28 +69,30 @@ export default function AdminAccount(props) {
                             : <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
                                 {watch("id") &&
                                     <div className="mb-3">
-                                        <label className="form-label">Acc</label>
+                                        <label className="form-label">Tên Tài Khoản</label>
                                         <input className="form-control" {...register("acc", { required: true })} />
                                         <span style={{ color: 'red' }}>{errors.acc?.type === 'required' && "acc is required !"}</span>
                                     </div>
                                 }
                                 <div className="mb-3">
-                                    <label className="form-label">Name</label>
+                                    <label className="form-label">Tên Đăng Nhập</label>
                                     <input className="form-control" {...register("name", { required: true })} />
                                     <span style={{ color: 'red' }}>{errors.name?.type === 'required' && "name is required !"}</span>
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label">Password</label>
-                                    <input type="password" className="form-control" {...register("password", { required: true })} />
+                                    <label className="form-label">Mật Khẩu</label>
+                                    <input type="text" className="form-control" {...register("password", { required: true })} />
                                     <span style={{ color: 'red' }}>{errors.password?.type === 'required' && "Password is required !"}</span>
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">Game</label>
                                     <select className="form-select" disabled={watch("id") ? true : false} {...register("game", { required: true })}>
-                                        {/* <option defaultValue value="">Chọn Game</option> */}
-                                        <option value="PUBG">PUBG</option>
-                                        <option value="GTA">GTA V</option>
-                                        <option value="LOL">LOL</option>
+                                        <option defaultValue value="">Chọn Game</option>
+                                        {props.gameList.map(game => {
+                                            return (
+                                                <option key={game._id} value={game._id}>{game.name}</option>
+                                            )
+                                        })}
                                     </select>
                                     <span style={{ color: 'red' }}>{errors.game?.type === 'required' && "Please choose Game !"}</span>
                                 </div>
@@ -98,7 +100,7 @@ export default function AdminAccount(props) {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Hủy</Button>
-                        {account._id ? <Button variant="warning" onClick={onDeleteAccount}>Xóa</Button>
+                        {account._id ? <Button variant="danger" onClick={onDeleteAccount}>Xóa</Button>
                             : <Button variant="primary" type="submit" form="hook-form"  >Save Changes</Button>}
                     </Modal.Footer>
                 </Modal>
@@ -107,11 +109,11 @@ export default function AdminAccount(props) {
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">acc</th>
-                            <th scope="col">name</th>
-                            <th scope="col">pw</th>
-                            <th scope="col">status</th>
-                            <th scope="col">time end</th>
+                            <th scope="col">Tên Tài Khoản</th>
+                            <th scope="col">Tên Đăng Nhập</th>
+                            <th scope="col">Mật Khẩu</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Time</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -125,7 +127,7 @@ export default function AdminAccount(props) {
                                     <td>{acc.password}</td>
                                     <td>{statusAcc(acc)}</td>
                                     <td>{moment(acc.updateAt).add(acc.rentalTime, 'hours').format("DD-MM-YYYY HH:mm:ss")}</td>
-                                    <td><Button onClick={() => onSetEditAccount(acc)}>Sửa</Button><Button onClick={() => onSetDeleteAccount(acc)}>Xoa</Button></td>
+                                    <td><Button onClick={() => onSetEditAccount(acc)}>Sửa</Button><Button variant="warning" onClick={() => onSetDeleteAccount(acc)}>Xoá</Button></td>
                                 </tr>
                             )
                         })}

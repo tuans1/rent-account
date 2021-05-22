@@ -10,7 +10,7 @@ const Account = new Schema({
     isRent: { type: Boolean, default: 0 },
     isActive: { type: Boolean, default: 0 },
     rentalTime: { type: String, default: 0 },
-    image: [{ type: String, default: [] }],
+    image: String,
     note: { type: String, default: "..." },
     game: { type: String },
     createAt: { type: Date, default: Date.now },

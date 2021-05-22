@@ -1,7 +1,7 @@
 import { Button } from 'bootstrap';
 import { React, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import * as action from '../../reducers/adminReducer';
 import './style.css'
 
@@ -70,7 +70,7 @@ function Nav() {
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a className="dropdown-item" >ID : {id}</a></li>
                                     <li><a className="dropdown-item" >LỊCH SỬ NẠP TIỀN</a></li>
-                                    <li><a className="dropdown-item" >TÀI KHOẢN ĐÃ THUÊ</a></li>
+                                    <li><Link to="lich-su-thue" className="dropdown-item" >TÀI KHOẢN ĐÃ THUÊ</Link></li>
                                     <li><a className="dropdown-item" onClick={onLogOut}>ĐĂNG XUẤT</a></li>
                                 </ul>
                             </div> : <h4 style={{ color: 'white' }}>Đăng Nhập</h4>}

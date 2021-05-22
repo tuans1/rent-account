@@ -25,6 +25,8 @@ export default function AdminGame(props) {
     const handleShow = () => {
         reset();
         setShow(true);
+        setImagePreview("");
+        setGame("");
     };
     const onSetDeleteGame = game => {
         setShow(true);
@@ -65,12 +67,12 @@ export default function AdminGame(props) {
                             : <form id="hook-form" onSubmit={handleSubmit(onSubmit)}>
                                 <div className="mb-3">
                                     <label className="form-label">Tên Game</label>
-                                    <input className="form-control" {...register("name", { required: true })} />
+                                    <input className="form-control" autoComplete="off" {...register("name", { required: true })} />
                                     <span style={{ color: 'red' }}>{errors.name?.type === 'required' && "name is required !"}</span>
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-3" >
                                     <input type="file" id="img" name="img" accept="image/*" className="w-100" onChange={(e) => handleChangeImage(e)} />
-                                    <img src={imagePreview} />
+                                    <img src={imagePreview} style={{ width: "100%" }} />
                                 </div>
                             </form>
                         }
@@ -78,7 +80,7 @@ export default function AdminGame(props) {
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Hủy</Button>
                         {game._id ? <Button variant="warning" onClick={onDeleteGame}>Xóa</Button>
-                            : <Button variant="primary" type="submit" form="hook-form"  >Save Changes</Button>}
+                            : <Button variant="primary" type="submit" form="hook-form" >Đồng Ý</Button>}
                     </Modal.Footer>
                 </Modal>
                 <button type="button" className="btn btn-info" onClick={handleShow} style={{ float: 'right' }}>Thêm Mới</button>
@@ -98,7 +100,7 @@ export default function AdminGame(props) {
                                     <th scope="row">{i + 1}</th>
                                     <td>{game.name}</td>
                                     <td><img style={{ width: "100px" }} src={game.image} /></td>
-                                    <td><Button onClick={() => onSetDeleteGame(game)}>Xoa</Button></td>
+                                    <td><Button variant="warning" onClick={() => onSetDeleteGame(game)}>Xóa</Button></td>
                                 </tr>
                             )
                         })}

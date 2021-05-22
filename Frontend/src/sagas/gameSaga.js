@@ -15,7 +15,7 @@ function* fetchGameSaga() {
 
 // create account then render new list
 function* fetchCreateGameSaga({ payload }) {
-    try {console.log(payload)
+    try {
         yield call(Api, '/game/create', 'post', JSON.stringify(payload));
         yield fetchGameSaga();
     } catch (err) {

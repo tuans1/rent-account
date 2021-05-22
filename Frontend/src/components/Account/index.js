@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Countdown from 'react-countdown';
 import ReactMomentCountDown from 'react-moment-countdown';
 import moment from 'moment'
-import Gta5 from '../../assets/account/gta5.jpeg';
 import Category from '../Category';
 import * as action from '../../reducers/accountReducer';
 
@@ -59,7 +58,7 @@ function Account(props) {
                             return (
                                 <div key={acc._id} className="card col-lg-3" style={{ width: '19rem' }}>
                                     <img
-                                        src={Gta5}
+                                        src={acc.image}
                                         className="card-img-top"
                                         alt="..."
                                     />

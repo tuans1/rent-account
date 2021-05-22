@@ -4,7 +4,7 @@ var upload = multer();
 class GameController {
 
     index(req, res, next) {
-        Game.find({}).then(game => res.send(game))
+        Game.find({}).sort({ "name": 1 }).then(game => res.send(game))
     }
 
     async create(req, res) {
