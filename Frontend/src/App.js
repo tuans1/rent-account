@@ -31,11 +31,11 @@ function App() {
           <div className="container">
             <Switch>
               <Route path="/" exact component={AccountPage} />
-              <Route path="/login" exact component={LoginPage} />
-              <Route path="/guide" exact component={Guide} />
-              <Route path="/history-rent" exact component={RentHistoryPage} />
-              <Route path="/history-transaction" exact component={HistoryTransaction} />
-              <Route path="/transaction" exact component={Transaction} />
+              <Route path="/dang-nhap" exact component={LoginPage} />
+              <Route path="/huong-dan" exact component={Guide} />
+              <Route path="/lich-su-thue" exact component={RentHistoryPage} />
+              <Route path="/lich-su-giao-dich" exact component={HistoryTransaction} />
+              <Route path="/giao-dich" exact component={Transaction} />
             </Switch>
           </div>
         </div>

@@ -13,7 +13,7 @@ export default function Login(props) {
     }
     // khi login thành công sẽ chuyển về trang chủ
     useEffect(() => {
-        if (isLogin === true) {
+        if (localStorage.getItem("id")) {
             history.push("/");
         }
     }, [isLogin])

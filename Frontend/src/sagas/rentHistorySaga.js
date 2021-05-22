@@ -6,9 +6,8 @@ import Api from '../request';
 // get list account in Account + Admin PAGE
 function* fetchRentHistorySaga() {
     try {
-        const payload = yield call(Api, '/rent-history/'+localStorage.getItem("id"), 'get')
-        // yield put({ type: constants.FETCH_GAME_SUCCESS, payload })
-        console.log(payload)
+        const payload = yield call(Api, '/rent-history/' + localStorage.getItem("id"), 'get')
+        yield put({ type: constants.FETCH_HISTORY_RENT_SUCCESS, payload })
     } catch (err) {
         console.log(err)
     }
