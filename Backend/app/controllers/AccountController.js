@@ -9,6 +9,7 @@ class AccountController {
         const formData = req.body;
         const account = new Account(formData);
         account.acc = account.game + " " + Math.floor(Math.random() * Math.floor(9999));
+        account.isActive = true;
         account.save()
         res.status(200).send({ message: "success" });
     }

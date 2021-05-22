@@ -16,10 +16,11 @@ function App() {
   const location = useLocation();
   const history = useHistory();
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      history.push("/login");
-    } else {
+    if (localStorage.getItem("token")) {
       // history.push("/");
+      return;
+    } else {
+      history.push("/login");
     }
   }, [])
   return (

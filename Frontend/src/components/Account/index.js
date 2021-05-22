@@ -14,24 +14,36 @@ function Account(props) {
     const dispatch = useDispatch();
     const { accounts } = useSelector(state => state.accountReducer)
     const [rentalTime, setRentalTime] = useState();
+    const [isRent, setIsRent] = useState();
     const dateInFuture = moment('2021-05-21 15:34:00').add(2, 'hours');
     useEffect(() => {
         dispatch(action.onFetchAccount())
     }, [])
 
     const timeLeft = (time, timeUpdate) => {
-        var then = moment('2021-05-10 22:06:37').add(8, 'hours').unix();
-        var now = moment(new Date).unix();
-        var countdown = moment(then - now);
-        var timeLeft = moment.unix(countdown).utcOffset(0).format("HH:mm:ss")
-        console.log(moment(timeUpdate).add(1000, 'seconds'))
-        if (moment(timeUpdate) === moment(new Date)) {
-            console.log(1)
+        const then = moment(new Date(timeUpdate)).add(time, 'hours');
+        const now = moment(new Date);
+        if (then > now) {
+            return <Countdown date={moment(timeUpdate).add(time, 'hours')} />
         } else {
-            console.log(2)
+            return (<p>ĐỔI PASS</p>)
         }
-        return <Countdown date={moment(timeUpdate).add(time, 'hours')} />
     };
+    const isActive = acc => {
+        const then = moment(new Date(acc.updateAt)).add(acc.rentalTime, 'hours');
+        const now = moment(new Date);
+        if (then > now) {
+            return (<Button className="btn btn-primary btn-rent" style={{ width: "100%" }}>Đang được thuê</Button>)
+        } else {
+            if (acc.isActive) {
+                return (<Button className="btn btn-primary btn-rent" onClick={() => onHandleRent(acc._id)} style={{ width: "100%" }}>Thuê Ngay</Button>)
+            } else {
+                return (<Button className="btn btn-primary btn-rent" style={{ width: "100%" }}>CHỜ ĐỔI PASS</Button>)
+            }
+        }
+
+
+    }
     const setTimeRent = e => {
         setRentalTime(e.target.value)
     }
@@ -69,8 +81,7 @@ function Account(props) {
                                                 </div>
                                             </div>
                                         </div>
-                                        {acc.isActive ? <Button className="btn btn-primary btn-rent" onClick={() => onHandleRent(acc._id)} style={{ width: "100%" }}>Thuê Ngay</Button>
-                                            : <Button className="btn btn-primary btn-rent" style={{ width: "100%" }}>Chờ đổi pass</Button>}
+                                        {isActive(acc)}
                                     </div>
                                 </div>
                             )
