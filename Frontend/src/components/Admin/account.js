@@ -60,6 +60,7 @@ export default function AdminAccount(props) {
     return (
         <>
             <div className="container">
+                <h3>QUẢN LÝ TÀI KHOẢN</h3>
                 <Modal show={show} onHide={handleClose} animation={false}>
                     <Modal.Header closeButton>
                         <Modal.Title>{account._id ? "Xoá tài khoản" : watch("id") ? "Sửa tài khoản" : "Thêm tài khoản"}</Modal.Title>
@@ -104,7 +105,7 @@ export default function AdminAccount(props) {
                             : <Button variant="primary" type="submit" form="hook-form"  >Save Changes</Button>}
                     </Modal.Footer>
                 </Modal>
-                <button type="button" className="btn btn-info" onClick={handleShow} style={{ float: 'right' }}>Thêm Mới</button>
+
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -114,7 +115,7 @@ export default function AdminAccount(props) {
                             <th scope="col">Mật Khẩu</th>
                             <th scope="col">Status</th>
                             <th scope="col">Time</th>
-                            <th scope="col"></th>
+                            <th scope="col"><button type="button" className="btn btn-info" onClick={handleShow} >Thêm Mới</button></th>
                         </tr>
                     </thead>
                     <tbody>

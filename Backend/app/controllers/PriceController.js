@@ -3,7 +3,7 @@ const Price = require('../models/Price')
 class PriceController {
 
     index(req, res, next) {
-        Price.find({}).sort({ "price": 1 }).then(price => res.send(price))
+        Price.find({}).then(price => res.send(price))
     }
 
     async create(req, res) {

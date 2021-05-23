@@ -3,8 +3,13 @@ const RentHistory = require('../models/RentHistory')
 const Game = require('../models/Game')
 class AccountController {
     index(req, res, next) {
-        Account.find({}).sort({ "acc": 1 })
+        Account.find({}).sort({ "acc": 1, "isRent": -1})
             .then(acc => res.send(acc))
+    }
+    search(req, res) {
+        console.log(req.body)
+        // Account.find({}).sort({ "acc": 1 })
+        //     .then(acc => res.send(acc))
     }
     async create(req, res, next) {
         const formData = req.body;
@@ -21,14 +26,8 @@ class AccountController {
 
     edit(req, res) {
         try {
-            Account.findByIdAndUpdate(req.body.id, req.body, (err, result) => {
-                if (err) {
-                    return res
-                        .status(500)
-                        .send({ error: "unsuccessful" })
-                };
-                res.send({ success: "success" });
-            })
+            const acc = Account.findById(req.body.id);
+            console.log(acc);
         } catch (err) {
             return res.status(500).json({
                 status: 'error',
@@ -50,7 +49,8 @@ class AccountController {
     }
     async rent(req, res) {
         try {
-            await Account.findByIdAndUpdate(req.body.accId, { rentalTime: req.body.rentalTime, isRent: true, isActive: false, updateAt: new Date() }, (err, result) => {
+            const rentalTime = JSON.parse(req.body.rentalTime);
+            await Account.findByIdAndUpdate(req.body.accId, { rentalTime: rentalTime.time, isRent: true, isActive: false, updateAt: new Date() }, (err, result) => {
                 if (err) {
                     return res
                         .status(500)
@@ -60,8 +60,8 @@ class AccountController {
                         acc: result.acc,
                         name: result.name,
                         password: result.password,
-                        game: result.game,
-                        time: req.body.rentalTime,
+                        game: "GTA",
+                        time: rentalTime.time,
                         userId: req.body.userId,
                     })
                     res.send({ success: "success" });
@@ -75,5 +75,7 @@ class AccountController {
             })
         }
     }
+
+
 }
 module.exports = new AccountController;

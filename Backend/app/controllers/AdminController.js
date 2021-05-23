@@ -26,6 +26,8 @@ class AdminController {
         if (admin.money < rentalTime.price) {
             res.status(404).send({ message: "Số tiền không đủ để thanh toán. Vui lòng nạp thêm !" })
         } else {
+            admin.money = admin.money - rentalTime.price
+            admin.save();
             res.status(200).send({ message: "Thuê Acc thành công !" })
         }
         res.status(200).send({ admin })

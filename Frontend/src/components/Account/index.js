@@ -8,14 +8,20 @@ import Countdown from 'react-countdown';
 import moment from 'moment'
 import Category from '../Category';
 import * as action from '../../reducers/accountReducer';
+import * as priceAction from '../../reducers/priceReducer';
+import * as gameAction from '../../reducers/gameReducer';
+
 
 function Account(props) {
     const dispatch = useDispatch();
     const { accounts } = useSelector(state => state.accountReducer)
     const { prices } = useSelector(state => state.priceReducer)
+    const { game } = useSelector(state => state.gameReducer)
     const [rentalTime, setRentalTime] = useState();
     useEffect(() => {
         dispatch(action.onFetchAccount());
+        dispatch(priceAction.onFetchPrice())
+        dispatch(gameAction.onFetchGame())
     }, [])
 
     const timeLeft = (time, timeUpdate) => {
@@ -45,9 +51,12 @@ function Account(props) {
         setRentalTime(e.target.value)
     }
     const onHandleRent = (accId) => {
-        props.onHandleRent({ accId, rentalTime })
+        if(localStorage.getItem("id")){
+            props.onHandleRent({ accId, rentalTime })
+        }else{
+            alert("VUI LÒNG ĐĂNG NHẬP")
+        }
     }
-    console.log(prices)
     return (
         <>
             <Category />
@@ -66,16 +75,17 @@ function Account(props) {
                                         <div className="card-info">
                                             <div className="row">
                                                 <div className="col-lg-8 rent-price">
-                                                    <select onChange={(e) => setTimeRent(e)} className="form-select" aria-label="Default select example">
-                                                        <option defaultValue value="5">5.000K / 5 giờ</option>
-                                                        <option value={JSON.stringify({ time: "10", price: "8000" })}>8.000K / 10 giờ</option>
-                                                        <option value="15">10.000K / 15 giờ</option>
-                                                        <option value="24">20.000K / 1 ngày</option>
-                                                        <option value="1200">60.000K / 5 ngày</option>
+                                                    <select defaultValue="" onChange={(e) => setTimeRent(e)} className="form-select" aria-label="Default select example">
+                                                        <option value="" disabled="disabled">Chọn Mức Giá</option>
+                                                        {prices.map(price => {
+                                                            return (
+                                                                <option key={price._id} value={JSON.stringify({ time: price.time, price: price.price })}>{price.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}đ / {price.time} giờ</option>
+                                                            )
+                                                        })}
                                                     </select>
                                                 </div>
                                                 <div className="col-lg-4 rent-status">
-                                                    {acc.isRent ? timeLeft(acc.rentalTime, acc.updateAt) : <p>SẴN SÀNG</p>}
+                                                    {acc.isRent ? <p style={{ color: "red" }}>{timeLeft(acc.rentalTime, acc.updateAt)}</p> : <p style={{ color: "green" }}>SẴN SÀNG</p>}
                                                 </div>
                                             </div>
                                         </div>

@@ -39,6 +39,7 @@ export default function AdminPrice(props) {
     return (
         <>
             <div className="container">
+                <h3>QUẢN LÝ GIỜ THUÊ</h3>
                 <Modal show={show} onHide={handleClose} animation={false}>
                     <Modal.Header closeButton>
                         <Modal.Title>{price._id ? "Xoá Mức Giá" : "Thêm Mức Giá"}</Modal.Title>
@@ -65,14 +66,14 @@ export default function AdminPrice(props) {
                             : <Button variant="primary" type="submit" form="hook-form" >Đồng Ý</Button>}
                     </Modal.Footer>
                 </Modal>
-                <button type="button" className="btn btn-info" onClick={handleShow} style={{ float: 'right' }}>Thêm Mới</button>
+
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">THỜI GIAN</th>
                             <th scope="col">MỨC GIÁ</th>
-                            <th scope="col"></th>
+                            <th scope="col"><button type="button" className="btn btn-info" onClick={handleShow}>Thêm Mới</button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,7 +82,7 @@ export default function AdminPrice(props) {
                                 <tr key={price._id}>
                                     <th scope="row">{i + 1}</th>
                                     <td>{price.time} giờ</td>
-                                    <td>{price.price} đ</td>
+                                    <td>{price.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} đ</td>
                                     <td><Button variant="warning" onClick={() => onSetDeletePrice(price)}>Xóa</Button></td>
                                 </tr>
                             )
