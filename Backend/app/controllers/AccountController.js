@@ -50,24 +50,23 @@ class AccountController {
     }
     async rent(req, res) {
         try {
-            // await Account.findByIdAndUpdate(req.body.accId, { rentalTime: req.body.rentalTime, isRent: true, isActive: false, updateAt: new Date() }, (err, result) => {
-            //     if (err) {
-            //         return res
-            //             .status(500)
-            //             .send({ error: "unsuccessful" })
-            //     } else {
-            //         RentHistory.create({
-            //             acc: result.acc,
-            //             name: result.name,
-            //             password: result.password,
-            //             game: result.game,
-            //             time: req.body.rentalTime,
-            //             userId: req.body.userId,
-            //         })
-            //         res.send({ success: "success" });
-            //     }
-
-            // })
+            await Account.findByIdAndUpdate(req.body.accId, { rentalTime: req.body.rentalTime, isRent: true, isActive: false, updateAt: new Date() }, (err, result) => {
+                if (err) {
+                    return res
+                        .status(500)
+                        .send({ error: "unsuccessful" })
+                } else {
+                    RentHistory.create({
+                        acc: result.acc,
+                        name: result.name,
+                        password: result.password,
+                        game: result.game,
+                        time: req.body.rentalTime,
+                        userId: req.body.userId,
+                    })
+                    res.send({ success: "success" });
+                }
+            })
             res.send({ success: "success" });
         } catch (err) {
             return res.status(500).json({

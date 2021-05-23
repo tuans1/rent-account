@@ -3,6 +3,7 @@ const account = require('./account')
 const admin = require('./admin')
 const game = require('./game')
 const rentHistory = require('./rentHistory')
+const price = require('./price')
 const transactionHistory = require('./transactionHistory')
 const jwt = require('jsonwebtoken')
 // const middleware = require('../middleware/request')
@@ -32,6 +33,7 @@ function route(app) {
     app.use('/admin', admin)
     app.use('/game', game)
     app.use('/rent-history', rentHistory)
+    app.use('/price', price)
     app.use('/transaction-history', transactionHistory)
 }
 

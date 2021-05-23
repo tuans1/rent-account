@@ -1,6 +1,7 @@
 import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import AdminAccount from './containers/Admin/account';
+import AdminPricePage from './containers/Admin/price';
 import Nav from './components/Nav/index';
 import HistoryTransaction from './components/HistoryTransaction/index';
 import Guide from './components/Guide/index';
@@ -20,16 +21,22 @@ function App() {
       // history.push("/");
       return;
     } else {
-      history.push("/login");
+      history.push("/dang-nhap");
     }
   }, [])
   return (
     <>
-      {location.pathname === '/admin' ? <Route path="/admin" exact component={AdminAccount} /> : location.pathname === "/admin/game" ? <Route path="/admin/game" exact component={AdminGame} />
+      {localStorage.getItem("role") === "user" ?
+        <Switch>
+
+        </Switch>
         : <div className="wrapper">
           <Nav />
           <div className="container">
             <Switch>
+              <Route path="/admin" exact component={AdminAccount} />
+              <Route path="/admin/game" exact component={AdminGame} />
+              <Route path="/admin/price" exact component={AdminPricePage} />
               <Route path="/" exact component={AccountPage} />
               <Route path="/dang-nhap" exact component={LoginPage} />
               <Route path="/huong-dan" exact component={Guide} />

@@ -4,7 +4,7 @@ import './style.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Countdown from 'react-countdown';
-import ReactMomentCountDown from 'react-moment-countdown';
+
 import moment from 'moment'
 import Category from '../Category';
 import * as action from '../../reducers/accountReducer';
@@ -12,9 +12,8 @@ import * as action from '../../reducers/accountReducer';
 function Account(props) {
     const dispatch = useDispatch();
     const { accounts } = useSelector(state => state.accountReducer)
+    const { prices } = useSelector(state => state.priceReducer)
     const [rentalTime, setRentalTime] = useState();
-    const [isRent, setIsRent] = useState();
-    const dateInFuture = moment('2021-05-21 15:34:00').add(2, 'hours');
     useEffect(() => {
         dispatch(action.onFetchAccount());
     }, [])
@@ -48,6 +47,7 @@ function Account(props) {
     const onHandleRent = (accId) => {
         props.onHandleRent({ accId, rentalTime })
     }
+    console.log(prices)
     return (
         <>
             <Category />
@@ -68,7 +68,7 @@ function Account(props) {
                                                 <div className="col-lg-8 rent-price">
                                                     <select onChange={(e) => setTimeRent(e)} className="form-select" aria-label="Default select example">
                                                         <option defaultValue value="5">5.000K / 5 giờ</option>
-                                                        <option value="10">8.000K / 10 giờ</option>
+                                                        <option value={JSON.stringify({ time: "10", price: "8000" })}>8.000K / 10 giờ</option>
                                                         <option value="15">10.000K / 15 giờ</option>
                                                         <option value="24">20.000K / 1 ngày</option>
                                                         <option value="1200">60.000K / 5 ngày</option>

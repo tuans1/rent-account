@@ -13,8 +13,10 @@ export default function Login(props) {
     }
     // khi login thành công sẽ chuyển về trang chủ
     useEffect(() => {
-        if (localStorage.getItem("id")) {
+        if (localStorage.getItem("id") && localStorage.getItem("role" === "user")) {
             history.push("/");
+        } else {
+            history.push("/admin");
         }
     }, [isLogin])
     return (

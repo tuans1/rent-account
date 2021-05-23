@@ -44,8 +44,11 @@ function* fetchDeleteAccountSaga({ payload }) {
 function* fetchRentSaga({ payload }) {
     try {
         payload.userId = localStorage.getItem("id");
-        // yield call(Api, '/account/rent', 'post', JSON.stringify(payload ));
-        yield call(Api, '/admin/check-money', 'post', JSON.stringify(payload ));
+        const data = yield call(Api, '/admin/check-money', 'post', JSON.stringify(payload ));
+        if(data.message){
+            
+        }
+        yield call(Api, '/account/rent', 'post', JSON.stringify(payload ));
         yield fetchAccountSaga();
     } catch (err) {
         console.log(err)

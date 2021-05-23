@@ -12,6 +12,7 @@ function* fetchAdminSaga({ payload }) {
             localStorage.setItem("token", data.admin.token);
             localStorage.setItem("name", data.admin.name);
             localStorage.setItem("id", data.admin.id);
+            localStorage.setItem("role", data.admin.role);
         }
     } catch (err) {
         console.log(err)

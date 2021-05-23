@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import AdminAccount from '../../components/Admin/account.js';
 import * as action from '../../reducers/accountReducer';
 import * as gameAction from '../../reducers/gameReducer';
+import * as priceAction from '../../reducers/priceReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function AdminAccountPage() {
@@ -21,6 +22,7 @@ export default function AdminAccountPage() {
     useEffect(() => {
         dispatch(gameAction.onFetchGame())
         dispatch(action.onFetchAccount())
+        dispatch(priceAction.onFetchPrice())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (

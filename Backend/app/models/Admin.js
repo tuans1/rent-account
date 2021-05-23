@@ -11,6 +11,7 @@ const Admin = new Schema({
     token: { type: String },
     role: { type: String },
     id: { type: String },
+    money: String,
     createAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now }
 });

@@ -20,9 +20,15 @@ class AdminController {
             res.status(400).send(error)
         }
     }
-    checkMoney(req, res) {
-        console.log(req.body)
-        res.send("OK");
+    async checkMoney(req, res) {
+        const rentalTime = JSON.parse(req.body.rentalTime);
+        const admin = await Admin.findOne({ id: req.body.userId })
+        if (admin.money < rentalTime.price) {
+            res.status(404).send({ message: "Số tiền không đủ để thanh toán. Vui lòng nạp thêm !" })
+        } else {
+            res.status(200).send({ message: "Thuê Acc thành công !" })
+        }
+        res.status(200).send({ admin })
     }
     async login(req, res, next) {
         try {
