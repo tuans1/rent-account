@@ -75,8 +75,24 @@ class AdminController {
             res.status(400).send(error)
         }
     }
-    // function name(params) {
+    async loginFacebook(req, res) {
+        const { id, accessToken, name, email } = req.body;
+        const admin = await Admin.findOne({ id })
+        if (admin) {
+            res.status(200).send(admin);
+        } else {
+            const admin = new Admin();
+            admin.id = Math.floor(Date.now() / 1000).toString().slice(4);
+            admin.name = name;
+            admin.email = email;
+            admin.password = "password";
+            admin.token = accessToken;
+            admin.role = "user";
+            admin.money = 0;
+            await admin.save();
+            res.status(200).send(admin);
 
-    // }
+        }
+    }
 }
 module.exports = new AdminController;

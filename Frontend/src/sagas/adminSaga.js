@@ -31,8 +31,22 @@ function* fetchAdminInfoSaga() {
     }
 }
 
+function* fetchAdminFacebookSaga({ payload }) {
+    try {
+        const data = yield call(Api, '/admin/login-fb', 'post', JSON.stringify(payload))
+        yield put({ type: constants.FETCH_LOGIN_SUCCESS, payload: data })
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("id", data.id);
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("money", data.money);
+    } catch (e) {
+        console.log(e)
+    }
+}
 export default function* adminSaga() {
     yield takeLatest(constants.FETCH_LOGIN, fetchAdminSaga);
     yield takeLatest(constants.FETCH_ADMIN, fetchAdminInfoSaga);
+    yield takeLatest(constants.FETCH_LOGIN_FACEBOOK, fetchAdminFacebookSaga);
     // yield takeLatest(constants.FETCH_DELETE_GAME, fetchDeleteGameSaga);
 }

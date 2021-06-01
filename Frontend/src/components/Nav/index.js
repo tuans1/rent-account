@@ -68,7 +68,7 @@ function Nav() {
                                 </li>
                             </ul>
                             {login ? <div className="dropdown">
-                                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</button>
+                                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{money && money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</button>
                                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li className="dropdown-item">ID : {id}</li>
                                     <li><Link to="/" className="dropdown-item" >LỊCH SỬ NẠP TIỀN</Link></li>
