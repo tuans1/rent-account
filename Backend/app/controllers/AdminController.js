@@ -1,12 +1,11 @@
 const Admin = require('../models/Admin')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
-const { reset } = require('nodemon');
 
 
 class AdminController {
     index(req, res, next) {
-        Admin.find({})
+        Admin.find({ id: req.params.id })
             .then(acc => res.send(acc))
     }
     async create(req, res, next) {
@@ -21,16 +20,13 @@ class AdminController {
         }
     }
     async checkMoney(req, res) {
-        const rentalTime = JSON.parse(req.body.rentalTime);
         const admin = await Admin.findOne({ id: req.body.userId })
-        if (admin.money < rentalTime.price) {
-            res.status(404).send({ message: "Số tiền không đủ để thanh toán. Vui lòng nạp thêm !" })
+        const rentalTime = JSON.parse(req.body.rentalTime);
+        if (parseInt(admin.money) < parseInt(rentalTime.price)) {
+            res.status(403).send({ error: "Số tiền không đủ để thanh toán. Vui lòng nạp thêm !" })
         } else {
-            admin.money = admin.money - rentalTime.price
-            admin.save();
             res.status(200).send({ message: "Thuê Acc thành công !" })
         }
-        res.status(200).send({ admin })
     }
     async login(req, res, next) {
         try {

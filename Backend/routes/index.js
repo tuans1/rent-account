@@ -28,7 +28,7 @@ function route(app) {
     //         }
     //     }
     // })
-
+    
     app.use('/account', account)
     app.use('/admin', admin)
     app.use('/game', game)

@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const AdminController = require('../app/controllers/AdminController')
 
-router.get('/', AdminController.index)
+router.get('/:id', AdminController.index)
 router.post('/create', AdminController.create)
 router.post('/login', AdminController.login)
 router.post('/check-money', AdminController.checkMoney)

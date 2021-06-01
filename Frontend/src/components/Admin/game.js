@@ -72,7 +72,7 @@ export default function AdminGame(props) {
                                     <span style={{ color: 'red' }}>{errors.name?.type === 'required' && "name is required !"}</span>
                                 </div>
                                 <div className="mb-3" >
-                                    <input type="file" id="img" name="img" accept="image/*" className="w-100" onChange={(e) => handleChangeImage(e)} />
+                                    <span className="btn btn-primary btn-file"><i class="fa fa-upload"></i>Thêm Ảnh<input type="file" id="img" name="img" accept="image/*" className="w-100" onChange={(e) => handleChangeImage(e)} /></span>
                                     <img src={imagePreview} style={{ width: "100%" }} />
                                 </div>
                             </form>
@@ -84,14 +84,14 @@ export default function AdminGame(props) {
                             : <Button variant="primary" type="submit" form="hook-form" >Đồng Ý</Button>}
                     </Modal.Footer>
                 </Modal>
-                <button type="button" className="btn btn-info" onClick={handleShow} style={{ float: 'right' }}>Thêm Mới</button>
+
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">GAME</th>
                             <th scope="col">IMAGE</th>
-                            <th scope="col"></th>
+                            <th scope="col"> <button type="button" className="btn btn-info" onClick={handleShow} >Thêm Mới</button></th>
                         </tr>
                     </thead>
                     <tbody>

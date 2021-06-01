@@ -2,7 +2,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as constants from '../reducers/adminReducer';
 import Api from '../request';
-import { useSelector } from 'react-redux';
+
 // get list account in Account + Admin PAGE
 function* fetchAdminSaga({ payload }) {
     try {
@@ -19,30 +19,20 @@ function* fetchAdminSaga({ payload }) {
         console.log(err)
     }
 }
-
-// // create account then render new list
-// function* fetchCreateGameSaga({ payload }) {
-//     try {console.log(payload)
-//         yield call(Api, '/game/create', 'post', JSON.stringify(payload));
-//         yield fetchGameSaga();
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
-
-// // delete account then render new list
-// function* fetchDeleteGameSaga({ payload }) {
-//     try {
-//         yield call(Api, '/game/delete', 'delete', JSON.stringify({ id: payload }));
-//         yield fetchGameSaga();
-//     } catch (err) {
-//         console.log(err)
-//     }
-// }
-
+function* fetchAdminInfoSaga() {
+    try {
+        const data = yield call(Api, '/admin/' + localStorage.getItem("id"), 'get')
+        if (data[0]) {
+            localStorage.setItem("money", data[0].money);
+            yield put({ type: constants.FETCH_LOGIN_SUCCESS })
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
 
 export default function* adminSaga() {
     yield takeLatest(constants.FETCH_LOGIN, fetchAdminSaga);
-    // yield takeLatest(constants.FETCH_CREATE_GAME, fetchCreateGameSaga);
+    yield takeLatest(constants.FETCH_ADMIN, fetchAdminInfoSaga);
     // yield takeLatest(constants.FETCH_DELETE_GAME, fetchDeleteGameSaga);
 }

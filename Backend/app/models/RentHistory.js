@@ -9,7 +9,6 @@ const RentHistory = new Schema({
     userId: String,
     password: String,
     time: String,
-    game: String,
     createAt: { type: Date, default: Date.now },
     updateAt: { type: Date, default: Date.now }
 });

@@ -3,8 +3,7 @@ import { Button } from 'react-bootstrap';
 import './style.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Countdown from 'react-countdown';
-
+import ReactMomentCountDown from 'react-moment-countdown';
 import moment from 'moment'
 import Category from '../Category';
 import * as action from '../../reducers/accountReducer';
@@ -28,9 +27,9 @@ function Account(props) {
         const then = moment(new Date(timeUpdate)).add(time, 'hours');
         const now = moment(new Date);
         if (then > now) {
-            return <Countdown date={moment(timeUpdate).add(time, 'hours')} />
+            return <ReactMomentCountDown toDate={then} />
         } else {
-            return (<p>ĐỔI PASS</p>)
+            return ("ĐỔI PASS")
         }
     };
     const buttonActive = acc => {
@@ -51,9 +50,10 @@ function Account(props) {
         setRentalTime(e.target.value)
     }
     const onHandleRent = (accId) => {
-        if(localStorage.getItem("id")){
+        // setRentalTime("");
+        if (localStorage.getItem("id")) {
             props.onHandleRent({ accId, rentalTime })
-        }else{
+        } else {
             alert("VUI LÒNG ĐĂNG NHẬP")
         }
     }

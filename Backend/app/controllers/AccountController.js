@@ -1,9 +1,10 @@
 const Account = require('../models/Account')
 const RentHistory = require('../models/RentHistory')
 const Game = require('../models/Game')
+const Admin = require('../models/Admin')
 class AccountController {
     index(req, res, next) {
-        Account.find({}).sort({ "acc": 1, "isRent": -1})
+        Account.find({}).sort({ "isRent": 1, "acc": 1 })
             .then(acc => res.send(acc))
     }
     search(req, res) {
@@ -25,17 +26,14 @@ class AccountController {
     }
 
     edit(req, res) {
-        try {
-            const acc = Account.findById(req.body.id);
-            console.log(acc);
-        } catch (err) {
-            return res.status(500).json({
-                status: 'error',
-                message: 'Error EDIT',
-            })
-        }
+        Account.findByIdAndUpdate(req.body.id, { acc: req.body.acc, name: req.body.name, password: req.body.password, isRent: false, isActive: true }, (err, result) => {
+            if (err) {
+                return res.status(500).send({ error: "unsuccessful" })
+            } else {
+                res.send({ success: "success" });
+            }
+        })
     }
-
     delete(req, res) {
         try {
             Account.findOne({ _id: req.body.id }).deleteOne().exec();
@@ -60,14 +58,15 @@ class AccountController {
                         acc: result.acc,
                         name: result.name,
                         password: result.password,
-                        game: "GTA",
                         time: rentalTime.time,
                         userId: req.body.userId,
                     })
-                    res.send({ success: "success" });
                 }
             })
-            res.send({ success: "success" });
+            const admin = await Admin.findOne({ id: req.body.userId })
+            admin.money -= rentalTime.price;
+            admin.save();
+            res.status(200).send(admin)
         } catch (err) {
             return res.status(500).json({
                 status: 'error',

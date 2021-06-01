@@ -3,8 +3,8 @@ body,.wrapper{
     height: 100%;
 }
 .contact{
-    position: absolute;
-    bottom: 20px;
+    position: fixed;
+    bottom: 0px;
     right: 0;
 }
 .pu-bchatbox {

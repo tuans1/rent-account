@@ -2,6 +2,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as constants from '../reducers/accountReducer';
 import Api from '../request';
+import * as adminConstants from '../reducers/adminReducer';
 
 // get list account in Account + Admin PAGE
 function* fetchAccountSaga() {
@@ -44,16 +45,23 @@ function* fetchDeleteAccountSaga({ payload }) {
 function* fetchRentSaga({ payload }) {
     try {
         payload.userId = localStorage.getItem("id");
-        const data = yield call(Api, '/admin/check-money', 'post', JSON.stringify(payload));
-        if (data.message) {
+        const message = yield call(Api, '/admin/check-money', 'post', JSON.stringify(payload));
+        console.log(message)
+        if (message.error) {
+            alert("SO TIEN K DU")
+            return;
         }
-        console.log(data)
-        yield call(Api, '/account/rent', 'post', JSON.stringify(payload));
+        const data = yield call(Api, '/account/rent', 'post', JSON.stringify(payload));
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("money", data.money);
+        yield put({ type: adminConstants.FETCH_ADMIN_SUCCESS })
         yield fetchAccountSaga();
     } catch (err) {
         console.log(err)
     }
 }
+
+
 export default function* accountSaga() {
     yield takeLatest(constants.FETCH_ACCOUNT, fetchAccountSaga);
     yield takeLatest(constants.FETCH_CREATE_ACCOUNT, fetchCreateAccountSaga);

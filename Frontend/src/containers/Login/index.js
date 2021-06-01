@@ -8,7 +8,12 @@ export default function LoginPage() {
     const onSubmit = admin => {
         dispatch(action.onFetchLogin(admin));
     }
+    const loginFacebook = admin => {
+        console.log(admin)
+    }
     return (
-        <Login onSubmit={onSubmit} />
+        <Login onSubmit={onSubmit}
+            loginFacebook={loginFacebook}
+        />
     )
 }

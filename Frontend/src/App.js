@@ -1,5 +1,8 @@
 import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
+import 'font-awesome/css/font-awesome.min.css';
+import '../node_modules/font-awesome/css/font-awesome.min.css'; 
+
 import AdminAccount from './containers/Admin/account';
 import AdminPricePage from './containers/Admin/price';
 import Nav from './components/Nav/index';
@@ -47,7 +50,7 @@ function App() {
             </Switch>
           </div>
           <div className="contact">
-            {/* <a href="https://www.facebook.com/Thu%C3%AA-Acc-110458054565244" target="_blank"><img src={contact} /></a> */}
+            <a href="https://www.facebook.com/Thu%C3%AA-Acc-110458054565244" target="_blank"><img src={contact} /></a>
           </div>
         </div>
       }

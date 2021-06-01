@@ -3,7 +3,7 @@ const RentHistory = require('../models/RentHistory')
 class RentHistoryController {
 
     index(req, res, next) {
-        RentHistory.find({userId : req.params.id}).then(history => res.send(history))
+        RentHistory.find({userId : req.params.id}).sort({createAt: -1}).then(history => res.send(history))
     }
 
     async create(req, res) {
