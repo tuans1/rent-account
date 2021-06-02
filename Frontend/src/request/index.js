@@ -14,7 +14,7 @@ export default async function fetchApi(url, method, body) {
             return responseJson
         })
         .catch((error) => {
-            console.log("RUN err")
+            console.log(error)
             throw error;
         });
     return data;

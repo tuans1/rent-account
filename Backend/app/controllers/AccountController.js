@@ -56,7 +56,7 @@ class AccountController {
                 } else {
                     RentHistory.create({
                         acc: result.acc,
-                        name: result.name,
+                        email: result.email,
                         password: result.password,
                         time: rentalTime.time,
                         userId: req.body.userId,

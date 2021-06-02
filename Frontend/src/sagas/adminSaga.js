@@ -44,9 +44,17 @@ function* fetchAdminFacebookSaga({ payload }) {
         console.log(e)
     }
 }
+
+function* fetchRegisterAminSaga({ payload }) {
+    try {
+        yield call(Api, '/admin/register', 'post', JSON.stringify(payload))
+    } catch (e) {
+        console.log(e)
+    }
+}
 export default function* adminSaga() {
     yield takeLatest(constants.FETCH_LOGIN, fetchAdminSaga);
     yield takeLatest(constants.FETCH_ADMIN, fetchAdminInfoSaga);
     yield takeLatest(constants.FETCH_LOGIN_FACEBOOK, fetchAdminFacebookSaga);
-    // yield takeLatest(constants.FETCH_DELETE_GAME, fetchDeleteGameSaga);
+    yield takeLatest(constants.FETCH_REGISTER_ADMIN, fetchRegisterAminSaga);
 }

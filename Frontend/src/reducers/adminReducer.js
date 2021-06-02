@@ -4,7 +4,7 @@ export const FETCH_LOGIN_SUCCESS = "FETCH_LOGIN_SUCCESS";
 export const FETCH_ADMIN = "FETCH_ADMIN";
 export const FETCH_ADMIN_SUCCESS = "FETCH_ADMIN_SUCCESS";
 export const FETCH_LOGIN_FAILED = "FETCH_LOGIN_FAILED";
-export const FETCH_RESET_PASSWORD = "FETCH_RESET_PASSWORD";
+export const FETCH_REGISTER_ADMIN = "FETCH_REGISTER_ADMIN";
 export const FETCH_RESET_PASSWORD_SUCCESS = "FETCH_RESET_PASSWORD_SUCCESS";
 export const FETCH_CHANGE_PASSWORD = "FETCH_CHANGE_PASSWORD";
 export const FETCH_CHANGE_PASSWORD_ADMIN = "FETCH_CHANGE_PASSWORD_ADMIN";
@@ -58,8 +58,8 @@ export const onFetchAdmin = () => ({
 export const onFetchAdminSuccess = () => ({
     type: FETCH_ADMIN_SUCCESS,
 })
-export const onFetchChangePasswordAdmin = payload => ({
-    type: FETCH_CHANGE_PASSWORD_ADMIN,
+export const onFetchRegisterAdmin = payload => ({
+    type: FETCH_REGISTER_ADMIN,
     payload
 })
 export const onFetchChangePasswordAdminFail = payload => ({

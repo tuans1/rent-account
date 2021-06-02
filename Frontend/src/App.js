@@ -1,7 +1,7 @@
 import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import 'font-awesome/css/font-awesome.min.css';
-import '../node_modules/font-awesome/css/font-awesome.min.css'; 
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 import AdminAccount from './containers/Admin/account';
 import AdminPricePage from './containers/Admin/price';
@@ -17,6 +17,8 @@ import AccountPage from './containers/Account/index';
 import RentHistoryPage from './containers/RentHistory/index';
 import contact from './assets/banner/contact.png';
 import NotFound from './containers/NotFound/index';
+import Register from './components/Register/index';
+import Verify from './components/Register/verify';
 function App() {
   const location = useLocation();
   const history = useHistory();
@@ -42,6 +44,8 @@ function App() {
             <Switch>
               <Route path="/" exact component={AccountPage} />
               <Route path="/dang-nhap" exact component={LoginPage} />
+              <Route path="/dang-ky" exact component={Register} />
+              <Route path="/dang-ky/:token" exact component={Verify} />
               <Route path="/huong-dan" exact component={Guide} />
               <Route path="/lich-su-thue" exact component={RentHistoryPage} />
               <Route path="/lich-su-giao-dich" exact component={HistoryTransaction} />

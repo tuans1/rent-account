@@ -6,7 +6,8 @@ const route = require('./routes')
 const db = require('./config/db')
 const upload = require('express-fileupload')
 var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '50mb'})); 
+app.use(bodyParser.json({ limit: '50mb' }));
+
 var cors = require('cors')
 db.connect()
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(morgan('combined'))
 app.use(upload())
 app.use(cors())
 // OK
+
 route(app)
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

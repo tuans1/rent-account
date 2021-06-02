@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 
 const RentHistory = new Schema({
     acc: String,
-    name: String,
+    email: String,
     userId: String,
     password: String,
     time: String,
