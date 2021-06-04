@@ -2,7 +2,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as constants from '../reducers/adminReducer';
 import Api from '../request';
-
+import { Success, Error, Warn } from '../common/toastify';
 // get list account in Account + Admin PAGE
 function* fetchAdminSaga({ payload }) {
     try {
@@ -16,6 +16,7 @@ function* fetchAdminSaga({ payload }) {
             localStorage.setItem("money", data.admin.money);
         }
     } catch (err) {
+        yield call(Error, { message: "Error !" })
         console.log(err)
     }
 }
@@ -27,6 +28,7 @@ function* fetchAdminInfoSaga() {
             yield put({ type: constants.FETCH_LOGIN_SUCCESS })
         }
     } catch (e) {
+        yield call(Error, { message: "Error !" })
         console.log(e)
     }
 }
@@ -41,15 +43,20 @@ function* fetchAdminFacebookSaga({ payload }) {
         localStorage.setItem("role", data.role);
         localStorage.setItem("money", data.money);
     } catch (e) {
+        yield call(Error, { message: "Error !" })
         console.log(e)
     }
 }
 
 function* fetchRegisterAminSaga({ payload }) {
     try {
-        yield call(Api, '/admin/register', 'post', JSON.stringify(payload))
+        const data = yield call(Api, '/admin/register', 'post', JSON.stringify(payload))
+        if (data.duplicate) {
+            yield call(Error, { message: data.duplicate })
+        }
     } catch (e) {
-        console.log(e)
+        yield call(Error, { message: "Error !" })
+        console.log("RUN")
     }
 }
 export default function* adminSaga() {

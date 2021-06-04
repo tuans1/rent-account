@@ -25,7 +25,12 @@ body, .wrapper {
     -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
 }
-
+._loading_overlay_overlay{
+    position: fixed !important;
+}
+.Toastify__toast-container{
+    margin-top: 50px !important;
+}
 .btn {
     color: white !important;
 }

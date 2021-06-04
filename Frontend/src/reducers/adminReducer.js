@@ -5,7 +5,7 @@ export const FETCH_ADMIN = "FETCH_ADMIN";
 export const FETCH_ADMIN_SUCCESS = "FETCH_ADMIN_SUCCESS";
 export const FETCH_LOGIN_FAILED = "FETCH_LOGIN_FAILED";
 export const FETCH_REGISTER_ADMIN = "FETCH_REGISTER_ADMIN";
-export const FETCH_RESET_PASSWORD_SUCCESS = "FETCH_RESET_PASSWORD_SUCCESS";
+export const FETCH_REGISTER_ADMIN_DUPLICATE = "FETCH_REGISTER_ADMIN_DUPLICATE";
 export const FETCH_CHANGE_PASSWORD = "FETCH_CHANGE_PASSWORD";
 export const FETCH_CHANGE_PASSWORD_ADMIN = "FETCH_CHANGE_PASSWORD_ADMIN";
 export const FETCH_CHANGE_PASSWORD_ADMIN_FAIL = "FETCH_CHANGE_PASSWORD_ADMIN_FAIL";
@@ -30,6 +30,7 @@ const adminReducer = (state = initialState, action) => {
             return { ...state, isLogin: true }
         case FETCH_ADMIN_SUCCESS:
             return { ...state, adminSuccess: !state.adminSuccess }
+
         case SET_LOGOUT:
             return { ...state, isLogin: false, admin: {} }
         default:
@@ -67,7 +68,7 @@ export const onFetchChangePasswordAdminFail = payload => ({
     payload
 })
 export const onFetchResetPasswordSuccess = payload => ({
-    type: FETCH_RESET_PASSWORD_SUCCESS,
+    type: FETCH_REGISTER_ADMIN_DUPLICATE,
     payload
 })
 

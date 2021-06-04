@@ -1,37 +1,54 @@
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'font-awesome/css/font-awesome.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import LoadingOverlay from 'react-loading-overlay';
 import AdminAccount from './containers/Admin/account';
 import AdminPricePage from './containers/Admin/price';
 import Nav from './components/Nav/index';
 import HistoryTransaction from './components/HistoryTransaction/index';
 import Guide from './components/Guide/index';
 import Transaction from './components/Transaction/index';
-import { useLocation, useHistory } from 'react-router-dom'
+
 import AdminGame from './containers/Admin/game';
 import LoginPage from './containers/Login/index';
-import { useEffect } from 'react';
+
 import AccountPage from './containers/Account/index';
 import RentHistoryPage from './containers/RentHistory/index';
 import contact from './assets/banner/contact.png';
 import NotFound from './containers/NotFound/index';
 import Register from './components/Register/index';
 import Verify from './components/Register/verify';
+
+import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
 function App() {
-  const location = useLocation();
-  const history = useHistory();
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     // history.push("/");
-  //     return;
-  //   } else {
-  //     history.push("/dang-nhap");
-  //   }
-  // }, [])
+  const { accountLoading } = useSelector(state => state.accountReducer)
+  const [loading, setLoading] = useState(false)
+  const isInitialMount = useRef(true);
+  // const location = useLocation();
+  // const history = useHistory();
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (accountLoading === true) {
+        setLoading(true)
+      } else {
+        setLoading(false)
+      }
+    }
+  }, [accountLoading])
   return (
-    <>
+    <div>
+      <ToastContainer />
+      <LoadingOverlay
+        active={loading}
+        spinner
+        text='Loading ...'
+      />
       {localStorage.getItem("role") === "admin" ?
         <Switch>
           <Route path="/admin" exact component={AdminAccount} />
@@ -58,7 +75,8 @@ function App() {
           </div>
         </div>
       }
-    </>
+
+    </div>
   );
 }
 

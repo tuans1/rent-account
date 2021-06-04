@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import './style.css';
 import { Link } from 'react-router-dom';
+
+
 export default function Login(props) {
     const { register, formState: { errors }, setValue, handleSubmit, reset } = useForm();
     const { isLogin } = useSelector(state => state.adminReducer);
@@ -13,7 +15,6 @@ export default function Login(props) {
     const onSubmit = login => {
         props.onSubmit(login);
     }
-    // khi login thành công sẽ chuyển về trang chủ
     useEffect(() => {
         if (localStorage.getItem("id") && localStorage.getItem("role") === "user") {
             history.push("/");
@@ -27,6 +28,8 @@ export default function Login(props) {
     }
     return (
         <>
+
+
             <div className="login-wrap" style={{ textAlign: "center", width: "300px", position: 'relative', left: "38%" }}>
                 <h2 className="label_login">ĐĂNG NHẬP</h2>
                 <FacebookLogin
