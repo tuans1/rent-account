@@ -2,7 +2,7 @@ const Admin = require('../models/Admin')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 var nodemailer = require('nodemailer');
-
+const TransactionHistory = require('../models/TransactionHistory')
 class AdminController {
     index(req, res, next) {
         Admin.find({ id: req.params.id })
@@ -35,8 +35,8 @@ class AdminController {
                 var mailOptions = {
                     from: "Thuê Acc <l.anhtuan1006@gmail.com>",
                     to: req.body.email,
-                    subject: 'Xác nhận Email THUÊ ACC',
-                    text: 'Truy cập LINK để xác minh tài khoản : http://localhost:3000/dang-ky/' + admin.token
+                    subject: 'Xác minh tài khoản THUÊ ACC',
+                    text: 'Truy cập LINK để tiếp tục : http://localhost:3000/dang-ky/' + admin.token
                 };
 
                 transporter.sendMail(mailOptions, function (error, info) {
@@ -62,32 +62,23 @@ class AdminController {
             res.status(200).send({ message: "Thuê Acc thành công !" })
         }
     }
-    async login(req, res, next) {
+    async payment(req, res, next) {
         try {
-            const { password, email } = req.body;
-            const admin = await Admin.findOne({ email })
-            if (!admin) {
-                throw new Error({ error: 'Không tìm thấy tài khoản' })
-            }
-            const isPasswordMatch = await bcrypt.compare(password, admin.password)
-            if (!isPasswordMatch) {
-                res.status(400).send({ error: "Mật khẩu không hợp lệ" })
-            }
-            const token = await jwt.sign({ _id: admin._id }, 'lemon')
-            admin.token = token
-            admin.save()
-            res.send({ admin })
-        } catch (error) {
-            res.status(400).send(error)
-        }
-    }
-    async getEmail(req, res, next) {
-        try {
-
+            const admin = await Admin.findOne({ id: req.body.userId })
+            admin.money = parseInt(admin.money) + 50000;
+            await admin.save();
+            await TransactionHistory.create({
+                value: 50000,
+                userId: req.body.userId,
+                code: req.body.code,
+                status: true,
+            })
+            res.status(200).send({ admin })
         } catch (error) {
 
         }
     }
+
     async changePassword(req, res, next) {
         try {
             const { oldPW, confirmPW1, confirmPW2, token } = req.body

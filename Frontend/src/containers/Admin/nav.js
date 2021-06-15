@@ -6,6 +6,7 @@ export default function Nav() {
     const onLogOut = () => {
         localStorage.clear();
         history.push("/dang-nhap")
+        window.location.reload();
     }
     return (
         <div className="container">

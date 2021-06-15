@@ -3,10 +3,7 @@ const RentHistory = require('../models/RentHistory')
 const Game = require('../models/Game')
 const Admin = require('../models/Admin')
 class AccountController {
-    index(req, res, next) {
-        Account.find({}).sort({ "isRent": 1, "acc": 1 })
-            .then(acc => res.send(acc))
-    }
+
     search(req, res) {
         console.log(req.body)
         // Account.find({}).sort({ "acc": 1 })

@@ -1,28 +1,38 @@
-import { React } from 'react';
+import { React, useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import './style.css';
-import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactMomentCountDown from 'react-moment-countdown';
 import moment from 'moment'
 import Category from '../Category';
 import * as action from '../../reducers/accountReducer';
 import * as priceAction from '../../reducers/priceReducer';
-import * as gameAction from '../../reducers/gameReducer';
+
 
 
 function Account(props) {
     const dispatch = useDispatch();
-    const { accounts } = useSelector(state => state.accountReducer)
+    const { accounts, accountLength, searchGame } = useSelector(state => state.accountReducer)
     const { prices } = useSelector(state => state.priceReducer)
-    const { game } = useSelector(state => state.gameReducer)
     const [rentalTime, setRentalTime] = useState();
+    const [page, setPage] = useState(1);
+    const [loadMore, setLoadMore] = useState(true)
+    const isInitialMount = useRef(true);
     useEffect(() => {
-        dispatch(action.onFetchAccount());
-        dispatch(priceAction.onFetchPrice())
-        dispatch(gameAction.onFetchGame())
-    }, [])
-
+        if (isInitialMount.current) {
+            dispatch(action.onResetAccountList())
+            isInitialMount.current = false;
+        } else {
+            if (accountLength < 4 || searchGame !== "") {
+                setLoadMore(false)
+                setPage(1)
+            } else {
+                dispatch(action.onFetchAccount(page));
+                dispatch(priceAction.onFetchPrice())
+                setLoadMore(true)
+            }
+        }
+    }, [page, accounts, accountLength])
     const timeLeft = (time, timeUpdate) => {
         const then = moment(new Date(timeUpdate)).add(time, 'hours');
         const now = moment(new Date);
@@ -44,28 +54,30 @@ function Account(props) {
                 return (<Button className="btn btn-primary btn-rent" style={{ width: "100%" }}>CHỜ ĐỔI PASS</Button>)
             }
         }
-
     }
     const setTimeRent = e => {
         setRentalTime(e.target.value)
     }
     const onHandleRent = (accId) => {
-        // setRentalTime("");
         if (localStorage.getItem("id")) {
             props.onHandleRent({ accId, rentalTime })
         } else {
             alert("VUI LÒNG ĐĂNG NHẬP")
         }
     }
+    const getMoreAccount = () => {
+        setPage(page + 1);
+    }
+
     return (
         <>
             <Category />
             <div className="account-wrap">
                 <div className="row">
                     <div className="account col-lg-12">
-                        {accounts && accounts.map(acc => {
+                        {accounts && accounts.map((acc, i) => {
                             return (
-                                <div key={acc._id} className="card col-lg-3" style={{ width: '19rem' }}>
+                                <div key={i} className="card col-lg-3" style={{ width: '19rem' }}>
                                     <img
                                         src={acc.image}
                                         className="card-img-top"
@@ -95,6 +107,9 @@ function Account(props) {
                             )
                         })}
                     </div>
+                </div>
+                <div style={{ textAlign: "center", padding: "50px 0" }}>
+                    {loadMore && <button className="btn btn-outline-warning" onClick={getMoreAccount}>XEM THÊM TÀI KHOẢN</button>}
                 </div>
             </div>
         </>

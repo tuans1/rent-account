@@ -28,10 +28,7 @@ export default function AdminAccountPage() {
         dispatch(priceAction.onFetchPrice())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    const onLogOut = () => {
-        localStorage.clear();
-        history.push("/dang-nhap")
-    }
+
     return (
         <>
             <NAV />

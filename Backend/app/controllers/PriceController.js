@@ -2,10 +2,6 @@ const Price = require('../models/Price')
 
 class PriceController {
 
-    index(req, res, next) {
-        Price.find({}).then(price => res.send(price))
-    }
-
     async create(req, res) {
         try {
             const formData = req.body;

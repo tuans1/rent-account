@@ -4,9 +4,10 @@ import * as constants from '../reducers/adminReducer';
 import Api from '../request';
 import { Success, Error, Warn } from '../common/toastify';
 // get list account in Account + Admin PAGE
+const delay = time => new Promise(resolve => setTimeout(resolve, time));
 function* fetchAdminSaga({ payload }) {
     try {
-        const data = yield call(Api, '/admin/login', 'post', JSON.stringify(payload))
+        const data = yield call(Api, '/login', 'post', JSON.stringify(payload))
         if (data.admin) {
             yield put({ type: constants.FETCH_LOGIN_SUCCESS, payload: data.admin })
             localStorage.setItem("token", data.admin.token);
@@ -14,6 +15,8 @@ function* fetchAdminSaga({ payload }) {
             localStorage.setItem("id", data.admin.id);
             localStorage.setItem("role", data.admin.role);
             localStorage.setItem("money", data.admin.money);
+        } else {
+            yield call(Error, { message: data.error })
         }
     } catch (err) {
         yield call(Error, { message: "Error !" })
@@ -56,7 +59,22 @@ function* fetchRegisterAminSaga({ payload }) {
         }
     } catch (e) {
         yield call(Error, { message: "Error !" })
-        console.log("RUN")
+        console.log(e)
+    }
+}
+function* fetchAdminPayment({ payload }) {
+    try {
+        payload.userId = localStorage.getItem("id");
+        const data = yield call(Api, '/admin/payment', 'post', JSON.stringify(payload))
+        if (data.admin) {
+            yield call(delay, 3000)
+            yield put({ type: constants.SET_OFF_LOADING })
+            localStorage.setItem("money", data.admin.money);
+            yield put({ type: constants.FETCH_ADMIN_PAYMENT_SUCCESS })
+        }
+    } catch (e) {
+        yield call(Error, { message: "Error !" })
+        console.log(e)
     }
 }
 export default function* adminSaga() {
@@ -64,4 +82,5 @@ export default function* adminSaga() {
     yield takeLatest(constants.FETCH_ADMIN, fetchAdminInfoSaga);
     yield takeLatest(constants.FETCH_LOGIN_FACEBOOK, fetchAdminFacebookSaga);
     yield takeLatest(constants.FETCH_REGISTER_ADMIN, fetchRegisterAminSaga);
+    yield takeLatest(constants.FETCH_ADMIN_PAYMENT, fetchAdminPayment);
 }

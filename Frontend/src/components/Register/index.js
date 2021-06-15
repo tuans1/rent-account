@@ -9,7 +9,7 @@ export default function Register(props) {
     const dispatch = useDispatch();
     const onSubmit = admin => {
         if (admin.password !== admin.confirmPw) {
-            console.log("MK k khop")
+            alert("MK k khop")
             return;
         } else {
             dispatch(action.onFetchRegisterAdmin(admin))

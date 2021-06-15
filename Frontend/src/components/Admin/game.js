@@ -72,7 +72,7 @@ export default function AdminGame(props) {
                                     <span style={{ color: 'red' }}>{errors.name?.type === 'required' && "name is required !"}</span>
                                 </div>
                                 <div className="mb-3" >
-                                    <span className="btn btn-primary btn-file"><i class="fa fa-upload"></i>Thêm Ảnh<input type="file" id="img" name="img" accept="image/*" className="w-100" onChange={(e) => handleChangeImage(e)} /></span>
+                                    <span className="btn btn-primary btn-file"><i className="fa fa-upload"></i>Thêm Ảnh<input type="file" id="img" name="img" accept="image/*" className="w-100" onChange={(e) => handleChangeImage(e)} /></span>
                                     <img src={imagePreview} style={{ width: "100%" }} />
                                 </div>
                             </form>

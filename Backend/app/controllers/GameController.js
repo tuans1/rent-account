@@ -3,9 +3,7 @@ var multer = require('multer');
 var upload = multer();
 class GameController {
 
-    index(req, res, next) {
-        Game.find({}).sort({ "name": 1 }).then(game => res.send(game))
-    }
+    
 
     async create(req, res) {
         try {

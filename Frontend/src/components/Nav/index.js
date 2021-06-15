@@ -1,4 +1,4 @@
-import { Button } from 'bootstrap';
+
 import { React, useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ function Nav() {
     const isInitialMount = useRef(true);
 
     const dispatch = useDispatch();
-    const { isLogin, adminSuccess } = useSelector(state => state.adminReducer);
+    const { isLogin, requestingAction } = useSelector(state => state.adminReducer);
     const id = localStorage.getItem("id");
     const [money, setMoney] = useState(0);
     // login xog sẽ đổi Login => Logout
@@ -27,12 +27,18 @@ function Nav() {
         if (isInitialMount.current) {
             isInitialMount.current = false;
         } else {
-            // Your useEffect code here to be run on update
-            dispatch(rentHistoryAction.onFetchHistoryRent());
-            setMoney(localStorage.getItem("money"));
-            history.push("/lich-su-thue");
+            if (requestingAction === action.FETCH_ADMIN_PAYMENT_SUCCESS) {
+                setMoney(localStorage.getItem("money"));
+                window.location.reload();
+            }
+            if (requestingAction === action.FETCH_ADMIN_SUCCESS) {
+                // Your useEffect code here to be run on update
+                dispatch(rentHistoryAction.onFetchHistoryRent());
+                setMoney(localStorage.getItem("money"));
+                history.push("/lich-su-thue");
+            }
         }
-    }, [adminSuccess])
+    }, [requestingAction])
     const onLogOut = () => {
         localStorage.clear()
         history.push("/dang-nhap");
@@ -40,6 +46,7 @@ function Nav() {
         // thay state của isLogin => False
         dispatch(action.onSetLogout());
     }
+
     return (
         <>
             {/* <!-- Navbar --> */}
@@ -57,10 +64,10 @@ function Nav() {
                             {/* <!-- Left links --> */}
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-link link active" aria-current="page" >Nạp thẻ</Link>
+                                    <Link to="/nap-the" className="nav-link link active" aria-current="page" >Nạp thẻ</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-link link" >Hướng dẫn thuê Acc</Link>
+                                    <Link to="/huong-dan" className="nav-link link" >Hướng dẫn thuê Acc</Link>
                                 </li>
                                 {/* <!-- Navbar dropdown --> */}
                                 <li className="nav-item">

@@ -4,11 +4,14 @@ import * as constants from '../reducers/accountReducer';
 import Api from '../request';
 import * as adminConstants from '../reducers/adminReducer';
 import { Success, Error, Warn } from '../common/toastify';
+
+const delay = time => new Promise(resolve => setTimeout(resolve, time));
 // get list account in Account + Admin PAGE
-function* fetchAccountSaga() {
+function* fetchAccountSaga({ payload }) {
     try {
-        const payload = yield call(Api, '/account', 'get')
-        yield put({ type: constants.FETCH_ACCOUNT_SUCCESS, payload })
+        const data = yield call(Api, '/account?page=' + payload + '&game=', 'get')
+
+        yield put({ type: constants.FETCH_ACCOUNT_SUCCESS, data })
     } catch (err) {
         yield call(Error, { message: "Error !" })
         console.log(err)
@@ -48,18 +51,18 @@ function* fetchDeleteAccountSaga({ payload }) {
         console.log(err)
     }
 }
-const delay = time => new Promise(resolve => setTimeout(resolve, time));
+
 function* fetchRentSaga({ payload }) {
     try {
         payload.userId = localStorage.getItem("id");
         const message = yield call(Api, '/admin/check-money', 'post', JSON.stringify(payload));
         if (message.error) {
+            yield call(delay, 1500);
             yield call(Warn, { message: message.error })
-            yield call(delay, 2000);
             yield put({ type: constants.SET_OFF_LOADING })
             return;
         }
-        yield call(delay, 2000);
+        yield call(delay, 1500);
         yield call(Success, { message: "Thuê Acc thành công !" })
         yield put({ type: constants.SET_OFF_LOADING })
         // const data = yield call(Api, '/account/rent', 'post', JSON.stringify(payload));
@@ -74,6 +77,17 @@ function* fetchRentSaga({ payload }) {
     }
 }
 
+function* fetchSearchAccountSaga({ payload }) {
+    try {
+        if (payload.game !== "") {
+            const data = yield call(Api, '/account?game=' + payload.game, 'get')
+            yield put({ type: constants.FETCH_ACCOUNT_SUCCESS, data })
+        }
+    } catch (err) {
+        yield call(Error, { message: "Error !" })
+        console.log(err)
+    }
+}
 
 export default function* accountSaga() {
     yield takeLatest(constants.FETCH_ACCOUNT, fetchAccountSaga);
@@ -81,4 +95,5 @@ export default function* accountSaga() {
     yield takeLatest(constants.FETCH_EDIT_ACCOUNT, fetchEditAccountSaga);
     yield takeLatest(constants.FETCH_DELETE_ACCOUNT, fetchDeleteAccountSaga);
     yield takeLatest(constants.FETCH_RENT_ACCOUNT, fetchRentSaga);
+    yield takeLatest(constants.FETCH_SEARCH_ACCOUNT, fetchSearchAccountSaga);
 }

@@ -2,7 +2,7 @@ body, .wrapper {
     position: relative;
     height: 100%;
     background: #333;
-    height: 100%;
+    min-height: 100vh;
 }
 
 .contact {
@@ -25,12 +25,21 @@ body, .wrapper {
     -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
 }
-._loading_overlay_overlay{
-    position: fixed !important;
+.rc-loading-icon{
+    top: 28% !important;
+    margin-left: -25px;
 }
-.Toastify__toast-container{
+.rc-loading-icon-default {
+    position: fixed;
+    animation-duration: 1s !important;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.Toastify__toast-container {
     margin-top: 50px !important;
 }
+
 .btn {
     color: white !important;
 }
