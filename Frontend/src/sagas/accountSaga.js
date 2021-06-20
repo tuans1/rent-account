@@ -79,8 +79,13 @@ function* fetchRentSaga({ payload }) {
 
 function* fetchSearchAccountSaga({ payload }) {
     try {
-        if (payload.game !== "") {
+        if (typeof (payload.game) === "string") {
+            console.log("RUN")
             const data = yield call(Api, '/account?game=' + payload.game, 'get')
+            yield put({ type: constants.FETCH_ACCOUNT_SUCCESS, data })
+        } else {
+            const data = yield call(Api, '/account?active=' + payload.active, 'get')
+            console.log(data)
             yield put({ type: constants.FETCH_ACCOUNT_SUCCESS, data })
         }
     } catch (err) {

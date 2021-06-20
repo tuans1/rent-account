@@ -28,7 +28,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 function App() {
   const { accountLoading } = useSelector(state => state.accountReducer)
   const { isLogin, adminLoading } = useSelector(state => state.adminReducer)
@@ -60,7 +60,7 @@ function App() {
     <div>
       <LoadingMask loading={loading} text={"loading..."} >
         <ToastContainer />
-        <Chat />
+        {/* <Chat /> */}
         {role === "admin" ?
           <Switch>
             <Route path="/admin" exact component={AdminAccount} />
@@ -82,9 +82,14 @@ function App() {
                 <Route component={NotFound} />
               </Switch>
             </div>
-            <div className="contact">
+            {/* <div className="contact">
               <a href="https://www.facebook.com/Thu%C3%AA-Acc-110458054565244" target="_blank"><img src={contact} /></a>
-            </div>
+            </div> */}
+            <MessengerCustomerChat
+              pageId="110458054565244"
+              appId="531255731225475"
+              htmlRef="http://localhost:3000"
+            />
           </div>
         }
       </LoadingMask>
