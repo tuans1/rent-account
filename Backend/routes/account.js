@@ -5,7 +5,7 @@ const isAuth = require('../middleware/request')
 
 router.post('/search', isAuth, AccountController.search)
 router.post('/create', isAuth, AccountController.create)
-router.put('/edit', isAuth, AccountController.edit)
+router.put('/edit', AccountController.edit)
 router.delete('/delete', isAuth, AccountController.delete)
 router.post('/rent', isAuth, AccountController.rent)
 

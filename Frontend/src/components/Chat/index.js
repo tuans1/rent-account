@@ -24,8 +24,8 @@ export default function Chat() {
     }, [ENDPOINT]);
 
     useEffect(() => {
-        socket.on('message', message => {
-            setMessages(msgs => [...msgs, message]);
+        socket.on('message', message => {console.log(message)
+            // setMessages(msgs => [...msgs, message]);
         });
 
         socket.on("roomData", ({ users }) => {

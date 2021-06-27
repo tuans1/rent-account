@@ -100,39 +100,45 @@ function route(app) {
         }
     });
 
-    app.use('/account', function (req, res, next) {
-        let perPage = 4; // số lượng sản phẩm xuất hiện trên 1 page
+    app.get('/account', function (req, res, next) {
+        let perPage = 4; // số lượng xuất hiện trên 1 page
         let page = req.query.page || 1;
         let game = req.query.game || "";
         let active = req.query.active;
+        // ADMIN PAGE
+        if(page === "undefined" || page === 1){
+            Account.find({}).sort({ "isRent": 1, "acc": 1 })
+                .then(acc => {
+                    res.send(acc)
+                })
+        }
         if (active) {
             Account.find({ isActive: active })
                 .then(acc => {
-                    // console.log(acc)
+                    console.log("RUN 3")
                     res.send(acc)
                 })
         } else if (game !== "") {
             Account.find({ acc: { $regex: game } }).sort({ "isRent": 1, "acc": 1 })
                 .then(acc => {
-                    // console.log(acc)
+                    console.log("RUN 2")
                     res.send(acc)
                 })
         }
         else {
             Account.find({ acc: { $regex: game } }).skip((perPage * page) - perPage).limit(perPage).sort({ "isRent": 1, "acc": 1 })
                 .then(acc => {
-                    // console.log(acc)
+                    console.log("RUN 1")
                     res.send(acc)
                 })
         }
     });
-    app.use('/price', function (req, res, next) {
-        Price.find({}).then(price => res.send(price))
-    });
-    app.use('/game', function (req, res, next) {
+    app.get('/game', function (req, res, next) {
         Game.find({}).sort({ "name": 1 }).then(game => res.send(game))
     });
-
+    app.get('/price', function (req, res, next) {
+        Price.find({}).sort({ time: 1}).collation({locale: "en_US", numericOrdering: true}).then(price => res.send(price))
+    });
     app.use(function (req, res, next) {
         const tokenFromClient = req.body.token || req.query.token || req.headers["x-access-token"];
         if (tokenFromClient) {

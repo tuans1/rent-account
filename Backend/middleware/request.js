@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken')
 
-async function isAuth (req, res, next){
+async function isAuth(req, res, next) {
     // Lấy token được gửi lên từ phía client, thông thường tốt nhất là các bạn nên truyền token vào header
     const tokenFromClient = req.body.token || req.query.token || req.headers["x-access-token"];
-    console.log("RUN")
     if (tokenFromClient) {
         // Nếu tồn tại token
         try {
             // Thực hiện giải mã token xem có hợp lệ hay không?
-            jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+            const token = jwt.verify(tokenFromClient, 'lemon');
             next();
         } catch (error) {
             // Nếu giải mã gặp lỗi: Không đúng, hết hạn...etc:
