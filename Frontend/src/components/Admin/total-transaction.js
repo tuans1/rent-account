@@ -27,30 +27,33 @@ export default function TotalTransaction() {
         <>
             <Nav />
             <div className="container">
-                <h3 style={{ color: "black" }}>TỔNG HỢP GIAO DỊCH</h3>
-                <ThemeProvider
-                    theme={{
-                        breakpoints: ["32em", "48em", "64em"],
-                        reactDatepicker: {
-                            daySize: [31.5],
-                            fontFamily: "system-ui, -apple-system",
-                            colors: {
-                                accessibility: "#D80249",
-                                selectedDay: "#f7518b",
-                                selectedDayHover: "#F75D95",
-                                primaryColor: "#d8366f"
+                <h3 style={{ color: "black",margin : "15px 0" }}>TỔNG HỢP GIAO DỊCH</h3>
+                <div className="d-flex">
+                    <ThemeProvider
+                        theme={{
+                            breakpoints: ["32em", "48em", "64em"],
+                            reactDatepicker: {
+                                daySize: [31.5],
+                                fontFamily: "system-ui, -apple-system",
+                                colors: {
+                                    accessibility: "#D80249",
+                                    selectedDay: "#f7518b",
+                                    selectedDayHover: "#F75D95",
+                                    primaryColor: "#d8366f"
+                                }
                             }
-                        }
-                    }}
-                ></ThemeProvider>
-                <DateRangeInput
-                    onDatesChange={data => dispatch({ type: 'dateChange', payload: data })}
-                    onFocusChange={focusedInput => dispatch({ type: 'focusChange', payload: focusedInput })}
-                    startDate={state.startDate} // Date or null
-                    endDate={state.endDate} // Date or null
-                    focusedInput={state.focusedInput} // START_DATE, END_DATE or null
-                />
-                <table className="table table-striped table-hover">
+                        }}
+                    ></ThemeProvider>
+                    <DateRangeInput
+                        onDatesChange={data => dispatch({ type: 'dateChange', payload: data })}
+                        onFocusChange={focusedInput => dispatch({ type: 'focusChange', payload: focusedInput })}
+                        startDate={state.startDate} // Date or null
+                        endDate={state.endDate} // Date or null
+                        focusedInput={state.focusedInput} // START_DATE, END_DATE or null
+                    />
+                    <button style={{marginLeft : "20px",}} className="btn btn-info">TÌM</button>
+                </div>
+                <table className="table table-striped table-hover" style={{margin : "15px 0"}}>
                     <thead>
                         <tr>
                             <th scope="col">#</th>

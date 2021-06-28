@@ -107,35 +107,36 @@ function route(app) {
         let game = req.query.game || "";
         let active = req.query.active;
         // ADMIN PAGE
-        if(page === "undefined" || page === 1){
-            Account.find({},['acc','name','password','updateAt','rentalTime']).sort({ "isRent": 1, "acc": 1 })
+        if (req.query.role === "admin") {
+            Account.find({}).sort({ "isRent": 1, "acc": 1 })
                 .then(acc => {
                     res.send(acc)
                 })
-        }
-        if (active) {
-            Account.find({ isActive: active })
-                .then(acc => {
-                    res.send(acc)
-                })
-        } else if (game !== "") {
-            Account.find({ acc: { $regex: game } }).sort({ "isRent": 1, "acc": 1 })
-                .then(acc => {
-                    res.send(acc)
-                })
-        }
-        else {
-            Account.find({ acc: { $regex: game } }).skip((perPage * page) - perPage).limit(perPage).sort({ "isRent": 1, "acc": 1 })
-                .then(acc => {
-                    res.send(acc)
-                })
+        } else {
+            if (active) {
+                Account.find({ isActive: active })
+                    .then(acc => {
+                        res.send(acc)
+                    })
+            } else if (game !== "") {
+                Account.find({ acc: { $regex: game } }).sort({ "isRent": 1, "acc": 1 })
+                    .then(acc => {
+                        res.send(acc)
+                    })
+            }
+            else {
+                Account.find({ acc: { $regex: game } }).skip((perPage * page) - perPage).limit(perPage).sort({ "isRent": 1, "acc": 1 })
+                    .then(acc => {
+                        res.send(acc)
+                    })
+            }
         }
     });
     app.get('/game', function (req, res, next) {
         Game.find({}).sort({ "name": 1 }).then(game => res.send(game))
     });
     app.get('/price', function (req, res, next) {
-        Price.find({}).sort({ time: 1}).collation({locale: "en_US", numericOrdering: true}).then(price => res.send(price))
+        Price.find({}).sort({ time: 1 }).collation({ locale: "en_US", numericOrdering: true }).then(price => res.send(price))
     });
     app.use(function (req, res, next) {
         const tokenFromClient = req.body.token || req.query.token || req.headers["x-access-token"];
