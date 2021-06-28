@@ -66,7 +66,8 @@ function route(app) {
             const { password, email } = req.body;
             const admin = await Admin.findOne({ email })
             if (!admin) {
-                throw new Error({ error: 'Không tìm thấy tài khoản' })
+                res.status(401).send({ error: "Không tìm thấy tài khoản" })
+                // throw new Error({ error: 'Không tìm thấy tài khoản' })
             }
             const isPasswordMatch = await bcrypt.compare(password, admin.password)
             if (!isPasswordMatch) {
@@ -107,7 +108,7 @@ function route(app) {
         let active = req.query.active;
         // ADMIN PAGE
         if(page === "undefined" || page === 1){
-            Account.find({}).sort({ "isRent": 1, "acc": 1 })
+            Account.find({},['acc','name','password','updateAt','rentalTime']).sort({ "isRent": 1, "acc": 1 })
                 .then(acc => {
                     res.send(acc)
                 })
@@ -115,20 +116,17 @@ function route(app) {
         if (active) {
             Account.find({ isActive: active })
                 .then(acc => {
-                    console.log("RUN 3")
                     res.send(acc)
                 })
         } else if (game !== "") {
             Account.find({ acc: { $regex: game } }).sort({ "isRent": 1, "acc": 1 })
                 .then(acc => {
-                    console.log("RUN 2")
                     res.send(acc)
                 })
         }
         else {
             Account.find({ acc: { $regex: game } }).skip((perPage * page) - perPage).limit(perPage).sort({ "isRent": 1, "acc": 1 })
                 .then(acc => {
-                    console.log("RUN 1")
                     res.send(acc)
                 })
         }
